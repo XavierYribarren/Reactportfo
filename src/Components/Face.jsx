@@ -6,6 +6,7 @@ import { EffectComposer, DepthOfField, Bloom, Vignette, SMAA } from '@react-thre
 import {  Stats,Environment, PerspectiveCamera } from '@react-three/drei';
 import { LayerMaterial, Depth, Noise } from 'lamina';
 import { ACESFilmicToneMapping, sRGBEncoding } from 'three';
+import { Perf } from 'r3f-perf';
 
 
 
@@ -30,7 +31,7 @@ gl={{
   >
 
 
-    <Scene />
+    <Scene/>
     <Environment background resolution={128}
     blur={1}>
         <mesh scale={100}>
@@ -54,8 +55,9 @@ gl={{
         <Vignette eskil={false} offset={0.1} darkness={1} />
         <SMAA edgeDetectionMode={1} preset={3}/>
       </EffectComposer>
+<Perf/>
 </Canvas>
-<Stats/>
+
 </Suspense>
     </div>
 )
