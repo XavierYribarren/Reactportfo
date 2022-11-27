@@ -49,12 +49,12 @@ gl={{
             fov={50}
             position={[2, 0, 26]}
           />
-             <EffectComposer>
+      {/* <EffectComposer>
         <DepthOfField focusDistance={0.1} focalLength={2} bokehScale={14} height={960} />
         <Bloom luminanceThreshold={0} luminanceSmoothing={0.9} height={600} />
         <Vignette eskil={false} offset={0.1} darkness={1} />
         <SMAA edgeDetectionMode={1} preset={3}/>
-      </EffectComposer>
+      </EffectComposer> */}
 <Perf/>
 </Canvas>
 
