@@ -17,6 +17,7 @@ import { Perf } from 'r3f-perf';
 export const Face = () => {
   const [mobil, setMobil] = useState(false);
 
+
   useEffect(() => {
     if (window.innerWidth < 1000) {
       setMobil(true);
