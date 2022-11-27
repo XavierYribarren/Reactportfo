@@ -69,11 +69,8 @@ const faceMap = useLoader(TextureLoader, "/headus/Colour_8k-min-min.jpg");
   });
 
   const eyeoutMob = new THREE.MeshStandardMaterial({
-    transmission: 0.99,
     roughness: 0,
     opacity: 0.4,
-    clearcoat: 1,
-    clearcoatRoughness: 0,
     transparent: true,
   });
 
