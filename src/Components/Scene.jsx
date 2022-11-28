@@ -2,20 +2,16 @@ import React from "react";
 import * as THREE from "three";
 import { useGLTF } from "@react-three/drei";
 import { TextureLoader } from "three/src/loaders/TextureLoader";
-import { useFrame, useLoader } from "@react-three/fiber";
+import { useFrame, useLoader, useThree } from "@react-three/fiber";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader";
 
+export default function Scene({mobil}) {
 
-  
-export default function Scene(){
+  const { viewport } = useThree()  
+  const headFull = React.useRef();
 
-
-const headFull = React.useRef();
-
-
-
-const faceMap = useLoader(TextureLoader, "/headus/Colour_8k-min-min.jpg");
+  const faceMap = useLoader(TextureLoader, "/headus/Colour_8k-min-min.jpg");
   faceMap.flipY = false;
   // faceMap.minFilter = THREE.LinearMipmapNearestFilter
   // faceMap.magFilter = THREE.LinearFilter
@@ -33,7 +29,7 @@ const faceMap = useLoader(TextureLoader, "/headus/Colour_8k-min-min.jpg");
   // faceShadow.minFilter = THREE.LinearMipmapNearestFilter
 
   const headus = new THREE.MeshPhysicalMaterial({
-    wireframe: true,
+    // wireframe: true,
     map: faceMap,
     // normalMap: faceNorm,
     // normalScale: new THREE.Vector2(1, -1),
@@ -46,10 +42,10 @@ const faceMap = useLoader(TextureLoader, "/headus/Colour_8k-min-min.jpg");
   });
 
   const headusMob = new THREE.MeshStandardMaterial({
-    wireframe: true,
+    // wireframe: true,
     map: faceMap,
-  })
-//   ////INNER EYE
+  });
+  //   ////INNER EYE
   const innerEyeMap = useLoader(
     TextureLoader,
     "/headus/Sphere1_TXTR-min-min.png"
@@ -58,15 +54,14 @@ const faceMap = useLoader(TextureLoader, "/headus/Colour_8k-min-min.jpg");
   const innerEyeNorm = useLoader(TextureLoader, "/headus/Sphere1_NM-min.png");
   innerEyeNorm.flipY = false;
 
-
-  const eyeout2 = new THREE.MeshPhysicalMaterial({
-    transmission: 0.99,
-    roughness: 0,
-    opacity: 0.4,
-    clearcoat: 1,
-    clearcoatRoughness: 0,
-    transparent: true,
-  });
+  // const eyeout2 = new THREE.MeshPhysicalMaterial({
+  //   transmission: 0.99,
+  //   roughness: 0,
+  //   opacity: 0.4,
+  //   clearcoat: 1,
+  //   clearcoatRoughness: 0,
+  //   transparent: true,
+  // });
 
   const eyeoutMob = new THREE.MeshStandardMaterial({
     roughness: 0,
@@ -74,86 +69,66 @@ const faceMap = useLoader(TextureLoader, "/headus/Colour_8k-min-min.jpg");
     transparent: true,
   });
 
-
-
-
   const eyeMaterial = new THREE.MeshStandardMaterial({
     map: innerEyeMap,
     normalMap: innerEyeNorm,
   });
 
-
   // const facialHairsMat = new THREE.MeshLambertMaterial({ color: "#111111" });
   // materials.RootStrandLarge.vertexColors = new THREE.Color("#000");
   // materials.hairStrands.vertexColors = new THREE.Color("#000");
 
+  const model = useLoader(GLTFLoader, 
+    mobil ? "/HeadDefDISPMOB.glb": "/HeadDefDISPPAChov.glb", (loader) => {
+    // console.log(loader)
+    const dracoLoader = new DRACOLoader();
+    dracoLoader.setDecoderPath("/draco/");
+    loader.setDRACOLoader(dracoLoader);
+  });
 
-  const model = useGLTF("/HeadDefDISP.glb",
-  (loader) =>
-    {
-      // console.log(loader)
-        const dracoLoader = new DRACOLoader()
-        dracoLoader.setDecoderPath('/draco/')
-        loader.setDRACOLoader(dracoLoader)
-      },
-      );
-      console.log(model.scene)
-
-      model.scene.traverse( function( object ) {
-
-      if ( object.isMesh ) {
-          
-        if (object.name === 'Sphere2'){
-
-          object.material = eyeoutMob
-} else         if (object.name === 'Sphere1'){
-
-  object.material = eyeMaterial
-}
-if (object.name === 'Head2001'){
-
-  object.material = headusMob
-}
-    
-        }
-    
-    } );
-
-
-
-// 
-// useFrame(({ clock }) => {
-//   const a = clock.getElapsedTime();
-//   headFull.current.rotation.y = -1 + Math.sin(a * 1) * 0.3; // the value will be 0 at scene initialization and grow each frame
-//   headFull.current.rotation.x = 0.2 + Math.cos((a / 2) * 2) * 0.03; // the value will be 0 at scene initialization and grow each frame
-// });
-
-
-
-
-
-      //MAPS IMPORT
-
-    return (
-          <>
-            <group
-              dispose={null}
-              ref={headFull}
-              position={[4, 3, 6]}
-              rotation={[0.2, -0.8, 0]}
-            >
-            <spotLight
-      lookAt={[-12, 8, 2]}
-      position={[-4, -4, 14]}
-      intensity={5}
-      color="#ff00ff"
-      castShadow
-    />
-    <directionalLight intensity={0.51} position={[-2, 6, 10]} />
-
-             <primitive object={model.scene}/>
-            </group>
-          </>
-        );
+  model.scene.traverse(function (object) {
+    if (object.isMesh) {
+      if (object.name === "Sphere2") {
+        object.material = eyeoutMob;
+      } else if (object.name === "Sphere1") {
+        object.material = eyeMaterial;
       }
-      useGLTF.preload("/headDefDISP.glb");
+      if (object.name === "Head2001") {
+        object.material = headus;
+      }
+    }
+  });
+
+  //
+  // useFrame(({ clock }) => {
+  //   const a = clock.getElapsedTime();
+  //   headFull.current.rotation.y = -1 + Math.sin(a * 1) * 0.3; // the value will be 0 at scene initialization and grow each frame
+  //   headFull.current.rotation.x = 0.2 + Math.cos((a / 2) * 2) * 0.03; // the value will be 0 at scene initialization and grow each frame
+  // });
+
+  //MAPS IMPORT
+
+  return (
+    <>
+      <group
+        dispose={null}
+        ref={headFull}
+        position={[3, 1.5, 0]}
+        rotation={[0.2, -0.8, 0]}
+        scale={(viewport.width / 5) * 1}
+      >
+        <spotLight
+          lookAt={[-12, 8, 2]}
+          position={[-4, -4, 14]}
+          intensity={5}
+          color="#ff00ff"
+          // castShadow
+        />
+        <directionalLight intensity={0.51} position={[-2, 6, 10]} />
+
+        <primitive object={model.scene} />
+      </group>
+    </>
+  );
+}
+useGLTF.preload("/headDefDISP.glb");

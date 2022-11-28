@@ -1,5 +1,5 @@
 import { Suspense, useEffect, useState } from 'react';
-import { Canvas, useFrame } from '@react-three/fiber';
+import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import Scene from './Scene';
 import * as THREE from 'three';
 import {
@@ -27,7 +27,7 @@ export const Face = () => {
     <div className='headxav'>
       <Suspense fallback={null}>
         <Canvas
-          style={{ pointerEvents: 'none' }}
+          style={{ pointerEvents: 'none'}}
           shadows={true}
           linear={false}
           gl={{
@@ -37,7 +37,8 @@ export const Face = () => {
             toneMapping: ACESFilmicToneMapping,
           }}
         >
-          <Scene />
+          
+          <Scene mobil={mobil}/>
           <Environment background resolution={128} blur={1}>
             <mesh scale={100}>
               <sphereGeometry args={[1, 64, 64]} />
