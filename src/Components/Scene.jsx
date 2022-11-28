@@ -1,20 +1,22 @@
 import React from "react";
 import * as THREE from "three";
-import { useGLTF } from "@react-three/drei";
+import {
+  useGLTF,
+  useHelper,
+  MeshReflectorMaterial,
+  MeshWobbleMaterial,
+} from "@react-three/drei";
 import { TextureLoader } from "three/src/loaders/TextureLoader";
 import { useFrame, useLoader, useThree } from "@react-three/fiber";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader";
+import { BoxHelper } from "three";
 
-export default function Scene({mobil}) {
-
-  const { viewport } = useThree()  
+export default function Scene({ mobil }) {
   const headFull = React.useRef();
 
   const faceMap = useLoader(TextureLoader, "/headus/Colour_8k-min-min.jpg");
   faceMap.flipY = false;
-  // faceMap.minFilter = THREE.LinearMipmapNearestFilter
-  // faceMap.magFilter = THREE.LinearFilter
   const faceNorm = useLoader(
     TextureLoader,
     "/headus/Normal-Map_SubDivision_1-min-min.jpg"
@@ -26,19 +28,18 @@ export default function Scene({mobil}) {
   faceSpec.flipY = false;
   const faceShadow = useLoader(TextureLoader, "/headus/Shadow128S.png");
   faceShadow.flipY = false;
-  // faceShadow.minFilter = THREE.LinearMipmapNearestFilter
 
   const headus = new THREE.MeshPhysicalMaterial({
     // wireframe: true,
     map: faceMap,
-    // normalMap: faceNorm,
-    // normalScale: new THREE.Vector2(1, -1),
-    // roughnessMap: faceRough,
-    // roughness: 0.8,
-    // metalnessMap: faceSpec,
-    // metalness: 0.4,
-    // aoMap: faceShadow,
-    // aoMapIntensity: 1,
+    normalMap: faceNorm,
+    normalScale: new THREE.Vector2(1, -1),
+    roughnessMap: faceRough,
+    roughness: 0.8,
+    metalnessMap: faceSpec,
+    metalness: 0.4,
+    aoMap: faceShadow,
+    aoMapIntensity: 1,
   });
 
   const headusMob = new THREE.MeshStandardMaterial({
@@ -48,20 +49,20 @@ export default function Scene({mobil}) {
   //   ////INNER EYE
   const innerEyeMap = useLoader(
     TextureLoader,
-    "/headus/Sphere1_TXTR-min-min.png"
+    "/headus/Sphere1_TXTR-min-min2.png"
   );
   innerEyeMap.flipY = false;
   const innerEyeNorm = useLoader(TextureLoader, "/headus/Sphere1_NM-min.png");
   innerEyeNorm.flipY = false;
 
-  // const eyeout2 = new THREE.MeshPhysicalMaterial({
-  //   transmission: 0.99,
-  //   roughness: 0,
-  //   opacity: 0.4,
-  //   clearcoat: 1,
-  //   clearcoatRoughness: 0,
-  //   transparent: true,
-  // });
+  const eyeout2 = new THREE.MeshPhysicalMaterial({
+    transmission: 0.99,
+    roughness: 0,
+    opacity: 0.4,
+    clearcoat: 1,
+    clearcoatRoughness: 0,
+    transparent: true,
+  });
 
   const eyeoutMob = new THREE.MeshStandardMaterial({
     roughness: 0,
@@ -74,59 +75,111 @@ export default function Scene({mobil}) {
     normalMap: innerEyeNorm,
   });
 
-  // const facialHairsMat = new THREE.MeshLambertMaterial({ color: "#111111" });
-  // materials.RootStrandLarge.vertexColors = new THREE.Color("#000");
-  // materials.hairStrands.vertexColors = new THREE.Color("#000");
+  const facialHairsMat = new THREE.MeshLambertMaterial({ color: "#111111" });
 
-  const model = useLoader(GLTFLoader, 
-    mobil ? "/HeadDefDISPMOB.glb": "/HeadDefDISPPAChov.glb", (loader) => {
-    // console.log(loader)
-    const dracoLoader = new DRACOLoader();
-    dracoLoader.setDecoderPath("/draco/");
-    loader.setDRACOLoader(dracoLoader);
-  });
+
+  const backRoughness = useLoader(TextureLoader, "/terrain-roughness.jpg");
+  innerEyeNorm.flipY = false;
+
+
+
+  const model = useLoader(
+    GLTFLoader,
+    mobil ? "/HeadDefDISPMOB.glb" : "/HeadDefDISPPAChov2.glb",
+    (loader) => {
+      // console.log(loader)
+      const dracoLoader = new DRACOLoader();
+      dracoLoader.setDecoderPath("/draco/");
+      loader.setDRACOLoader(dracoLoader);
+    }
+  );
 
   model.scene.traverse(function (object) {
     if (object.isMesh) {
-      if (object.name === "Sphere2") {
-        object.material = eyeoutMob;
-      } else if (object.name === "Sphere1") {
+      if (object.name === "Sphere2" || object.name === "Sphere2001") {
+        object.material = mobil ? eyeoutMob : eyeout2;
+      } else if (object.name === "Sphere1002" || object.name === "Sphere1003") {
         object.material = eyeMaterial;
       }
       if (object.name === "Head2001") {
         object.material = headus;
+      } else if (
+        object.name === "Broaux" ||
+        object.name === "Mesh002" ||
+        object.name === "Mesh001" ||
+        object.name === "Mesh007" ||
+        object.name === "Mesh003"
+      ) {
+        object.material = facialHairsMat;
       }
+      if (object.name === "Torus") {
+        object.material = new THREE.MeshStandardMaterial({
+          color: "#9d9d9d",
+          metalness: 1,
+          roughness: 0,
+        });
+      }
+    } else if (object.name === "NurbsPath031") {
+      object.children[1].material.envMapIntensity = 0.2;
+      // console.log(object.children[1].name)
+
+      // object.children.material = new THREE.MeshStandardMaterial({color: '#9d9d9d', metalness:1, roughness: 0})
     }
   });
+  console.log(model.scene.children);
 
   //
-  // useFrame(({ clock }) => {
-  //   const a = clock.getElapsedTime();
-  //   headFull.current.rotation.y = -1 + Math.sin(a * 1) * 0.3; // the value will be 0 at scene initialization and grow each frame
-  //   headFull.current.rotation.x = 0.2 + Math.cos((a / 2) * 2) * 0.03; // the value will be 0 at scene initialization and grow each frame
-  // });
+  {
+    mobil
+      ? useFrame(({ clock }) => {
+          const a = clock.getElapsedTime();
+          headFull.current.rotation.y = -1 + Math.sin(a / 4) * 0.1; // the value will be 0 at scene initialization and grow each frame
+          headFull.current.position.x = 5 + Math.cos((a / 2) * 2) * 0.03; // the value will be 0 at scene initialization and grow each frame
+        })
+      : useFrame(({ clock }) => {
+          const a = clock.getElapsedTime();
+          headFull.current.rotation.y = -1 + Math.sin(a * 1) * 0.3; // the value will be 0 at scene initialization and grow each frame
+          headFull.current.rotation.x = 0.2 + Math.cos((a / 2) * 2) * 0.03; // the value will be 0 at scene initialization and grow each frame
+        });
+  }
 
   //MAPS IMPORT
+  // useHelper(headFull, BoxHelper, 'cyan')
 
   return (
     <>
+      {mobil ? (
+        <mesh rotateOnAxis={[1, 1, 0]} position={[2, 0, -1]}>
+          <planeGeometry args={[30, 30, 60, 60]} />
+          <MeshWobbleMaterial
+            color={"blue"}
+            resolution={1024}
+            metalness={1}
+            roughness={0.4}
+            roughnessMap={backRoughness}
+          />
+        </mesh>
+      ) : (
+        ""
+      )}
       <group
         dispose={null}
         ref={headFull}
-        position={[3, 1.5, 0]}
-        rotation={[0.2, -0.8, 0]}
-        scale={(viewport.width / 5) * 1}
+        position={mobil ? [5, -2, 17.5] : [4.5, -2, 18.5]}
+        rotation={mobil ? [-0.05, -0.9, 0] : [0.9, -0.8, 0.051]}
       >
         <spotLight
           lookAt={[-12, 8, 2]}
           position={[-4, -4, 14]}
           intensity={5}
           color="#ff00ff"
-          // castShadow
+          penumbra={0.02}
+          castShadow
         />
         <directionalLight intensity={0.51} position={[-2, 6, 10]} />
+        {/* <primitive object={new THREE.AxesHelper(10)} /> */}
 
-        <primitive object={model.scene} />
+        <primitive object={model.scene} position={[0, 0, 0]} />
       </group>
     </>
   );
