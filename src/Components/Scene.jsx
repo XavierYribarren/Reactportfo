@@ -29,7 +29,7 @@ export default function Scene({ mobil }) {
   const faceShadow = useLoader(TextureLoader, "/headus/Shadow128S.png");
   faceShadow.flipY = false;
 
-  const headus = new THREE.MeshPhysicalMaterial({
+  const headus = new THREE.MeshStandardMaterial({
     // wireframe: true,
     map: faceMap,
     normalMap: faceNorm,
@@ -138,7 +138,7 @@ export default function Scene({ mobil }) {
         })
       : useFrame(({ clock }) => {
           const a = clock.getElapsedTime();
-          headFull.current.rotation.y = -1 + Math.sin(a * 1) * 0.3; // the value will be 0 at scene initialization and grow each frame
+          headFull.current.rotation.y = -1 + Math.sin(a * 1) * 0.03; // the value will be 0 at scene initialization and grow each frame
           headFull.current.rotation.x = 0.2 + Math.cos((a / 2) * 2) * 0.03; // the value will be 0 at scene initialization and grow each frame
         });
   }
@@ -150,12 +150,14 @@ export default function Scene({ mobil }) {
     <>
       {mobil ? (
         <mesh rotateOnAxis={[1, 1, 0]} position={[2, 0, -1]}>
-          <planeGeometry args={[30, 30, 60, 60]} />
+          <planeGeometry args={[40, 40, 60, 60]} />
           <MeshWobbleMaterial
-            color={"blue"}
+            color={"#c5b2f0"}
+      //       speed={'Speed', 1, { range: true, max: 10, step: 0.1 }}
+      factor={0.2}
             resolution={1024}
             metalness={1}
-            roughness={0.4}
+            roughness={0.7}
             roughnessMap={backRoughness}
           />
         </mesh>

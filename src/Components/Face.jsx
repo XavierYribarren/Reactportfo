@@ -8,6 +8,8 @@ import {
   Bloom,
   Vignette,
   SMAA,
+  ChromaticAberration,
+  BrightnessContrast,
 } from "@react-three/postprocessing";
 import {
   Stats,
@@ -18,6 +20,8 @@ import {
 import { LayerMaterial, Depth, Noise } from "lamina";
 import { ACESFilmicToneMapping, sRGBEncoding } from "three";
 import { Perf } from "r3f-perf";
+import { ToneMapping } from '@react-three/postprocessing'
+import { BlendFunction } from 'postprocessing'
 
 export const Face = () => {
   const [mobil, setMobil] = useState(false);
@@ -51,7 +55,7 @@ export const Face = () => {
             position={mobil ? [3.5, 0, 25] : [2, 0, 26]}
           />
           {mobil ? (
-            ""
+''
           ) : (
             <>
               <Environment background resolution={128} blur={1}>

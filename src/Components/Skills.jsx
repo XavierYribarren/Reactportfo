@@ -1,9 +1,18 @@
 import { Col, Container, Row } from "react-bootstrap";
 import Carousel from "react-multi-carousel"
 import "react-multi-carousel/lib/styles.css"
-import meter1 from "../assets/img/meter1.svg"
-import meter2 from "../assets/img/meter2.svg"
-import meter3 from "../assets/img/meter3.svg"
+import blender from "../assets/img/SoftIcons/blender.svg"
+import css3 from "../assets/img/SoftIcons/css3.svg"
+import express from "../assets/img/SoftIcons/express.svg"
+import html5 from "../assets/img/SoftIcons/html5.svg"
+import javascript from "../assets/img/SoftIcons/javascript.svg"
+import mysql from "../assets/img/SoftIcons/mysql.svg"
+import nodejs from "../assets/img/SoftIcons/nodejs.svg"
+import photoshop from "../assets/img/SoftIcons/photoshop.svg"
+import react from "../assets/img/SoftIcons/react.svg"
+import threejs from "../assets/img/SoftIcons/threejs.svg"
+
+
 import colorSharp from '../assets/img/color-sharp.png'
 
 export const Skills = () => {
@@ -27,6 +36,13 @@ export const Skills = () => {
         }
       };
 
+      const iconsArr = [blender, css3, express, html5, javascript, mysql, nodejs, photoshop, react, threejs]
+
+//     iconsArr.map((item,i) => console.log(item )+ <div className="item" key={i}>
+//     <img src={item} alt="Image"/>
+//     <h5>Tralalayoupi</h5>
+// </div>)
+
       return(
         <section className="skill" id='skills'>
             <Container>
@@ -36,24 +52,13 @@ export const Skills = () => {
                         <h2>
                             Skills
                         </h2>
-                        <p> Ahhhhhhhhhh ouais blablablablabla</p>
-                        <Carousel responsive={responsive} infinite={true} autoPlay={true} autoPlaySpeed={2000} className="skill-slider">
-<div className="item">
-    <img src={meter1} alt="Image"/>
-    <h5>Tralalayoupi</h5>
-</div>
-<div className="item">
-    <img src={meter2} alt="Image"/>
-    <h5>Tralalayoupi</h5>
-</div>
-<div className="item">
-    <img src={meter3} alt="Image"/>
-    <h5>Tralalayoupi</h5>
-</div>
-<div className="item">
-    <img src={meter1} alt="Image"/>
-    <h5>Tralalayoupi</h5>
-</div>
+                        <p> You might recognize some logos of softwares or technologies I use !</p>
+                        <Carousel responsive={responsive} infinite={true} autoPlay={true} autoPlaySpeed={1000} className="skill-slider">
+                        {iconsArr.map((item) => (
+          <div className='item' key={item}>
+             <img src={item} alt="Image"/>
+          </div>
+        ))}
 
 
                         </Carousel>
