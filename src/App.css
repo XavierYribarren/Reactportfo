@@ -458,8 +458,17 @@ z-index: -4;
 .proj-imgbx {
   position: relative;
   border-radius: 30px;
+  max-height: 80vh;
   overflow: hidden;
   margin-bottom: 24px;
+}
+.proj-imgbx img{
+  overflow: hidden;
+  max-width: 28vw;
+  align-items: center;
+  width: auto;
+  /* padding: 0 10px 0 10px; */
+
 }
 .proj-imgbx::before {
   content: "";

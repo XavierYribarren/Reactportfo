@@ -2,9 +2,9 @@ import { Container, Row, Col, Tab, Nav } from "react-bootstrap"
 import { DevCard, ArtCard } from "./ProjectCard";
 import { YoutubeEmbed } from "./YoutubeEmbed";
 import colorSharp2 from '../assets/img/color-sharp2.png'
-import projImg1 from "../assets/img/project-img1.png"
-import projImg2 from "../assets/img/project-img2.png"
-import projImg3 from "../assets/img/project-img3.png"
+import projImg1 from "../assets/img/ProjImgs/Narif.png"
+import projImg2 from "../assets/img/ProjImgs/Nope.png"
+import projImg3 from "../assets/img/ProjImgs/Emerga.png"
 
 export const Projects = () => {
   const devProj = [
@@ -29,53 +29,53 @@ export const Projects = () => {
       languages : "HTML, CSS, JavaScript, React, Express, MySQL",
       imgUrl: projImg3,
     },
-    {
-      title: "Business Startup",
-      description: "Design & Development",
-      imgUrl: projImg1,
-    },
-    {
-      title: "Business Startup",
-      description: "Design & Development",
-      imgUrl: projImg2,
-    },
-    {
-      title: "Business Startup",
-      description: "Design & Development",
-      imgUrl: projImg3,
-    },
+    // {
+    //   title: "Business Startup",
+    //   description: "Design & Development",
+    //   imgUrl: projImg1,
+    // },
+    // {
+    //   title: "Business Startup",
+    //   description: "Design & Development",
+    //   imgUrl: projImg2,
+    // },
+    // {
+    //   title: "Business Startup",
+    //   description: "Design & Development",
+    //   imgUrl: projImg3,
+    // },
   ];
 
   const artProj = [
     {
       title: "Business Startup",
       description: "Design & Development",
-      imgUrl: projImg1,
+      imgUrl: '',
     },
     {
       title: "Business Startup",
       description: "Design & Development",
-      imgUrl: projImg2,
+      imgUrl: '',
     },
     {
       title: "Business Startup",
       description: "Design & Development",
-      imgUrl: projImg3,
+      imgUrl: '',
     },
     {
       title: "Business Startup",
       description: "Design & Development",
-      imgUrl: projImg1,
+      imgUrl: '',
     },
     {
       title: "Business Startup",
       description: "Design & Development",
-      imgUrl: projImg2,
+      imgUrl: '',
     },
     {
       title: "Business Startup",
       description: "Design & Development",
-      imgUrl: projImg3,
+      imgUrl: '',
     },
   ];
 
