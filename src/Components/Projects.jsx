@@ -131,9 +131,9 @@ export const Projects = () => {
                         }
                     </Row>
                 </Tab.Pane>
-                {/* <Tab.Pane eventKey="third">
+                <Tab.Pane eventKey="third">
                     <YoutubeEmbed embedId="4ujgky1Vc3k"/>
-                </Tab.Pane> */}
+                </Tab.Pane>
             </Tab.Content>
             </Tab.Container>
           </Col>
