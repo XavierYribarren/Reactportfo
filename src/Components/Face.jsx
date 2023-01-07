@@ -65,52 +65,52 @@ export const Face = () => {
           {mobil ? (
 ''
           ) : (
-            // <>
-            //   <Environment background resolution={128} blur={1}>
-            //     <mesh scale={100}>
-            //       <sphereGeometry args={[1, 64, 64]} />
-            //       <LayerMaterial
-            //         side={THREE.BackSide}
-            //         color="#00ffff"
-            //         alpha={0.1}
-            //         mode="darken"
-            //       >
-            //         <Depth
-            //           colorA="#ff00ff"
-            //           colorB="#ff00ff"
-            //           alpha={0.91}
-            //           mode="darken"
-            //           near={0}
-            //           far={80}
-            //           origin={[100, 100, 102]}
-            //         />
-            //         <Noise
-            //           mapping="simplex"
-            //           type="perlin"
-            //           scale={21}
-            //           mode="multiply"
-            //         />
-            //       </LayerMaterial>
-            //     </mesh>
-            //   </Environment>
-            //   <EffectComposer>
+            <>
+              <Environment background resolution={128} blur={1}>
+                <mesh scale={100}>
+                  <sphereGeometry args={[1, 64, 64]} />
+                  <LayerMaterial
+                    side={THREE.BackSide}
+                    color="#00ffff"
+                    alpha={0.1}
+                    mode="darken"
+                  >
+                    <Depth
+                      colorA="#ff00ff"
+                      colorB="#ff00ff"
+                      alpha={0.91}
+                      mode="darken"
+                      near={0}
+                      far={80}
+                      origin={[100, 100, 102]}
+                    />
+                    <Noise
+                      mapping="simplex"
+                      type="perlin"
+                      scale={21}
+                      mode="multiply"
+                    />
+                  </LayerMaterial>
+                </mesh>
+              </Environment>
+              <EffectComposer>
 
-            //     <DepthOfField
-            //       focusDistance={0.5}
-            //       focalLength={4}
-            //       bokehScale={14}
-            //       height={960}
-            //     />
-            //      <Bloom
-            //      luminanceThreshold={0}
-            //       luminanceSmoothing={0.9}
-            //       height={600}
-            //     />
-            // //     <Vignette eskil={false} offset={0.1} darkness={1} />
-            // //     <SMAA edgeDetectionMode={1} preset={3} />
-            //   </EffectComposer>
-            // </>
-''
+                <DepthOfField
+                  focusDistance={0.1}
+                  focalLength={4}
+                  bokehScale={14}
+                  height={960}
+                />
+                 {/* <Bloom
+                 luminanceThreshold={0}
+                  luminanceSmoothing={0.9}
+                  height={600}
+                /> */}
+                 <Vignette eskil={false} offset={0.1} darkness={1} />
+                 <SMAA edgeDetectionMode={1} preset={3} />
+              </EffectComposer>
+            </>
+// ''
           )}
           <Perf />
         </Canvas>

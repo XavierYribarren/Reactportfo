@@ -31,16 +31,16 @@ export default function Scene({ mobil, props }) {
   faceShadow.flipY = false;
 
   const headus = new THREE.MeshStandardMaterial({
-    wireframe: true,
-    // map: faceMap,
-    // normalMap: faceNorm,
-    // normalScale: new THREE.Vector2(1, -1),
-    // roughnessMap: faceRough,
-    // roughness: 0.8,
-    // metalnessMap: faceSpec,
-    // metalness: 0.4,
-    // aoMap: faceShadow,
-    // aoMapIntensity: 1,
+    // wireframe: true,
+    map: faceMap,
+    normalMap: faceNorm,
+    normalScale: new THREE.Vector2(1, -1),
+    roughnessMap: faceRough,
+    roughness: 0.8,
+    metalnessMap: faceSpec,
+    metalness: 0.4,
+    aoMap: faceShadow,
+    aoMapIntensity: 1,
   });
 
   const headusMob = new THREE.MeshStandardMaterial({
@@ -148,14 +148,14 @@ export default function Scene({ mobil, props }) {
         position={mobil ? [5, -2, 23.5] : [3.5, -1.3, 21.5]}
         rotation={mobil ? [-0.05, -0.9, 0] : [0.9, -0.8, 0.081]}
       >
-        {/* <pointLight
+        <pointLight
           lookAt={[-12, 8, 2]}
           position={[-4, -4, 14]}
           intensity={5}
           color="#ff00ff"
           penumbra={0.02}
           castShadow
-        /> */}
+        />
         <directionalLight intensity={0.51} position={[-2, 6, 10]}  />
         <mesh
         //castShadow
