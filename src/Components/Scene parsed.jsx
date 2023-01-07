@@ -12,7 +12,8 @@ import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader";
 import { BoxHelper } from "three";
 
-export default function Scene({ mobil }) {
+export default function Scene({ mobil, props }) {
+  const { nodes, materials} = useGLTF("/HeadDefDISPPAChov2DOSO.glb");
   const headFull = React.useRef();
 
   const faceMap = useLoader(TextureLoader, "/headus/Colour_8k-min-min.jpg");
@@ -83,17 +84,7 @@ export default function Scene({ mobil }) {
 
 
 
-  const model = useLoader(
-    GLTFLoader,
-    mobil ? "/HeadDefDISPMOB.glb" : "/HeadDefDISPPAChov2.glb",
-    (loader) => {
-      // console.log(loader)
-      const dracoLoader = new DRACOLoader();
-      dracoLoader.setDecoderPath("/draco/");
-      loader.setDRACOLoader(dracoLoader);
-    }
-  );
-console.log(model)
+
   // model.scene.traverse(function (object) {
   //   if (object.isMesh) {
   //     if (object.name === "Sphere2" || object.name === "Sphere2001") {
@@ -149,29 +140,15 @@ console.log(model)
 
   return (
     <>
-      {mobil ? (
-        <mesh rotateOnAxis={[1, 1, 0]} position={[2, 0, -1]}>
-          <planeGeometry args={[40, 40, 60, 60]} />
-          <MeshWobbleMaterial
-            color={"#c5b2f0"}
-      //       speed={'Speed', 1, { range: true, max: 10, step: 0.1 }}
-      factor={0.2}
-            resolution={1024}
-            metalness={1}
-            roughness={0.7}
-            roughnessMap={backRoughness}
-          />
-        </mesh>
-      ) : (
-        ""
-      )}
+
       <group
+      {...props} 
         dispose={null}
         ref={headFull}
-        position={mobil ? [5, -2, 17.5] : [4.5, -2, 18.5]}
-        rotation={mobil ? [-0.05, -0.9, 0] : [0.9, -0.8, 0.051]}
+        position={mobil ? [5, -2, 23.5] : [3.5, -1.3, 21.5]}
+        rotation={mobil ? [-0.05, -0.9, 0] : [0.9, -0.8, 0.081]}
       >
-        <spotLight
+        <pointLight
           lookAt={[-12, 8, 2]}
           position={[-4, -4, 14]}
           intensity={5}
@@ -179,12 +156,160 @@ console.log(model)
           penumbra={0.02}
           castShadow
         />
-        <directionalLight intensity={0.51} position={[-2, 6, 10]} />
-        {/* <primitive object={new THREE.AxesHelper(10)} /> */}
-
-        <primitive object={model.scene} position={[0, 0, 0]} />
+        <directionalLight intensity={0.51} position={[-2, 6, 10]}  />
+        <mesh
+        //castShadow
+        // receiveShadow
+        geometry={nodes.Mesh002.geometry}
+       material={facialHairsMat}
+       position={[0.34, 0.16, 0.23]}
+      />
+      <mesh
+        //castShadow
+        // receiveShadow
+        geometry={nodes.Mesh003.geometry}
+       material={facialHairsMat}
+       position={[0.34, 0.16, 0.23]}
+      />
+      <mesh
+        //castShadow
+        // receiveShadow
+        geometry={nodes.Mesh001.geometry}
+       material={facialHairsMat}
+       position={[0.34, 0.16, 0.23]}
+      />
+      <mesh
+        //castShadow
+        // receiveShadow
+        geometry={nodes.Mesh007.geometry}
+       material={facialHairsMat}
+       position={[0.34, 0.16, 0.23]}
+      />
+      <group        position={[0.34, 0.16, 0.23]} >
+        <mesh
+          //castShadow
+          // receiveShadow
+          geometry={nodes.NurbsPath004_1.geometry}
+         material={materials.HairRoot}
+        />
+        <mesh
+          //castShadow
+          // receiveShadow
+          geometry={nodes.NurbsPath004_2.geometry}
+         material={materials.hairStrands}
+        />
+        <mesh
+          //castShadow
+          // receiveShadow
+          geometry={nodes.NurbsPath004_3.geometry}
+         material={materials.RootStrandLarge}
+        />
+      </group>
+      <mesh
+        //castShadow
+        // receiveShadow
+        geometry={nodes.NurbsPath011.geometry}
+       material={materials.HairRoot}
+       position={[0.34, 0.16, 0.23]}
+      />
+      <group position={[0.34, 0.16, 0.23]} >
+        <mesh
+          //castShadow
+          // receiveShadow
+          geometry={nodes.NurbsPath031_1.geometry}
+         material={materials.RootStrandLarge}
+        />
+        <mesh
+          //castShadow
+          // receiveShadow
+          geometry={nodes.NurbsPath031_2.geometry}
+         material={materials.hairStrands}
+        />
+      </group>
+      <mesh
+        //castShadow
+        // receiveShadow
+        geometry={nodes.NurbsPath.geometry}
+       material={materials.HairRoot}
+       position={[0.34, 0.16, 0.23]}
+      />
+      <mesh
+        //castShadow
+        // receiveShadow
+        geometry={nodes.NurbsPath001.geometry}
+       material={materials.RootStrandLarge}
+       position={[0.34, 0.16, 0.23]}
+      />
+      <mesh
+        //castShadow
+        // receiveShadow
+        geometry={nodes.Torus.geometry}
+  material={new THREE.MeshStandardMaterial({
+                    color: "#9d9d9d",
+                    metalness: 1,
+                    roughness: 0,
+                  })}
+                  position={[0.34, 0.16, 0.23]}
+      />
+      <mesh
+        //castShadow
+        // receiveShadow
+        geometry={nodes.NurbsPath027.geometry}
+       material={materials.RootStrandLarge}
+       position={[0.34, 0.16, 0.23]}
+      />
+      {/* <mesh
+        //castShadow
+        // receiveShadow
+        geometry={nodes.Sphere2.geometry}
+       material={eyeoutMob }
+       position={[0.34, 0.16, 0.23]}
+      /> */}
+      <mesh
+        //castShadow
+        // receiveShadow
+        geometry={nodes.Bebar.geometry}
+       material={nodes.Bebar.material}
+       position={[0.34, 0.16, 0.23]}
+      />
+      {/* <mesh
+        //castShadow
+        // receiveShadow
+        geometry={nodes.Sphere2001.geometry}
+     material={eyeoutMob}
+       position={[0.34, 0.16, 0.23]}
+      /> */}
+      <mesh
+        // castShadow
+        receiveShadow
+        geometry={nodes.Head2001.geometry}
+       material={headus}
+       position={[0.34, 0.16, 0.23]}
+      />
+      <mesh
+        //castShadow
+        // receiveShadow
+        geometry={nodes.Sphere1002.geometry}
+       material={eyeMaterial}
+       position={[0.34, 0.16, 0.23]}
+      />
+      <mesh
+        //castShadow
+        // receiveShadow
+        geometry={nodes.Sphere1003.geometry}
+       material={eyeMaterial}
+       position={[0.34, 0.16, 0.23]}
+      />
+      <mesh
+        //castShadow
+        // receiveShadow
+        geometry={nodes.Broaux.geometry}
+       material={facialHairsMat}
+       position={[0.34, 0.16, 0.23]}
+      />
       </group>
     </>
   );
 }
 // useGLTF.preload("/headDefDISP.glb");
+useGLTF.preload("/HeadDefDISPPAChov2DOSO.glb");
