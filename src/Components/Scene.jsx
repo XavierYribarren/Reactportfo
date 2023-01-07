@@ -1,32 +1,34 @@
-import React from "react";
-import * as THREE from "three";
+import React, { useState } from 'react';
+import * as THREE from 'three';
 import {
   useGLTF,
   useHelper,
   MeshReflectorMaterial,
   MeshWobbleMaterial,
-} from "@react-three/drei";
-import { TextureLoader } from "three/src/loaders/TextureLoader";
-import { useFrame, useLoader, useThree } from "@react-three/fiber";
-import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
-import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader";
-import { BoxHelper } from "three";
+} from '@react-three/drei';
+import { TextureLoader } from 'three/src/loaders/TextureLoader';
+import { useFrame, useLoader, useThree } from '@react-three/fiber';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
+import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader';
+import { BoxHelper } from 'three';
+import { useMemo } from 'react';
+import { useLayoutEffect } from 'react';
 
-export default function Scene({ mobil }) {
+export default function Scene({ mobil, setLoader }) {
   const headFull = React.useRef();
 
-  const faceMap = useLoader(TextureLoader, "/headus/Colour_8k-min-min.jpg");
+  const faceMap = useLoader(TextureLoader, '/headus/Colour_8k-min-min.jpg');
   faceMap.flipY = false;
   const faceNorm = useLoader(
     TextureLoader,
-    "/headus/Normal-Map_SubDivision_1-min-min.jpg"
+    '/headus/Normal-Map_SubDivision_1-min-min.jpg'
   );
   faceNorm.flipY = false;
-  const faceRough = useLoader(TextureLoader, "/headus/Gloss_8k-min.jpg");
+  const faceRough = useLoader(TextureLoader, '/headus/Gloss_8k-min.jpg');
   faceRough.flipY = false;
-  const faceSpec = useLoader(TextureLoader, "/headus/Spec_8k-min.jpg");
+  const faceSpec = useLoader(TextureLoader, '/headus/Spec_8k-min.jpg');
   faceSpec.flipY = false;
-  const faceShadow = useLoader(TextureLoader, "/headus/Shadow128S.png");
+  const faceShadow = useLoader(TextureLoader, '/headus/Shadow128S.png');
   faceShadow.flipY = false;
 
   const headus = new THREE.MeshStandardMaterial({
@@ -49,10 +51,10 @@ export default function Scene({ mobil }) {
   //   ////INNER EYE
   const innerEyeMap = useLoader(
     TextureLoader,
-    "/headus/Sphere1_TXTR-min-min2.png"
+    '/headus/Sphere1_TXTR-min-min2.png'
   );
   innerEyeMap.flipY = false;
-  const innerEyeNorm = useLoader(TextureLoader, "/headus/Sphere1_NM-min.png");
+  const innerEyeNorm = useLoader(TextureLoader, '/headus/Sphere1_NM-min.png');
   innerEyeNorm.flipY = false;
 
   const eyeout2 = new THREE.MeshPhysicalMaterial({
@@ -75,59 +77,61 @@ export default function Scene({ mobil }) {
     normalMap: innerEyeNorm,
   });
 
-  const facialHairsMat = new THREE.MeshLambertMaterial({ color: "#111111" });
+  const facialHairsMat = new THREE.MeshLambertMaterial({ color: '#111111' });
 
-
-  const backRoughness = useLoader(TextureLoader, "/terrain-roughness.jpg");
+  const backRoughness = useLoader(TextureLoader, '/terrain-roughness.jpg');
   innerEyeNorm.flipY = false;
-
-
 
   const model = useLoader(
     GLTFLoader,
-    mobil ? "/HeadDefDISPMOB.glb" : "/HeadDefDISPPAChov2.glb",
+    mobil ? '/HeadDefDISPMOB.glb' : '/HeadDefDISPPAChov2.glb',
     (loader) => {
       // console.log(loader)
       const dracoLoader = new DRACOLoader();
-      dracoLoader.setDecoderPath("/draco/");
+      dracoLoader.setDecoderPath('/draco/');
       loader.setDRACOLoader(dracoLoader);
     }
   );
-console.log(model)
-  // model.scene.traverse(function (object) {
-  //   if (object.isMesh) {
-  //     if (object.name === "Sphere2" || object.name === "Sphere2001") {
-  //       object.material = mobil ? eyeoutMob : eyeout2;
-  //     } else if (object.name === "Sphere1002" || object.name === "Sphere1003") {
-  //       object.material = eyeMaterial;
-  //     }
-  //     if (object.name === "Head2001") {
-  //       object.material = headus;
-  //     } else if (
-  //       object.name === "Broaux" ||
-  //       object.name === "Mesh002" ||
-  //       object.name === "Mesh001" ||
-  //       object.name === "Mesh007" ||
-  //       object.name === "Mesh003"
-  //     ) {
-  //       object.material = facialHairsMat;
-  //     }
-  //     if (object.name === "Torus") {
-  //       object.material = new THREE.MeshStandardMaterial({
-  //         color: "#9d9d9d",
-  //         metalness: 1,
-  //         roughness: 0,
-  //       });
-  //     }
-  //   } else if (object.name === "NurbsPath031") {
-  //     object.children[1].material.envMapIntensity = 0.2;
-  //     // console.log(object.children[1].name)
+  const { scene } = model;
+  const clonedScene = useMemo(() => scene.clone(), []);
+  useLayoutEffect(() => {
+    clonedScene.traverse((object) => traverse(object));
+    setLoader(true);
+  }, [clonedScene]);
+  //console.log(model);
 
-  //     // object.children.material = new THREE.MeshStandardMaterial({color: '#9d9d9d', metalness:1, roughness: 0})
-  //   }
-  // });
+  const traverse = (object) => {
+    if (object.isMesh) {
+      if (object.name === 'Sphere2' || object.name === 'Sphere2001') {
+        object.material = mobil ? eyeoutMob : eyeout2;
+      } else if (object.name === 'Sphere1002' || object.name === 'Sphere1003') {
+        object.material = eyeMaterial;
+      }
+      if (object.name === 'Head2001') {
+        object.material = headus;
+      } else if (
+        object.name === 'Broaux' ||
+        object.name === 'Mesh002' ||
+        object.name === 'Mesh001' ||
+        object.name === 'Mesh007' ||
+        object.name === 'Mesh003'
+      ) {
+        object.material = facialHairsMat;
+      }
+      if (object.name === 'Torus') {
+        object.material = new THREE.MeshStandardMaterial({
+          color: '#9d9d9d',
+          metalness: 1,
+          roughness: 0,
+        });
+      }
+    } else if (object.name === 'NurbsPath031') {
+      object.children[1].material.envMapIntensity = 0.2;
+      // console.log(object.children[1].name)
 
-
+      // object.children.material = new THREE.MeshStandardMaterial({color: '#9d9d9d', metalness:1, roughness: 0})
+    }
+  };
 
   //
   {
@@ -153,9 +157,9 @@ console.log(model)
         <mesh rotateOnAxis={[1, 1, 0]} position={[2, 0, -1]}>
           <planeGeometry args={[40, 40, 60, 60]} />
           <MeshWobbleMaterial
-            color={"#c5b2f0"}
-      //       speed={'Speed', 1, { range: true, max: 10, step: 0.1 }}
-      factor={0.2}
+            color={'#c5b2f0'}
+            //       speed={'Speed', 1, { range: true, max: 10, step: 0.1 }}
+            factor={0.2}
             resolution={1024}
             metalness={1}
             roughness={0.7}
@@ -163,7 +167,7 @@ console.log(model)
           />
         </mesh>
       ) : (
-        ""
+        ''
       )}
       <group
         dispose={null}
@@ -175,14 +179,14 @@ console.log(model)
           lookAt={[-12, 8, 2]}
           position={[-4, -4, 14]}
           intensity={5}
-          color="#ff00ff"
+          color='#ff00ff'
           penumbra={0.02}
           castShadow
         />
         <directionalLight intensity={0.51} position={[-2, 6, 10]} />
         {/* <primitive object={new THREE.AxesHelper(10)} /> */}
 
-        <primitive object={model.scene} position={[0, 0, 0]} />
+        <primitive object={clonedScene} position={[0, 0, 0]} />
       </group>
     </>
   );
