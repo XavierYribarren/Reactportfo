@@ -17,7 +17,9 @@ import { useLayoutEffect } from 'react';
 export default function Scene({ mobil, setLoader }) {
   const headFull = React.useRef();
 
-  const faceMap = useLoader(TextureLoader, '/headus/Colour_8k-min-min.jpg');
+  // const faceMap = useLoader(TextureLoader, '/headus/Colour_8k-min-min.jpg');
+  // faceMap.flipY = false;
+  const faceMap = useLoader(TextureLoader, '/headus/Faceandshad-min.png');
   faceMap.flipY = false;
   const faceNorm = useLoader(
     TextureLoader,
@@ -29,7 +31,7 @@ export default function Scene({ mobil, setLoader }) {
   const faceSpec = useLoader(TextureLoader, '/headus/Spec_8k-min.jpg');
   faceSpec.flipY = false;
   const faceShadow = useLoader(TextureLoader, '/headus/Shadow128S.png');
-  faceShadow.flipY = false;
+  // faceShadow.flipY = false;
 
   const headus = new THREE.MeshStandardMaterial({
     // wireframe: true,
@@ -38,10 +40,9 @@ export default function Scene({ mobil, setLoader }) {
     normalScale: new THREE.Vector2(1, -1),
     roughnessMap: faceRough,
     roughness: 0.8,
-    metalnessMap: faceSpec,
-    metalness: 0.4,
-    aoMap: faceShadow,
-    aoMapIntensity: 1,
+    // metalnessMap: faceSpec,
+    // metalness: 0.4,
+   
   });
 
   const headusMob = new THREE.MeshStandardMaterial({
@@ -57,34 +58,22 @@ export default function Scene({ mobil, setLoader }) {
   const innerEyeNorm = useLoader(TextureLoader, '/headus/Sphere1_NM-min.png');
   innerEyeNorm.flipY = false;
 
-  const eyeout2 = new THREE.MeshPhysicalMaterial({
-    transmission: 0.99,
-    roughness: 0,
-    opacity: 0.4,
-    clearcoat: 1,
-    clearcoatRoughness: 0,
-    transparent: true,
-  });
-
-  const eyeoutMob = new THREE.MeshStandardMaterial({
-    roughness: 0,
-    opacity: 0.4,
-    transparent: true,
-  });
 
   const eyeMaterial = new THREE.MeshStandardMaterial({
     map: innerEyeMap,
     normalMap: innerEyeNorm,
   });
 
-  const facialHairsMat = new THREE.MeshLambertMaterial({ color: '#111111' });
+  const facialHairsMat = new THREE.MeshBasicMaterial({ color: '#111111' });
 
   const backRoughness = useLoader(TextureLoader, '/terrain-roughness.jpg');
   innerEyeNorm.flipY = false;
 
   const model = useLoader(
     GLTFLoader,
-    mobil ? '/HeadDefDISPMOB.glb' : '/HeadDefDISPPAChov2.glb',
+    mobil ? '/HeadDefDISPMOB.glb' : 
+    // '/HeadDefDISPPAChov2-2.glb',
+    '/untitled.glb',
     (loader) => {
       // console.log(loader)
       const dracoLoader = new DRACOLoader();
@@ -98,13 +87,12 @@ export default function Scene({ mobil, setLoader }) {
     clonedScene.traverse((object) => traverse(object));
     setLoader(true);
   }, [clonedScene]);
-  //console.log(model);
+  console.log(model);
 
   const traverse = (object) => {
     if (object.isMesh) {
-      if (object.name === 'Sphere2' || object.name === 'Sphere2001') {
-        object.material = mobil ? eyeoutMob : eyeout2;
-      } else if (object.name === 'Sphere1002' || object.name === 'Sphere1003') {
+
+   if (object.name === 'Sphere1002' || object.name === 'Sphere1003') {
         object.material = eyeMaterial;
       }
       if (object.name === 'Head2001') {
@@ -125,13 +113,16 @@ export default function Scene({ mobil, setLoader }) {
           roughness: 0,
         });
       }
-    } else if (object.name === 'NurbsPath031') {
-      object.children[1].material.envMapIntensity = 0.2;
+    }if (object.name === 'NurbsPath031') {
+      // object.children[1].material.envMapIntensity = 0.2;
       // console.log(object.children[1].name)
 
       // object.children.material = new THREE.MeshStandardMaterial({color: '#9d9d9d', metalness:1, roughness: 0})
     }
-  };
+  //   else if (object.name === 'NurbsPath031_2'){
+  //     // object.material = new THREE.MeshStandardMaterial({color : '#ff0000'})
+  //     console.log('cacaboudeun')}
+   };
 
   //
   {
@@ -154,37 +145,37 @@ export default function Scene({ mobil, setLoader }) {
   return (
     <>
       {mobil ? (
-        <mesh rotateOnAxis={[1, 1, 0]} position={[2, 0, -1]}>
-          <planeGeometry args={[40, 40, 60, 60]} />
-          <MeshWobbleMaterial
-            color={'#c5b2f0'}
-            //       speed={'Speed', 1, { range: true, max: 10, step: 0.1 }}
-            factor={0.2}
-            resolution={1024}
-            metalness={1}
-            roughness={0.7}
-            roughnessMap={backRoughness}
-          />
-        </mesh>
+        // <mesh rotateOnAxis={[1, 1, 0]} position={[2, 0, -1]} dispose={null}>
+        //   <planeGeometry args={[40, 40, 60, 60]} />
+        //   <MeshWobbleMaterial
+        //     color={'#c5b2f0'}
+        //     //       speed={'Speed', 1, { range: true, max: 10, step: 0.1 }}
+        //     factor={0.2}
+        //     resolution={1024}
+        //     metalness={1}
+        //     roughness={0.7}
+        //     roughnessMap={backRoughness}
+        //   />
+        // </mesh> 
+        ''
       ) : (
         ''
       )}
       <group
         dispose={null}
         ref={headFull}
-        position={mobil ? [5, -2, 17.5] : [4.5, -2, 18.5]}
+        position={mobil ? [5, -2, 17.5] : [4.5, -2, 19]}
         rotation={mobil ? [-0.05, -0.9, 0] : [0.9, -0.8, 0.051]}
       >
         <spotLight
           lookAt={[-12, 8, 2]}
           position={[-4, -4, 14]}
-          intensity={5}
+          intensity={8}
           color='#ff00ff'
           penumbra={0.02}
           castShadow
         />
         <directionalLight intensity={0.51} position={[-2, 6, 10]} />
-        {/* <primitive object={new THREE.AxesHelper(10)} /> */}
 
         <primitive object={clonedScene} position={[0, 0, 0]} />
       </group>

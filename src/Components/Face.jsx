@@ -5,11 +5,8 @@ import * as THREE from 'three';
 import {
   EffectComposer,
   DepthOfField,
-  Bloom,
+
   Vignette,
-  SMAA,
-  ChromaticAberration,
-  BrightnessContrast,
 } from '@react-three/postprocessing';
 import {
   Stats,
@@ -35,44 +32,40 @@ export const Face = ({ setLoader }) => {
     <div className='headxav'>
       <Suspense fallback={null}>
         <Canvas
-          style={{ pointerEvents: 'none' }}
-          shadows={true}
-          linear={false}
+          // style={{ pointerEvents: 'none' }}
+          // shadows={true}
+          // linear={true}
+          dpr={[1,2]}
           gl={{
             outputEncoding: sRGBEncoding,
             physicallyCorrectLights: true,
             antialias: true,
             toneMapping: ACESFilmicToneMapping,
+            
           }}
-          resize={true}
+          // resize={true}
         >
-          <spotLight
-            lookAt={[7, 6, 2]}
-            position={[-7, 6, 2]}
-            intensity={5}
-            color='#ff00ff'
-            penumbra={0.02}
-            castShadow
-          />
-          <Scene mobil={mobil} setLoader={setLoader} />
-          <PerspectiveCamera
+                  <Scene mobil={mobil} setLoader={setLoader} />
+               <PerspectiveCamera
             makeDefault
             fov={50}
             near={0.1}
             far={100}
             position={mobil ? [3.5, 0, 25] : [2, 0, 26]}
+            // dispose={null}
           />
+   
           {
             mobil ? (
               ''
             ) : (
-              // <>
+              <>
               <Environment background resolution={128} blur={1}>
                 <mesh scale={100}>
                   <sphereGeometry args={[1, 64, 64]} />
                   <LayerMaterial
                     side={THREE.BackSide}
-                    color='#00ffff'
+                    color='#0bb5b5'
                     alpha={0.1}
                     mode='darken'
                   >
@@ -81,9 +74,9 @@ export const Face = ({ setLoader }) => {
                       colorB='#ff00ff'
                       alpha={0.91}
                       mode='darken'
-                      near={0}
-                      far={80}
-                      origin={[100, 100, 102]}
+                      near={-10}
+                      far={10}
+                      origin={[100, 100, 100]}
                     />
                     <Noise
                       mapping='simplex'
@@ -94,26 +87,27 @@ export const Face = ({ setLoader }) => {
                   </LayerMaterial>
                 </mesh>
               </Environment>
-            )
-            //   <EffectComposer>
+          
+              <EffectComposer
+              enabled = {true}
+  depthBuffer = {true}
+  disableNormalPass= {true}
+  dispose={null}
+  >
 
-            //     <DepthOfField
-            //       focusDistance={0.1}
-            //       focalLength={4}
-            //       bokehScale={14}
-            //       height={960}
-            //     />
-            //      {/* <Bloom
-            //      luminanceThreshold={0}
-            //       luminanceSmoothing={0.9}
-            //       height={600}
-            //     /> */}
-            //      <Vignette eskil={false} offset={0.1} darkness={1} />
-            //      <SMAA edgeDetectionMode={1} preset={3} />
-            //   </EffectComposer>
-            // </>
-          }
-          <Perf />
+              <DepthOfField
+                  focusDistance={0.1}
+                  focalLength={0.4}
+                  bokehScale={6}
+                  height={480}
+                />
+       
+              <Vignette eskil={false} offset={0.1} darkness={0.8} />
+              </EffectComposer>
+            </>
+           ) }
+   
+          <Perf deepAnalyze={true} />
         </Canvas>
       </Suspense>
     </div>
