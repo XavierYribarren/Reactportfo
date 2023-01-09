@@ -19,6 +19,7 @@ import { ACESFilmicToneMapping, sRGBEncoding } from 'three';
 import { Perf } from 'r3f-perf';
 import { ToneMapping } from '@react-three/postprocessing';
 import { BlendFunction } from 'postprocessing';
+import Background from './Background';
 
 export const Face = ({ setLoader }) => {
   const [mobil, setMobil] = useState(false);
@@ -41,11 +42,13 @@ export const Face = ({ setLoader }) => {
             physicallyCorrectLights: true,
             antialias: true,
             toneMapping: ACESFilmicToneMapping,
+            alpha: true
             
           }}
           // resize={true}
         >
                   <Scene mobil={mobil} setLoader={setLoader} />
+                {/* <Background/> */}
                <PerspectiveCamera
             makeDefault
             fov={50}
@@ -88,22 +91,25 @@ export const Face = ({ setLoader }) => {
                 </mesh>
               </Environment>
           
-              <EffectComposer
+              {/* <EffectComposer
               enabled = {true}
   depthBuffer = {true}
   disableNormalPass= {true}
-  dispose={null}
+  stencilBuffer={true}
+  // dispose={null}
+  autoClear={true}
+  resolutionScale={2}
   >
 
               <DepthOfField
-                  focusDistance={0.1}
+                  focusDistance={0}
                   focalLength={0.4}
-                  bokehScale={6}
+                  bokehScale={2}
                   height={480}
                 />
        
               <Vignette eskil={false} offset={0.1} darkness={0.8} />
-              </EffectComposer>
+              </EffectComposer> */}
             </>
            ) }
    
