@@ -10,7 +10,7 @@ import { TextureLoader } from "three/src/loaders/TextureLoader";
 import { useFrame, useLoader, useThree } from "@react-three/fiber";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader";
-import { BoxHelper } from "three";
+import { BoxHelper, FrontSide } from "three";
 import { useMemo } from "react";
 import { useLayoutEffect } from "react";
 import { DepthOfField, EffectComposer } from "@react-three/postprocessing";
@@ -42,6 +42,7 @@ export default function Scene({ mobil, setLoader }) {
     roughness: 0.8,
     // metalnessMap: faceSpec,
     // metalness: 0.4,
+    side: FrontSide
   });
 
   const headusMob = new THREE.MeshStandardMaterial({
@@ -60,6 +61,7 @@ export default function Scene({ mobil, setLoader }) {
   const eyeMaterial = new THREE.MeshStandardMaterial({
     map: innerEyeMap,
     normalMap: innerEyeNorm,
+
   });
 
   const facialHairsMat = new THREE.MeshBasicMaterial({ color: "#111111" });
@@ -74,7 +76,7 @@ export default function Scene({ mobil, setLoader }) {
       : // '/HeadDefDISPPAChov2-2.glb',
         "/optgueul.glb",
     (loader) => {
-      // console.log(loader)
+
       const dracoLoader = new DRACOLoader();
       dracoLoader.setDecoderPath("/draco/");
       loader.setDRACOLoader(dracoLoader);
@@ -100,20 +102,14 @@ export default function Scene({ mobil, setLoader }) {
       }
       if (object.name === "Torus") {
         object.material = new THREE.MeshStandardMaterial({
+          side: FrontSide,
           color: "#9d9d9d",
           metalness: 1,
           roughness: 0,
         });
       }
     }
-    if (object.name === "NurbsPath031") {
-      // object.children[1].material.envMapIntensity = 0.2;
-      // console.log(object.children[1].name)
-      // object.children.material = new THREE.MeshStandardMaterial({color: '#9d9d9d', metalness:1, roughness: 0})
-    }
-    //   else if (object.name === 'NurbsPath031_2'){
-    //     // object.material = new THREE.MeshStandardMaterial({color : '#ff0000'})
-    //     console.log('cacaboudeun')}
+
   };
 
   //
@@ -131,8 +127,6 @@ export default function Scene({ mobil, setLoader }) {
         });
   }
 
-  //MAPS IMPORT
-  // useHelper(headFull, BoxHelper, 'cyan')
 
   return (
     <>
@@ -167,25 +161,6 @@ export default function Scene({ mobil, setLoader }) {
         />
         <directionalLight intensity={0.51} position={[-2, 6, 10]} />
         
-        <EffectComposer
-              enabled = {true}
-  depthBuffer = {true}
-  disableNormalPass= {true}
-  stencilBuffer={true}
-  // dispose={null}
-  autoClear={true}
-  resolutionScale={2}
-  >
-
-              <DepthOfField
-                  focusDistance={0}
-                  focalLength={0.4}
-                  bokehScale={2}
-                  height={480}
-                />
-       
-              {/* <Vignette eskil={false} offset={0.1} darkness={0.8} /> */}
-              </EffectComposer>
         <primitive object={clonedScene} position={[0, 0, 0]} />
       </group>
     </>
