@@ -16,8 +16,6 @@ export default function Background(){
 const mesh = useRef()
 
 
-      const [t1init, setT1init] = useState(false)
-      const [t2init, setT2init] = useState(false)
 const ref = React.useRef()
 
     
@@ -56,16 +54,14 @@ const ref = React.useRef()
 
 
 
-    //   console.log(terrain1Ref)
-    // terrain2Ref.z = -100
-// terrain1Ref.position = new THREE.Vector3([0,-4,0])
-// terrain2Ref.position = new THREE.Vector3([0,-4,-180])
-      useFrame((state, delta, z) => {
-    // //     const deltaTime = state.clock.getDelta()
+
+      useFrame((state) => {
+
     // //     // Update plane position
-        terrain1Ref.current.position.z = 0+(state.clock.elapsedTime * 1) ; 
-        terrain2Ref.current.position.z = -180+((state.clock.elapsedTime * 1) );
-        // console.log( 'T1 ' + terrain1Ref.current.position.z)
+    const deltaTime = (state.clock.elapsedTime - (state.clock.elapsedTime%130)) /130
+        terrain1Ref.current.position.z = 0+(state.clock.elapsedTime-(deltaTime*130) * 1) ; 
+        terrain2Ref.current.position.z = -180+(state.clock.elapsedTime-(deltaTime*130) * 1)
+        console.log( 'T1 ' + terrain1Ref.current.position.z)
         // console.log( 'T2 ' + terrain2Ref.current.position.z)
         //  console.log(terrain2Ref.current.position)
     // //     // if(terrain2Ref.current.position.z > -150){setT2init(true)} 
@@ -76,16 +72,16 @@ const ref = React.useRef()
       return (
         <>
           <Model ref={terrain1Ref} z={0}/>
-          <Model ref={terrain2Ref} z={-150}/>
+          <Model ref={terrain2Ref} z={-180}/>
           <fog attach="fog" color="#06032b" near={20} far={170} />
-          {/* <mesh position={[0,20,-70]}>
+          <mesh position={[0,20,-70]}>
             <planeBufferGeometry args={[130,70]}/>
             <meshStandardMaterial color={'black'}/>
-          </mesh> */}
-          <mesh ref={mesh} position={[0,0,-30]} setRotationFromAxisAngle={[0,0,-Math.PI/2]}>
-            <planeBufferGeometry args={[10,70]} />
-            <meshStandardMaterial color={'red'} side={DoubleSide}/>
           </mesh>
+          {/* <mesh ref={mesh} position={[0,0,-50]} setRotationFromAxisAngle={[-Math.PI/2,0,0]}>
+            <planeBufferGeometry args={[120,40]} />
+            <meshStandardMaterial color={'red'} side={DoubleSide}/>
+          </mesh> */}
         </>
       );
 }
