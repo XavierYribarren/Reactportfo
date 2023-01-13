@@ -4,71 +4,88 @@ import { useFrame, useLoader, useThree } from "@react-three/fiber";
 import { TextureLoader } from "three/src/loaders/TextureLoader";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader";
-import { Clock } from "three";
-
+import { useGLTF } from "@react-three/drei";
+import { Clock, DoubleSide, Fog } from "three";
+// import Model from "./City";
 
 export default function Background(){
 
 
+      const terrain1Ref = React.useRef();
+      const terrain2Ref = React.useRef();
+const mesh = useRef()
 
-    const cityFull = useRef()
-
-    // const backPlane = useLoader(TextureLoader, "/Backcity.jpg");
-    const city = useLoader(
-        GLTFLoader,
-'./untitled-v1.glb',
-        (loader) => {
-    
-          const dracoLoader = new DRACOLoader();
-          dracoLoader.setDecoderPath("/draco/");
-          loader.setDRACOLoader(dracoLoader);
-        }
-    )
-// console.log(city)
-city.scene.traverse(function (object) {
-      if (object.isMesh) {
-object.material =  new THREE.MeshStandardMaterial({color : 'black', roughness: 0, metalness:1})
-      }})
-
-    const Terrain = forwardRef((props, ref) => {
-        const { z } = props;
-
-      
-        return (
-            <group  ref={ref} position={[0, -5, z]} scale={[0.7,0.7,0.7]}>
-       
-            <primitive object={city.scene} />
-              </group>
-        );
-      })
-      
-
-
-
-      const terrain1Ref = useRef();
-      const terrain2Ref = useRef();
 
       const [t1init, setT1init] = useState(false)
       const [t2init, setT2init] = useState(false)
+const ref = React.useRef()
+
+    
+    const Model = React.forwardRef((props, ref) => {
+      const matus =   new THREE.MeshStandardMaterial({color : 'black', roughness: 0, metalness:1})
+      const { nodes, materials } = useGLTF("/untitled-v1.glb");
+    
+      const { z } = props;
+      
+      
+      return (
+        <group {...props} ref={ref} dispose={null} scale={[0.7,0.7,0.7]} position={[0,-4,z]}>
+          <mesh
+            castShadow
+            receiveShadow
+            geometry={nodes.Plane001.geometry}
+            material={matus}
+            position={[-4.89, 0.25, 117.9]}
+          />
+          <mesh
+            castShadow
+            receiveShadow
+            geometry={nodes.Plane002.geometry}
+            material={matus}
+            position={[24.7, 0.85, -5.86]}
+            rotation={[Math.PI, 0, Math.PI]}
+          />
+        </group>
+      );
+    })
+    
+    
+    useGLTF.preload("/untitled-v1.glb");
 
 
+
+
+
+    //   console.log(terrain1Ref)
+    // terrain2Ref.z = -100
+// terrain1Ref.position = new THREE.Vector3([0,-4,0])
+// terrain2Ref.position = new THREE.Vector3([0,-4,-180])
       useFrame((state, delta, z) => {
-        const deltaTime = state.clock.getDelta()
-        // console.log(deltaTime)
-        // Update plane position
-        terrain1Ref.current.position.z = (state.clock.elapsedTime * 1) ; 
-        // console.log(terrain1Ref.current.position.z)
+    // //     const deltaTime = state.clock.getDelta()
+    // //     // Update plane position
+        terrain1Ref.current.position.z = 0+(state.clock.elapsedTime * 1) ; 
         terrain2Ref.current.position.z = -180+((state.clock.elapsedTime * 1) );
-        //  console.log(terrain2Ref.current.position.z)
-        if(terrain2Ref.current.position.z > -150){setT2init(true)} 
-        console.log(t2init + 'state')  
+        // console.log( 'T1 ' + terrain1Ref.current.position.z)
+        // console.log( 'T2 ' + terrain2Ref.current.position.z)
+        //  console.log(terrain2Ref.current.position)
+    // //     // if(terrain2Ref.current.position.z > -150){setT2init(true)} 
+    // //     // console.log(t2init + 'state')  
+    // terrain2Ref.current.position.z > -150 ? setT2init(!t2init)  : ''
       });
-        //  terrain2Ref.position.z > -150 ? setT2init(!t2init)  : ''
-    //  console.log(terrain2Ref.current.position)
+    // // //  console.log(terrain2Ref.current.position)
       return (
         <>
-          <Terrain ref={terrain1Ref} z={0} />
-          <Terrain ref={terrain2Ref} z={-180} />
+          <Model ref={terrain1Ref} z={0}/>
+          <Model ref={terrain2Ref} z={-150}/>
+          <fog attach="fog" color="#06032b" near={20} far={170} />
+          {/* <mesh position={[0,20,-70]}>
+            <planeBufferGeometry args={[130,70]}/>
+            <meshStandardMaterial color={'black'}/>
+          </mesh> */}
+          <mesh ref={mesh} position={[0,0,-30]} setRotationFromAxisAngle={[0,0,-Math.PI/2]}>
+            <planeBufferGeometry args={[10,70]} />
+            <meshStandardMaterial color={'red'} side={DoubleSide}/>
+          </mesh>
         </>
       );
 }

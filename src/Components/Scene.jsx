@@ -88,7 +88,7 @@ export default function Scene({ mobil, setLoader }) {
     clonedScene.traverse((object) => traverse(object));
     setLoader(true);
   }, [clonedScene]);
-  console.log(model);
+
 
   const traverse = (object) => {
     if (object.isMesh) {

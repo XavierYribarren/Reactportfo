@@ -78,7 +78,7 @@ export const Face = ({ setLoader }) => {
               </EffectComposer>
               <Environment background resolution={128} blur={0}>
                 <mesh scale={3}>
-                  <sphereGeometry args={[1, 32, 32]} />
+                  {/* <sphereGeometry args={[160, 32, 32]} /> */}
                   <LayerMaterial
                     side={THREE.BackSide}
                     color="#158b98"
