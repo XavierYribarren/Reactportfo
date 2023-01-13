@@ -152,7 +152,7 @@ export default function Scene({ mobil, setLoader }) {
         rotation={mobil ? [-0.05, -0.9, 0] : [0.9, -0.8, 0.051]}
       >
         <spotLight
-          lookAt={[-12, 8, 2]}
+          lookAt={[12, 8, 2]}
           position={[-4, -4, 14]}
           intensity={8}
           color="#ff00ff"

@@ -46,7 +46,7 @@ export const Face = ({ setLoader }) => {
         >
           <Background/>
           <Scene mobil={mobil} setLoader={setLoader} />
-
+<OrbitControls/>
           <PerspectiveCamera
             makeDefault
             fov={50}
@@ -98,15 +98,6 @@ export const Face = ({ setLoader }) => {
                   </LayerMaterial>
                 </mesh>
               </Environment>
-            
-              <Sparkles
-                count={1500}
-                color={"yellow"}
-                scale={20}
-                speed={0.05}
-                position={[0, -10, 0]}
-                noise={1}
-              />
               
             </>
           )}
