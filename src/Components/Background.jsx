@@ -1,11 +1,12 @@
-import React, { forwardRef, useRef, useState } from "react";
+import React, { forwardRef, useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 import { useFrame, useLoader, useThree } from "@react-three/fiber";
 import { TextureLoader } from "three/src/loaders/TextureLoader";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader";
-import { Sparkles, useGLTF } from "@react-three/drei";
-import { Clock, DoubleSide, Fog } from "three";
+import { CubeCamera, Environment, Sparkles, useEnvironment, useGLTF } from "@react-three/drei";
+import { Clock, DoubleSide, Fog, RepeatWrapping } from "three";
+import { Lights } from "./Lights";
 // import Model from "./City";
 
 export default function Background(){
@@ -19,82 +20,145 @@ const sparkles = useRef()
 
 const ref = React.useRef()
 
-const matus =   new THREE.MeshStandardMaterial({color : 'green', roughness: 0, metalness:0})
-const matusTST =   new THREE.MeshStandardMaterial({color : 'red', roughness: 0, metalness:0}) 
+const cityMap = useLoader(TextureLoader,'./Envtst_Pass 2-min (1).png')
+cityMap.flipY = false
+
+const floorMap = useLoader(TextureLoader,'./Floor_Pass.png')
+cityMap.flipY = false
+
+const skyMap = useLoader(TextureLoader,'./SkyRend2.png')
+// skyMap.flipY = false
+
+const matus =   new THREE.MeshBasicMaterial({ map:cityMap})
     const Model = React.forwardRef((props, ref) => {
  
-      const { nodes, materials } = useGLTF("/untitled-v1.glb");
+      const { nodes, materials } = useGLTF("/Citylowpol2-3.glb");
     
       const { z } = props;
       
       
       return (
-        <group {...props} ref={ref} dispose={null} scale={[0.7,0.7,0.7]} position={[0,-7,z]}>
-          <mesh
-            castShadow
-            receiveShadow
-            geometry={nodes.Plane001.geometry}
-            material={props.matos}
-            position={[-4.89, 0.25, 117.9]}
-          />
-          <mesh
-            castShadow
-            receiveShadow
-            geometry={nodes.Plane002.geometry}
-            material={props.matos}
-            position={[24.7, 0.85, -5.86]}
-            rotation={[Math.PI, 0, Math.PI]}
-          />
-        </group>
+        <group {...props} ref={ref} dispose={null}  position={[-15,-12,z]}>
+ <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Cube001.geometry}
+        material={matus}
+        position={[-8.16, 1, 0]}
+        rotation={[0, -1.57, 0]}
+       
+      />
+    </group>
       );
     })
     
-    
-    useGLTF.preload("/untitled-v1.glb");
+    const sparkmat = new THREE.MeshStandardMaterial({color:'red', emissive:'#ffffff', emissiveIntensity : 10, transparent: false, side:DoubleSide})
+
+    useGLTF.preload("/Citylowpol2-3.glb");
+    var fogPlane = new THREE.Vector4();
+    var fogDepth = 200;
+    var fogColor = 0xffffff;
+    function getFoggyMaterial(fogDepth, fogColor, color, side){
+      let material = new THREE.MeshStandardMaterial({color: color, side: side, metalness: 0.5, roughness: 0.75});
+      material.onBeforeCompile = shader => {
+        shader.uniforms.fPlane = {value: fogPlane}
+        shader.uniforms.fDepth = {value: fogDepth};
+        shader.uniforms.fColor = {value: new THREE.Color(fogColor)};
+        shader.fragmentShader = `
+          uniform vec4 fPlane;
+          uniform float fDepth;
+          uniform vec3 fColor;
+        ` + shader.fragmentShader;
+        shader.fragmentShader = shader.fragmentShader.replace(
+          `#include <clipping_planes_fragment>`,
+          `#include <clipping_planes_fragment>
+          float planeFog = 0.0;
+          planeFog = smoothstep(0.0, -fDepth, dot( vViewPosition, fPlane.xyz) - fPlane.w);
+          `
+        );
+        shader.fragmentShader = shader.fragmentShader.replace(
+          `#include <fog_fragment>`,
+          `#include <fog_fragment>
+           gl_FragColor.rgb = mix( gl_FragColor.rgb, fColor, planeFog );
+          `
+        )
+      }
+      return material;
+    }
+
+    function Lafog(){
+      const fogfog = useRef()
+      const fogus = new THREE.Mesh(new THREE.SphereGeometry(100, 36, 18)
+      , getFoggyMaterial(fogDepth, 0xfffffff, THREE.DoubleSide));
+return(
+  <mesh>
+    <primitive object={fogus}/>
+  </mesh>
+)
+    }
 
 
-console.log(terrain1Ref)
+
+useEffect(() => {
+  floorMap.wrapS = RepeatWrapping
+  floorMap.wrapT = RepeatWrapping
+  floorMap.repeat.set(1,1)
+  floorMap.offset.set(0,0)
+},[floorMap])
+
+
+
 // terrain2Ref.current.children[0].material = matusTST
 
       useFrame((state) => {
 
     // //     // Update plane position
-    const deltaTime = (state.clock.elapsedTime - (state.clock.elapsedTime%129.7)) /129.7
-        terrain1Ref.current.position.z = 0+(state.clock.elapsedTime-(deltaTime*129.7) * 1) ; 
-        terrain2Ref.current.position.z = -223+(state.clock.elapsedTime-(deltaTime*129.7) * 1)
-        // sparkles.current.position.z =  Math.sin(4)*(state.clock.elapsedTime * 0.05)
+    const deltaTime = (state.clock.elapsedTime - (state.clock.elapsedTime%57))
+        terrain1Ref.current.position.z = 0+(state.clock.elapsedTime-(deltaTime)) ; 
+        terrain2Ref.current.position.z = -114+(state.clock.elapsedTime-(deltaTime))
+        // sparkles.current.position.z =  (state.clock.elapsedTime )
         // console.log( 'T1 ' + terrain1Ref.current.position.z)
-        console.log( 'T2 ' + terrain2Ref.current.position.z)
+        // console.log( 'T2 ' + terrain2Ref.current.position.z)
         //  console.log(terrain2Ref.current.position)
+        floorMap.offset.set(0,(state.clock.elapsedTime * 0.007) )
       });
     // // //  console.log(terrain2Ref.current.position)
       return (
-        <>
+        <group position={[0,0,20]}>
           <Model ref={terrain1Ref} matos={matus} z={0}/>
-          <Model ref={terrain2Ref} matos={matusTST} z={-200}/>
-          {/* <fog attach="fog" color="#06032b" near={20} far={170} /> */}
-          <mesh position={[0,20,-70]}>
-            <planeBufferGeometry args={[130,70]}/>
-            <meshStandardMaterial color={'darkblue'}/>
+          <Model ref={terrain2Ref} matos={matus} z={-200}/>
+          {/* <fog attach="fog" color="#010101" 
+          near={100} far={0} 
+          /> */}
+        
+          <Lafog/>
+          <mesh position={[-10,20,-60]}>
+            <planeBufferGeometry args={[150,80]}/>
+            <meshLambertMaterial map={skyMap} roughness={0.5}/>
           </mesh>
           <mesh ref={mesh} 
          rotation={[-Math.PI * 0.5,0,0]} 
-           position={[0,-7,0]}>
-            <planeBufferGeometry args={[60,150]} />
-            <meshStandardMaterial color={'red'} side={DoubleSide} />
+           position={[0,-12,0]}>
+            <planeBufferGeometry args={[80,150]} />
+            <meshBasicMaterial  map={floorMap} />
           </mesh>
-          <group ref={sparkles}>
-          <Sparkles
-         
-                count={0}
+          {/* <group ref={sparkles} dispose={null}>
+          <Sparkles 
+                size={4}
+                count={1000}
                 color={"yellow"}
-                scale={20}
-                speed={0.00}
-                position={[0, -10, 0]}
+                scale={[60,0,100]}
+                speed={0}
+                position={[0, -6.9, 0]}
                 noise={1}
                 random={true}
+                opacity={0.8}
+            
+              
               />
-              </group>
-        </>
+              </group> */}
+            
+              {/* <Lights/> */}
+        </group>
       );
 }

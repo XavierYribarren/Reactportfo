@@ -18,8 +18,7 @@ import { DepthOfField, EffectComposer } from "@react-three/postprocessing";
 export default function Scene({ mobil, setLoader }) {
   const headFull = React.useRef();
 
-  // const faceMap = useLoader(TextureLoader, '/headus/Colour_8k-min-min.jpg');
-  // faceMap.flipY = false;
+
   const faceMap = useLoader(TextureLoader, "/headus/Faceandshad-min.png");
   faceMap.flipY = false;
   const faceNorm = useLoader(
@@ -66,15 +65,12 @@ export default function Scene({ mobil, setLoader }) {
 
   const facialHairsMat = new THREE.MeshBasicMaterial({ color: "#111111" });
 
-  const backRoughness = useLoader(TextureLoader, "/terrain-roughness.jpg");
-  innerEyeNorm.flipY = false;
 
   const model = useLoader(
     GLTFLoader,
     mobil
       ? "/HeadDefDISPMOB.glb"
-      : // '/HeadDefDISPPAChov2-2.glb',
-        "/optgueul.glb",
+      : "/optgueul.glb",
     (loader) => {
 
       const dracoLoader = new DRACOLoader();
@@ -130,21 +126,7 @@ export default function Scene({ mobil, setLoader }) {
 
   return (
     <>
-      {mobil
-        ? // <mesh rotateOnAxis={[1, 1, 0]} position={[2, 0, -1]} dispose={null}>
-          //   <planeGeometry args={[40, 40, 60, 60]} />
-          //   <MeshWobbleMaterial
-          //     color={'#c5b2f0'}
-          //     //       speed={'Speed', 1, { range: true, max: 10, step: 0.1 }}
-          //     factor={0.2}
-          //     resolution={1024}
-          //     metalness={1}
-          //     roughness={0.7}
-          //     roughnessMap={backRoughness}
-          //   />
-          // </mesh>
-          ""
-        : ""}
+      
       <group
         dispose={null}
         ref={headFull}
@@ -166,4 +148,4 @@ export default function Scene({ mobil, setLoader }) {
     </>
   );
 }
-// useGLTF.preload("/headDefDISP.glb");
+

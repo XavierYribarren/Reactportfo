@@ -13,8 +13,8 @@ import {
   Environment,
   OrbitControls,
   PerspectiveCamera,
-
   Sparkles,
+  useEnvironment,
 } from "@react-three/drei";
 import { LayerMaterial, Depth, Noise } from "lamina";
 import { ACESFilmicToneMapping, sRGBEncoding } from "three";
@@ -25,7 +25,6 @@ import Background from "./Background";
 export const Face = ({ setLoader }) => {
   const [mobil, setMobil] = useState(false);
 
-  
   useEffect(() => {
     if (window.innerWidth < 700) {
       setMobil(true);
@@ -39,14 +38,15 @@ export const Face = ({ setLoader }) => {
           gl={{
             outputEncoding: sRGBEncoding,
             physicallyCorrectLights: true,
-            // antialias: true,
+            antialias: true,
             toneMapping: ACESFilmicToneMapping,
             alpha: true,
           }}
         >
+     
           <Background/>
           <Scene mobil={mobil} setLoader={setLoader} />
-<OrbitControls/>
+{/* <OrbitControls/> */}
           <PerspectiveCamera
             makeDefault
             fov={50}
@@ -57,6 +57,7 @@ export const Face = ({ setLoader }) => {
            
           {mobil ? (
             ""
+
           ) : (
             <>
               {" "}
@@ -78,7 +79,7 @@ export const Face = ({ setLoader }) => {
               </EffectComposer>
               <Environment background resolution={128} blur={0}>
                 <mesh scale={3}>
-                  {/* <sphereGeometry args={[160, 32, 32]} /> */}
+                  <sphereGeometry args={[160, 32, 32]} />
                   <LayerMaterial
                     side={THREE.BackSide}
                     color="#158b98"
@@ -91,13 +92,14 @@ export const Face = ({ setLoader }) => {
                       alpha={0.81}
                       mode="darken"
                       near={-10}
-                      far={20}
+                      far={120}
                       origin={[100, 100, 100]}
                     />
       
                   </LayerMaterial>
                 </mesh>
               </Environment>
+
               
             </>
           )}
