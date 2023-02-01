@@ -5,6 +5,9 @@ import colorSharp2 from '../assets/img/color-sharp2.png'
 import projImg1 from "../assets/img/ProjImgs/Narif.png"
 import projImg2 from "../assets/img/ProjImgs/Nope.png"
 import projImg3 from "../assets/img/ProjImgs/Emerga.png"
+import artImg1 from "../assets/ArtImgs/pringle3x1.png"
+import artImg2 from "../assets/ArtImgs/SkullRoom.png"
+import artImg3 from "../assets/ArtImgs/tub-min.png"
 
 export const Projects = () => {
   const devProj = [
@@ -48,35 +51,24 @@ export const Projects = () => {
 
   const artProj = [
     {
-      title: "Business Startup",
-      description: "Design & Development",
-      imgUrl: '',
+      // title: "Pringles",
+      // description: "Full Blender project",
+      imgUrl: artImg1,
+      softwares : "Blender"
     },
     {
-      title: "Business Startup",
-      description: "Design & Development",
-      imgUrl: '',
+      // title: "Business Startup",
+      // description: "Design & Development",
+      imgUrl: artImg2,
+      softwares : "Blender"
     },
     {
-      title: "Business Startup",
-      description: "Design & Development",
-      imgUrl: '',
+      // title: "Business Startup",
+      // description: "Design & Development",
+      imgUrl: artImg3,
+      softwares : "Blender"
     },
-    {
-      title: "Business Startup",
-      description: "Design & Development",
-      imgUrl: '',
-    },
-    {
-      title: "Business Startup",
-      description: "Design & Development",
-      imgUrl: '',
-    },
-    {
-      title: "Business Startup",
-      description: "Design & Development",
-      imgUrl: '',
-    },
+
   ];
 
 
