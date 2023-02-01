@@ -61,7 +61,7 @@ const tick = () => {
                     <h1>{`Hi I'm Xavier Yribarren `}<br/><span className="wrap">{text}</span></h1></div>
                   <div className="pwrap">  <p>I'm 27 & I've learned development in the Wild Code School in Toulouse.</p>
                     <p>Although I've learnt fullstack development, I tend to prefer the Frontend & Creative development!</p></div></div>
-                    <button onClick={()=> console.log('connect')}>Let's connect <ArrowRightCircle size={25}/></button>
+                    {/* <button onClick={()=> console.log('connect')}>Let's connect <ArrowRightCircle size={25}/></button> */}
                 </Col>
                 <Col >
                     {/* <img src={headerImg} alt='header img' /> */}

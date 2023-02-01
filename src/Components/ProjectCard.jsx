@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { Col } from "react-bootstrap"
-import { Fullscreen } from "react-bootstrap-icons"
+
 
 export const DevCard = ({title, titleprecision, description, languages, imgUrl}) => {
 return(
@@ -25,20 +25,25 @@ return(
 
 export const ArtCard = ({softwares, imgUrl}) => {
 
-    // const [imageSize, setImageSize] = useState(false)
+    const [imageSize, setImageSize] = useState(false)
+
+setImageSize? console.log(imageSize) : ''
 
     return(
     
-    <Col sm={6} md={4}>
-    <div className="proj-imgbx">
+
+    <div  onClick={() => setImageSize(!imageSize)} 
+    className="artProjs">
         <img src={imgUrl} 
-        // onClick={setImageSize(!imageSize)} 
+     className={imageSize ?  "full" :  "mini"}
         />
-            <span className="softwares">Softwares : {softwares}</span>
+             <div className="softwares">Softwares :
+             <span>{softwares}
+             </span>
+             </div>
  
     </div>
-    
-    </Col>
+
     
     
     )

@@ -399,6 +399,7 @@ z-index: -4;
   padding: 80px 0;
   position: relative;
   background-color: black;
+  z-index: 10;
 }
 .project h2 {
 	font-size: 45px;
@@ -538,6 +539,40 @@ z-index: -4;
   /* border: red solid 1px; */
  /* margin-top: 25px; */
 }
+
+
+
+.artProjs{
+  /* position: relative; */
+  border-radius: 30px;
+  overflow: hidden; 
+  max-width: 75vw;
+  margin-bottom: 24px;
+  flex-direction: row;
+  /* border: red solid 2px; */
+  padding: 0 !important;
+  /* border: rgba(32, 32, 32, 0.646) 0.1px solid; */
+} 
+
+
+
+.artProjs img{
+  overflow: hidden;
+  align-items: center;
+  max-width: 95vw;
+  /* border-radius: 5px; */
+  /* width: fit-content; */
+  /* padding: 0 10px 0 10px;*/
+
+} 
+
+.artProjs .softwares{
+color: whitesmoke;
+
+}
+
+
+
 
 
 .contact {

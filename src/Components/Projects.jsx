@@ -8,6 +8,7 @@ import projImg3 from "../assets/img/ProjImgs/Emerga.png"
 import artImg1 from "../assets/ArtImgs/pringle3x1.png"
 import artImg2 from "../assets/ArtImgs/SkullRoom.png"
 import artImg3 from "../assets/ArtImgs/tub-min.png"
+import artVid1 from "../assets/ArtVids/SkullONLY.mp4"
 
 export const Projects = () => {
   const devProj = [
@@ -68,7 +69,12 @@ export const Projects = () => {
       imgUrl: artImg3,
       softwares : "Blender"
     },
-
+    // {
+    //   // title: "Business Startup",
+    //   // description: "Design & Development",
+    //   imgUrl: artVid1,
+    //   softwares : "Blender"
+    // },
   ];
 
 
