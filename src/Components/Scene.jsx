@@ -141,7 +141,7 @@ export default function Scene({ mobil, setLoader }) {
           penumbra={0.02}
           castShadow
         />
-        <directionalLight intensity={0.51} position={[-2, 6, 10]} />
+        <directionalLight intensity={0.81} position={[-2, 6, 10]} />
         
         <primitive object={clonedScene} position={[0, 0, 0]} />
       </group>

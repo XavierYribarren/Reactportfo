@@ -29,7 +29,7 @@ cityMap.flipY = false
 const skyMap = useLoader(TextureLoader,'./SkyRend2.png')
 // skyMap.flipY = false
 
-const matus =   new THREE.MeshBasicMaterial({ map:cityMap})
+const matus =   new THREE.MeshBasicMaterial({ map:cityMap, alphaTest: 0})
     const Model = React.forwardRef((props, ref) => {
  
       const { nodes, materials } = useGLTF("/Citylowpol2-3.glb");
@@ -55,47 +55,9 @@ const matus =   new THREE.MeshBasicMaterial({ map:cityMap})
     const sparkmat = new THREE.MeshStandardMaterial({color:'red', emissive:'#ffffff', emissiveIntensity : 10, transparent: false, side:DoubleSide})
 
     useGLTF.preload("/Citylowpol2-3.glb");
-    var fogPlane = new THREE.Vector4();
-    var fogDepth = 200;
-    var fogColor = 0xffffff;
-    function getFoggyMaterial(fogDepth, fogColor, color, side){
-      let material = new THREE.MeshStandardMaterial({color: color, side: side, metalness: 0.5, roughness: 0.75});
-      material.onBeforeCompile = shader => {
-        shader.uniforms.fPlane = {value: fogPlane}
-        shader.uniforms.fDepth = {value: fogDepth};
-        shader.uniforms.fColor = {value: new THREE.Color(fogColor)};
-        shader.fragmentShader = `
-          uniform vec4 fPlane;
-          uniform float fDepth;
-          uniform vec3 fColor;
-        ` + shader.fragmentShader;
-        shader.fragmentShader = shader.fragmentShader.replace(
-          `#include <clipping_planes_fragment>`,
-          `#include <clipping_planes_fragment>
-          float planeFog = 0.0;
-          planeFog = smoothstep(0.0, -fDepth, dot( vViewPosition, fPlane.xyz) - fPlane.w);
-          `
-        );
-        shader.fragmentShader = shader.fragmentShader.replace(
-          `#include <fog_fragment>`,
-          `#include <fog_fragment>
-           gl_FragColor.rgb = mix( gl_FragColor.rgb, fColor, planeFog );
-          `
-        )
-      }
-      return material;
-    }
+    
 
-    function Lafog(){
-      const fogfog = useRef()
-      const fogus = new THREE.Mesh(new THREE.SphereGeometry(100, 36, 18)
-      , getFoggyMaterial(fogDepth, 0xfffffff, THREE.DoubleSide));
-return(
-  <mesh>
-    <primitive object={fogus}/>
-  </mesh>
-)
-    }
+   
 
 
 
@@ -131,7 +93,6 @@ useEffect(() => {
           near={100} far={0} 
           /> */}
         
-          <Lafog/>
           <mesh position={[-10,20,-60]}>
             <planeBufferGeometry args={[150,80]}/>
             <meshLambertMaterial map={skyMap} roughness={0.5}/>

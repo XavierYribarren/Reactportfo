@@ -79,16 +79,29 @@ nav.navbar.scrolled {
 }
 nav.navbar a.navbar-brand {
     width: 9%;
-    height: 9% !important;
+    /* height: 9% !important; */
 
 }
 
-nav.navbar .logoPiti{
+nav > .container{
+  height: inherit;
+     /* margin-left: 0 !important; */
+ 
+}
+nav > .container > a {
+  height: inherit;
+}
+nav > .container > a >img{
   scale: 30%;
-  position: inherit;
+  margin-left: -6rem;
+  margin-top: -4rem;
+}
+/* nav.navbar .logoPiti{
+  scale: 30%;
+  /* position:relative; 
    padding: 0;
-   margin-left:-7rem;
- }
+
+ } */
 nav.navbar .navbar-nav .nav-link.navbar-link {
   font-weight: 400;
   color: #fff !important;
@@ -272,7 +285,10 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   font-size: 20px;
   margin-bottom: 16px;
   display: inline-block;
-  z-index: 100;
+  z-index: 100; 
+  border-radius: 5%;
+  box-shadow: #fe18fe 0 0 20px 2px;
+  animation: flicker 0.8s infinite alternate;
 }
 .banner h1 {
   z-index: 100;
@@ -290,15 +306,16 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   
   z-index: 100;
   height: 10rem;
+
   }
   .banner .pwrap {
     z-index: 100;
-    font-size: 1vw;
+    /* font-size: 1vw; */
 
   }
 .banner p {
   color: #B8B8B8;
-  font-size: 1.5vw;
+  /* font-size: 1.5vw; */
   letter-spacing: 0.8px;
   line-height: 1.5em;
   width: 96%;
@@ -311,6 +328,15 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   letter-spacing: 0.8px;
   display: flex;
   align-items: center;
+  width: 20vw;
+  height: 3rem;
+  background-color: rgba(0, 0, 0, 0.437);
+  /* justify-content: center; */
+  margin-left: 2rem;
+  padding-left: 2rem;
+  border-radius: 5px;
+
+
 }
 .banner button svg {
   font-size: 25px;
@@ -544,14 +570,14 @@ z-index: -4;
 
 .artProjs{
   /* position: relative; */
-  border-radius: 30px;
+  /* border-radius: 30px;
   overflow: hidden; 
-  max-width: 75vw;
-  margin-bottom: 24px;
+  max-width: 75vw; */
+  margin-bottom: 32px;
   flex-direction: row;
   /* border: red solid 2px; */
   padding: 0 !important;
-  /* border: rgba(32, 32, 32, 0.646) 0.1px solid; */
+
 } 
 
 
@@ -559,10 +585,12 @@ z-index: -4;
 .artProjs img{
   overflow: hidden;
   align-items: center;
-  max-width: 95vw;
-  /* border-radius: 5px; */
+  border-radius: 10px;
   /* width: fit-content; */
   /* padding: 0 10px 0 10px;*/
+  /* height: 88vh; */
+  width: 85vw;
+
 
 } 
 
@@ -695,19 +723,33 @@ color: whitesmoke;
   margin-top: 20px;
 }
 
+
 .footer .cont {
   display: flex;
   justify-content: space-between;
+  /* flex-wrap: nowrap; */
 }
+
 
 .footer .col-sm-6{
   margin-left: -10rem;
 }
 
 .footer .social-icon {
-  margin-top: 0.5rem;
-}
 
+  margin-top: 1.2rem;
+
+}
+.footer .social-icon a{
+width: 50px;
+height: 50px;
+}
+.footer .social-icon img{
+margin-top: -5px;
+  width: 45%;
+
+
+}
 
 .video-responsive {
   overflow: hidden;
@@ -759,6 +801,64 @@ overflow: hidden;
 @media only screen and (max-device-width : 1024px) {
   /* Styles */
 .App{
-  background: greenyellow;
+  /* background: greenyellow; */
+  overflow: hidden;
+  /* max-width: 100vw; */
 }
-  }
+ 
+nav > .container > a >img {
+  margin-top: -5rem;
+}
+
+.react-multi-carousel-list{
+  width: 70vw;
+}
+
+.react-multiple-carousel__arrow--left{
+
+  margin-left: -10px;
+}
+
+.react-multiple-carousel__arrow--right{
+
+  margin-right: -10px;
+}
+
+#projects-tabs-tabpane-first > div > div > div > img{
+  max-width: 60vw;
+}
+
+.footer .col-sm-6{
+  /* display: flex; */
+  /* border: red solid 2px; */
+  max-width: 50%;
+  /* justify-content: space-around; */
+  /* margin: auto; */
+margin: 0;
+/* align-content: center; */
+  
+}
+
+.footer .logoz.col-sm-6 img{
+  display: flex;
+width: 50%;
+justify-content: flex-start;
+}
+
+.footer .col-sm-6 .social-icon{
+  display: flex;
+ justify-content: flex-end ; 
+}
+
+
+
+
+
+
+
+
+
+
+
+
+}

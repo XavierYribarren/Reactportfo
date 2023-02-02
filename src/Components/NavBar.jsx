@@ -34,7 +34,7 @@ const onUpdateActiveLink = (value) => {
     return(
         <Navbar expand="lg" className={scrolled ? "scrolled" : ""}>
         <Container>
-          <Navbar.Brand href="#home"><img src={logo} className={'logoPiti'} alt="logo"/>
+          <Navbar.Brand  href="#home"><img src={logo}  alt="logo"/>
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav">
             <span className='nav-bar-toggler-icon'></span>
@@ -47,7 +47,7 @@ const onUpdateActiveLink = (value) => {
             </Nav>
             <span className='navbar-text'>
                 <div className='social-icon'>
-                    <a href="#"><img src={navIcon1} alt=""/></a>
+                    <a href="https://www.linkedin.com/in/xavier-yribarren-9a8777173/"><img src={navIcon1} alt=""/></a>
                     {/* <a href="#"><img src={navIcon2} alt=""/></a>
                     <a href="#"><img src={navIcon3} alt=""/></a> */}
                 </div>

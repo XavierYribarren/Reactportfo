@@ -11,6 +11,14 @@ import Face from './Components/Face';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
+  // const handleWindowMouseMove = event => {
+  //  console.log(
+  //    event.clientX,
+  //   event.clientY,
+  //   )};
+
+  // window.addEventListener('mousemove', handleWindowMouseMove);
+
 
   return (
     <div className='main'>

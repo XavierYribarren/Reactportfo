@@ -12,7 +12,7 @@ export const Footer = () => {
     <footer className='footer'>
       <Container>
         <Row className='cont'>
-          <Col sm={6}>
+          <Col sm={6} className='logoz'>
             <img
               src={logo}
               alt='logo'
@@ -21,14 +21,8 @@ export const Footer = () => {
           </Col>
           <Col sm={6} className='text-center text-sm-end'>
             <div className='social-icon'>
-              <a href=''>
+              <a href='https://www.linkedin.com/in/xavier-yribarren-9a8777173/'>
                 <img src={navIcon1} />
-              </a>
-              <a href=''>
-                <img src={navIcon2} />
-              </a>
-              <a href=''>
-                <img src={navIcon3} />
               </a>
             </div>
           </Col>
