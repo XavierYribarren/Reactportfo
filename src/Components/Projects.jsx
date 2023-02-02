@@ -8,7 +8,7 @@ import projImg3 from "../assets/img/ProjImgs/Emerga.png"
 import artImg1 from "../assets/ArtImgs/pringle3x1.png"
 import artImg2 from "../assets/ArtImgs/SkullRoom.png"
 import artImg3 from "../assets/ArtImgs/tub-min.png"
-import artVid1 from "../assets/ArtVids/SkullONLY.mp4"
+import fourByFour from "../assets/img/ProjImgs/FourbyFour.gif"
 
 export const Projects = () => {
   const devProj = [
@@ -33,11 +33,12 @@ export const Projects = () => {
       languages : "HTML, CSS, JavaScript, React, Express, MySQL",
       imgUrl: projImg3,
     },
-    // {
-    //   title: "Business Startup",
-    //   description: "Design & Development",
-    //   imgUrl: projImg1,
-    // },
+    {
+      title: "Four by Four(WIP)",
+      description: "Personnal project of making a 'Connect Four' on which you play on all 3 axes. The red arrows appearing are showing the 76 axes of calculations!",
+      languages : "ThreeJS, Cannon-JS, React",
+      imgUrl: fourByFour,
+    },
     // {
     //   title: "Business Startup",
     //   description: "Design & Development",

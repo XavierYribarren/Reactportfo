@@ -59,9 +59,9 @@ const tick = () => {
                      <div className="intro">
                     <div className="h1wrap">
                     <h1>{`Hi I'm Xavier Yribarren `}<br/><span className="wrap">{text}</span></h1></div>
-                  <div className="pwrap">  <p>I'm 27 & I've learned development in the Wild Code School in Toulouse.</p>
-                    <p>Although I've learnt fullstack development, I tend to prefer the Frontend & Creative development!</p></div></div>
-                    <a href="https://www.linkedin.com/in/xavier-yribarren-9a8777173/"><button>Let's connect <ArrowRightCircle size={25}/></button></a>
+                  <div className="pwrap">  <p>I'm a 27 Junior Developer, former student of the Wild Code School in Toulouse.</p>
+                    <p>Although I've learned fullstack development, I tend to prefer the Frontend & Creative development!</p></div></div>
+                    <a href="https://www.linkedin.com/in/xavier-yribarren-9a8777173/"><button className="text-decoration-none">Let's connect <ArrowRightCircle size={25}/></button></a>
                 </Col>
                 <Col >
                     {/* <img src={headerImg} alt='header img' /> */}

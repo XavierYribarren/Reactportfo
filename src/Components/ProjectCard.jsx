@@ -5,7 +5,7 @@ import { Col } from "react-bootstrap"
 export const DevCard = ({title, titleprecision, description, languages, imgUrl}) => {
 return(
 
-<Col sm={6} md={4}>
+<Col className={title} sm={6} md={4}>
 <div className="proj-imgbx">
     <img src={imgUrl}/>
     <div className="proj-txtx">

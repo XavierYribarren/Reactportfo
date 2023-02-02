@@ -87,6 +87,7 @@ export default function Scene({ mobil, setLoader }) {
 
 
   const traverse = (object) => {
+    console.log(object)
     if (object.isMesh) {
       if (object.name === "Sphere1002" || object.name === "Sphere1003") {
         object.material = eyeMaterial;
@@ -103,6 +104,12 @@ export default function Scene({ mobil, setLoader }) {
           metalness: 1,
           roughness: 0,
         });
+      }
+      if (object.name === "Broaux" || 
+      object.name ==="Mesh001" || 
+      object.name ==="Mesh003" || 
+      object.name ==="Mesh007") {
+        object.material = facialHairsMat;
       }
     }
 

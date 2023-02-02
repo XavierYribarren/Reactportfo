@@ -19,6 +19,9 @@ export const Footer = () => {
               onClick={() => setShowWebsiteForm(!showWebsiteForm)}
             />
           </Col>
+          <Col md={10}>
+            <p> Made by Xavier Yribarren :)</p>
+          </Col>
           <Col sm={6} className='text-center text-sm-end'>
             <div className='social-icon'>
               <a href='https://www.linkedin.com/in/xavier-yribarren-9a8777173/'>

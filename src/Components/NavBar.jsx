@@ -37,7 +37,7 @@ const onUpdateActiveLink = (value) => {
           <Navbar.Brand  href="#home"><img src={logo}  alt="logo"/>
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav">
-            <span className='nav-bar-toggler-icon'></span>
+            <span className='navbar-toggler-icon'></span>
           </Navbar.Toggle>
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
