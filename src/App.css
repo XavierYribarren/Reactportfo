@@ -68,6 +68,7 @@ nav.navbar {
   padding: 18px 0;
   position: fixed;
   width: 100%;
+  height: 6rem;
   top: 0;
   z-index: 9999;
   transition:  0.32s ease-in-out;
@@ -78,7 +79,29 @@ nav.navbar.scrolled {
 }
 nav.navbar a.navbar-brand {
     width: 9%;
+    /* height: 9% !important; */
+
 }
+
+nav > .container{
+  height: inherit;
+     /* margin-left: 0 !important; */
+ 
+}
+nav > .container > a {
+  height: inherit;
+}
+nav > .container > a >img{
+  scale: 30%;
+  margin-left: -6rem;
+  margin-top: -4rem;
+}
+/* nav.navbar .logoPiti{
+  scale: 30%;
+  /* position:relative; 
+   padding: 0;
+
+ } */
 nav.navbar .navbar-nav .nav-link.navbar-link {
   font-weight: 400;
   color: #fff !important;
@@ -86,6 +109,7 @@ nav.navbar .navbar-nav .nav-link.navbar-link {
   padding: 0 25px;
   font-size: 18px;
   opacity: 0.75;
+  /* border: red solid 1px; */
 }
 nav.navbar .navbar-nav a.nav-link.navbar-link:hover,
 nav.navbar .navbar-nav a.nav-link.navbar-link.active {
@@ -179,6 +203,7 @@ nav.navbar .navbar-toggler-icon {
   border-bottom: 2px solid #fff;
   transition: all 300ms linear;
   top: -2px;
+  margin-top: -2rem;
 }
 nav.navbar .navbar-toggler-icon:focus {
 	border-bottom: 2px solid #fff;
@@ -217,10 +242,11 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  /* border: red solid 2px */
+  /* border: red solid 2px; */
   /* background-color: rgba(0,0,0,0.4); */
-  background: linear-gradient(90deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.5) 20%, rgba(0,0,0,0.5) 80%, rgba(0,0,0,0) 100%);
+  background: linear-gradient(90deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.7) 20%, rgba(0,0,0,0.7) 80%, rgba(0,0,0,0) 100%);
   z-index: 200 !important;
+  /* box-shadow: 0px 0px 30px 30px rgb(255, 255, 255); */
 }
 .banner {
   z-index: 100;
@@ -255,12 +281,15 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   font-weight: 700;
   letter-spacing: 0.8px;
   padding: 8px 10px;
-  background: linear-gradient(90.21deg, rgba(170, 54, 124, 0.5) -5.91%, rgba(74, 47, 189, 0.5) 111.58%);
+  /* background: linear-gradient(90.21deg, rgba(170, 54, 124, 0.5) -5.91%, rgba(74, 47, 189, 0.5) 111.58%); */
   border: 1px solid rgba(255, 255, 255, 0.5);
   font-size: 20px;
   margin-bottom: 16px;
   display: inline-block;
-  z-index: 100;
+  z-index: 100; 
+  border-radius: 5%;
+  box-shadow: #fe18fe 0 0 20px 2px;
+  animation: flicker 0.8s infinite alternate;
 }
 .banner h1 {
   z-index: 100;
@@ -278,15 +307,16 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   
   z-index: 100;
   height: 10rem;
+
   }
   .banner .pwrap {
     z-index: 100;
-    font-size: 1vw;
+    /* font-size: 1vw; */
 
   }
 .banner p {
   color: #B8B8B8;
-  font-size: 1.5vw;
+  /* font-size: 1.5vw; */
   letter-spacing: 0.8px;
   line-height: 1.5em;
   width: 96%;
@@ -299,6 +329,17 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   letter-spacing: 0.8px;
   display: flex;
   align-items: center;
+  width: 20vw;
+  height: 3rem;
+  background-color: rgba(0, 0, 0, 0.437);
+  margin-left: 3rem;
+  padding-left: 2rem;
+  border-radius: 5px;
+  background-color: #b8b8b885;
+  border: whitesmoke solid 2px;
+}
+.banner a  {
+  text-decoration: none;
 }
 .banner button svg {
   font-size: 25px;
@@ -387,6 +428,7 @@ z-index: -4;
   padding: 80px 0;
   position: relative;
   background-color: black;
+  z-index: 10;
 }
 .project h2 {
 	font-size: 45px;
@@ -431,7 +473,7 @@ z-index: -4;
     position: absolute;
     width: 0;
     height: 100%;
-    background: linear-gradient(90.21deg, #AA367C -5.91%, #4A2FBD 111.58%);
+    background: linear-gradient(90.21deg, #AA367C -5.91%, #00e5e9 111.58%);
     top: 0;
     left: 0;
     z-index: -1;
@@ -458,13 +500,22 @@ z-index: -4;
 .proj-imgbx {
   position: relative;
   border-radius: 30px;
+  max-height: 80vh;
   overflow: hidden;
   margin-bottom: 24px;
 }
+.proj-imgbx img{
+  overflow: hidden;
+  max-width: 28vw;
+  align-items: center;
+  width: auto;
+  /* padding: 0 10px 0 10px; */
+
+}
 .proj-imgbx::before {
   content: "";
-  background: linear-gradient(90.21deg, #AA367C -5.91%, #4A2FBD 111.58%);
-  opacity: 0.85;
+  background: linear-gradient(90.21deg, #1d1d1df6 -5.91%, #222222e0 111.58%);
+  opacity: 0.95;
   position: absolute;
   width: 100%;
   height: 0;
@@ -484,6 +535,7 @@ z-index: -4;
   transition: 0.5s ease-in-out;
   opacity: 0;
   width: 100%;
+  padding: 4px;
 }
 .proj-imgbx:hover .proj-txtx {
   top: 50%;
@@ -500,6 +552,7 @@ z-index: -4;
   font-weight: 400;
   font-size: 15px;
   letter-spacing: 0.8px;
+  padding: 5%;
 }
 .background-image-right {
   top: 20%;
@@ -517,8 +570,44 @@ z-index: -4;
 }
 
 
+
+.artProjs{
+  /* position: relative; */
+  /* border-radius: 30px;
+  overflow: hidden; 
+  max-width: 75vw; */
+  margin-bottom: 32px;
+  flex-direction: row;
+  /* border: red solid 2px; */
+  padding: 0 !important;
+
+} 
+
+
+
+.artProjs img{
+  overflow: hidden;
+  align-items: center;
+  border-radius: 10px;
+  /* width: fit-content; */
+  /* padding: 0 10px 0 10px;*/
+  /* height: 88vh; */
+  width: 85vw;
+
+
+} 
+
+.artProjs .softwares{
+color: whitesmoke;
+
+}
+
+
+
+
+
 .contact {
-  background: linear-gradient(90.21deg, #AA367C -5.91%, #4A2FBD 111.58%);
+  background: linear-gradient(90.21deg, #070707 -5.91%, #029dea 111.58%);
   padding: 60px 0 200px 0;
 }
 .contact .mail-logo {
@@ -617,14 +706,17 @@ z-index: -4;
 }
 
 .footer {
-  padding: 0 0 50px 0;
-  background-image: url('./assets/img/footer-bg.png');
+
   background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;
+
+
 }
 .footer img {
-  width: 26%;
+  padding-top: 5px;
+width: 30%;
+height: 30%;
 }
 .footer p {
   font-weight: 400;
@@ -632,12 +724,46 @@ z-index: -4;
   color: #B8B8B8;
   letter-spacing: 0.5px;
   margin-top: 20px;
+
+}
+
+/* #root > div > div.App > div.else > footer > div > div.cont.row > div.logoz.col-sm-6{
+  display: flex;
+
+} */
+.footer .container{
+}
+
+
+
+#root > div > div.App > div.else > footer > div > div.cont.row{
+  display: flex;
+  /* flex-flow: row wrap; */
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+    border: red solid 3px;
+
 }
 
 
 
 
+.footer .social-icon {
 
+  margin-top: 2rem;
+
+}
+.footer .social-icon a{
+width: 50px;
+height: 50px;
+}
+.footer .social-icon img{
+margin-top: -5px;
+  width: 45%;
+
+
+}
 
 .video-responsive {
   overflow: hidden;
@@ -683,4 +809,110 @@ z-index: -4;
 .App-hidden .else{
   /* display: none; */
 overflow: hidden;
+}
+
+
+
+
+#projects-tabs-tabpane-first > div > div.Four.by.Four\(WIP\).col-md-4.col-sm-6 {
+  width: 50vw;
+  margin: auto;
+}
+
+#projects-tabs-tabpane-first > div > div.Four.by.Four\(WIP\).col-md-4.col-sm-6 > .proj-imgbx {
+
+}
+
+
+#projects-tabs-tabpane-first > div > div.Four.by.Four\(WIP\).col-md-4.col-sm-6 > .proj-imgbx > img{
+  max-width: none;
+  width: 50vw; 
+}
+
+
+
+
+
+
+
+
+@media only screen and (max-device-width : 790px) {
+  /* Styles */
+.App{
+  /* background: greenyellow; */
+  overflow: hidden;
+  /* max-width: 100vw; */
+}
+ 
+nav > .container > a >img {
+  margin-top: -4.5rem;
+  margin-left: -5.5rem;
+}
+
+.navbar-text .social-icon{
+  display: none;
+}
+
+#home > div > div > div.col-xl-7.col-md-6.col-12 > a > button {
+  background-color: #b8b8b885;
+  border: whitesmoke solid 2px;
+  width: 50vw;
+  height: 4rem;
+  margin: 4rem auto 0;
+}
+
+
+
+.react-multi-carousel-list{
+  width: 70vw;
+}
+
+.react-multiple-carousel__arrow--left{
+
+  margin-left: -10px;
+}
+
+.react-multiple-carousel__arrow--right{
+
+  margin-right: -10px;
+}
+
+#projects-tabs-tabpane-first > div > div > div > img{
+  max-width: 60vw;
+}
+
+.footer .col-sm-6{
+  /* display: flex; */
+  /* border: red solid 2px; */
+  max-width: 50%;
+  /* justify-content: space-around; */
+  /* margin: auto; */
+margin: 0;
+/* align-content: center; */
+  
+}
+
+.footer .logoz.col-sm-6 img{
+  display: flex;
+width: 50%;
+justify-content: flex-start;
+}
+
+.footer .col-sm-6 .social-icon{
+  display: flex;
+ justify-content: flex-end ; 
+ margin-top:1rem;
+}
+
+
+
+
+
+
+
+
+
+
+
+
 }

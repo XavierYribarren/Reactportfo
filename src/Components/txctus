@@ -1,0 +1,7 @@
+useEffect(() => {
+    floorMap.wrapS = RepeatWrapping
+    floorMap.wrapT = RepeatWrapping
+    floorMap.repeat.set(30,30)
+    floorMap.offset.set(0,0)
+},[floorMap])
+

@@ -2,9 +2,13 @@ import { Container, Row, Col, Tab, Nav } from "react-bootstrap"
 import { DevCard, ArtCard } from "./ProjectCard";
 import { YoutubeEmbed } from "./YoutubeEmbed";
 import colorSharp2 from '../assets/img/color-sharp2.png'
-import projImg1 from "../assets/img/project-img1.png"
-import projImg2 from "../assets/img/project-img2.png"
-import projImg3 from "../assets/img/project-img3.png"
+import projImg1 from "../assets/img/ProjImgs/Narif.png"
+import projImg2 from "../assets/img/ProjImgs/Nope.png"
+import projImg3 from "../assets/img/ProjImgs/Emerga.png"
+import artImg1 from "../assets/ArtImgs/pringle3x1.png"
+import artImg2 from "../assets/ArtImgs/SkullRoom.png"
+import artImg3 from "../assets/ArtImgs/tub-min.png"
+import fourByFour from "../assets/img/ProjImgs/FourbyFour.gif"
 
 export const Projects = () => {
   const devProj = [
@@ -30,53 +34,48 @@ export const Projects = () => {
       imgUrl: projImg3,
     },
     {
-      title: "Business Startup",
-      description: "Design & Development",
-      imgUrl: projImg1,
+      title: "Four by Four(WIP)",
+      description: "Personnal project of making a 'Connect Four' on which you play on all 3 axes. The red arrows appearing are showing the 76 axes of calculations!",
+      languages : "ThreeJS, Cannon-JS, React",
+      imgUrl: fourByFour,
     },
-    {
-      title: "Business Startup",
-      description: "Design & Development",
-      imgUrl: projImg2,
-    },
-    {
-      title: "Business Startup",
-      description: "Design & Development",
-      imgUrl: projImg3,
-    },
+    // {
+    //   title: "Business Startup",
+    //   description: "Design & Development",
+    //   imgUrl: projImg2,
+    // },
+    // {
+    //   title: "Business Startup",
+    //   description: "Design & Development",
+    //   imgUrl: projImg3,
+    // },
   ];
 
   const artProj = [
     {
-      title: "Business Startup",
-      description: "Design & Development",
-      imgUrl: projImg1,
+      // title: "Pringles",
+      // description: "Full Blender project",
+      imgUrl: artImg1,
+      softwares : "Blender"
     },
     {
-      title: "Business Startup",
-      description: "Design & Development",
-      imgUrl: projImg2,
+      // title: "Business Startup",
+      // description: "Design & Development",
+      imgUrl: artImg2,
+      softwares : "Blender"
     },
     {
-      title: "Business Startup",
-      description: "Design & Development",
-      imgUrl: projImg3,
+      // title: "Business Startup",
+      // description: "Design & Development",
+      imgUrl: artImg3,
+      softwares : "Blender"
     },
-    {
-      title: "Business Startup",
-      description: "Design & Development",
-      imgUrl: projImg1,
-    },
-    {
-      title: "Business Startup",
-      description: "Design & Development",
-      imgUrl: projImg2,
-    },
-    {
-      title: "Business Startup",
-      description: "Design & Development",
-      imgUrl: projImg3,
-    },
+    // {
+    //   // title: "Business Startup",
+    //   // description: "Design & Development",
+    //   imgUrl: artVid1,
+    //   softwares : "Blender"
+    // },
   ];
 
 
@@ -131,9 +130,9 @@ export const Projects = () => {
                         }
                     </Row>
                 </Tab.Pane>
-                {/* <Tab.Pane eventKey="third">
+                <Tab.Pane eventKey="third">
                     <YoutubeEmbed embedId="4ujgky1Vc3k"/>
-                </Tab.Pane> */}
+                </Tab.Pane>
             </Tab.Content>
             </Tab.Container>
           </Col>
