@@ -8,16 +8,11 @@ import { Projects } from './Components/Projects';
 import { Contact } from './Components/Contact';
 import { Footer } from './Components/Footer';
 import Face from './Components/Face';
+import CircleLoader from "react-spinners/CircleLoader"
 
 function App() {
   const [loaded, setLoaded] = useState(false);
-  // const handleWindowMouseMove = event => {
-  //  console.log(
-  //    event.clientX,
-  //   event.clientY,
-  //   )};
 
-  // window.addEventListener('mousemove', handleWindowMouseMove);
 
 
   return (
@@ -25,8 +20,14 @@ function App() {
       <div
         className={loaded === true ? 'loadingScreen-hidden' : 'loadingScreen'}
       >
-        <h1>OUUUUUUUI</h1>
-        <button onClick={() => setLoaded(!loaded)}> ENTER</button>
+        {/* <h1>OUUUUUUUI</h1>
+        <button onClick={() => setLoaded(!loaded)}> ENTER</button> */}
+
+<CircleLoader
+className='circleLoader'
+  color="#d636d5"
+  size={100}
+/>
       </div>
       <div className={loaded === true ? 'App' : 'App-hidden'}>
         <NavBar />
