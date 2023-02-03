@@ -715,8 +715,9 @@ color: whitesmoke;
 }
 .footer img {
   padding-top: 5px;
-width: 30%;
-height: 30%;
+/* width: 30%; */
+/* height: 30%; */
+
 }
 .footer p {
   font-weight: 400;
@@ -724,6 +725,7 @@ height: 30%;
   color: #B8B8B8;
   letter-spacing: 0.5px;
   margin-top: 20px;
+margin-left: -6vw;
 
 }
 
@@ -731,27 +733,26 @@ height: 30%;
   display: flex;
 
 } */
-.footer .container{
-}
+/* .footer .container{
+} */
 
-
-
-#root > div > div.App > div.else > footer > div > div.cont.row{
+.footer .cont{
   display: flex;
-  /* flex-flow: row wrap; */
-  flex-direction: row;
-  align-items: center;
+  flex-direction: row; 
   justify-content: space-between;
-    border: red solid 3px;
-
+  max-height: 5rem;
 }
 
-
-
-
+.footer .cont > div{
+  display: flex;
+  flex-direction: row; 
+  max-width: 30%;
+  /* border:  red solid 2px; */
+  
+}
 .footer .social-icon {
 
-  margin-top: 2rem;
+  margin-top: 1rem;
 
 }
 .footer .social-icon a{
@@ -815,22 +816,26 @@ overflow: hidden;
 
 
 #projects-tabs-tabpane-first > div > div.Four.by.Four\(WIP\).col-md-4.col-sm-6 {
-  width: 50vw;
+  width: 80vw;
   margin: auto;
+  display: flex;
+  /* scale: 100%; */
 }
+
+/* #projects-tabs-tabpane-first > div > div.Four.by.Four\(WIP\).col-md-4.col-sm-6 > .proj-imgbx {
+
+}
+ */
 
 #projects-tabs-tabpane-first > div > div.Four.by.Four\(WIP\).col-md-4.col-sm-6 > .proj-imgbx {
-
+  display: flex;
+  /* max-width: none; */
+  /* width: 80vw;  */
+    /* scale: 100%; */
 }
-
-
-#projects-tabs-tabpane-first > div > div.Four.by.Four\(WIP\).col-md-4.col-sm-6 > .proj-imgbx > img{
-  max-width: none;
-  width: 50vw; 
+#projects-tabs-tabpane-first > div > div.Four.by.Four\(WIP\).col-md-4.col-sm-6 > .proj-imgbx > .proj-txtx{
+height: inherit;
 }
-
-
-
 
 
 
@@ -876,10 +881,13 @@ nav > .container > a >img {
 
   margin-right: -10px;
 }
-
-#projects-tabs-tabpane-first > div > div > div > img{
-  max-width: 60vw;
-}
+ #projects-tabs-tabpane-first > div > div > div > img{
+  max-width: 80vw;
+} 
+ /*
+#projects-tabs-tabpane-first > div > div.Four.by.Four\(WIP\).col-md-4.col-sm-6 > div > img{
+  scale: 100%; 
+} */
 
 .footer .col-sm-6{
   /* display: flex; */
