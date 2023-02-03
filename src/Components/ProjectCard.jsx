@@ -28,13 +28,25 @@ export const ArtCard = ({softwares, imgUrl}) => {
     const [imageSize, setImageSize] = useState(false)
 
 setImageSize? console.log(imageSize) : ''
+const enterFullscreen = (elem, options) => {
+    return elem[
+      [
+        'requestFullscreen',
+        'mozRequestFullScreen',
+        'msRequestFullscreen',
+        'webkitRequestFullscreen',
+      ].find((prop) => typeof elem[prop] === 'function')
+    ]?.(options);
+  };
+
+  const target = document.getElementById('imagus');
 
     return(
     
 
     <div  onClick={() => setImageSize(!imageSize)} 
     className="artProjs">
-        <img src={imgUrl} 
+        <img src={imgUrl} id="imagus"
      className={imageSize ?  "full" :  "mini"}
         />
              <div className="softwares">Softwares :

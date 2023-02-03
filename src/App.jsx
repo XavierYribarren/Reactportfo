@@ -18,7 +18,7 @@ function App() {
   return (
     <div className='main'>
       <div
-        className={loaded === true ? 'loadingScreen-hidden' : 'loadingScreen'}
+        className={loaded === true ? 'loadingScreen-hidden' : 'loadingScreen'} 
       >
         {/* <h1>OUUUUUUUI</h1>
         <button onClick={() => setLoaded(!loaded)}> ENTER</button> */}

@@ -705,8 +705,23 @@ z-index: -4;
   /* height: 88vh; */
   width: 85vw;
 
-
 } 
+
+.artProjs  > .full{
+ display: flex;
+  overflow: hidden;
+  align-items: center;
+  border-radius: 10px;
+  position:static;
+  z-index: 10000;
+  overflow: hidden;
+  /* padding: 0 10px 0 10px;*/
+ /* height: 88vh;  */
+scale: 200% 
+} 
+
+
+
 
 .artProjs .softwares{
 color: whitesmoke;
