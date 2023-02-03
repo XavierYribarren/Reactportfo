@@ -45,9 +45,11 @@ export const Skills = () => {
 
       return(
         <section className="skill" id='skills'>
+          <div className="interdiv"></div>
             <Container>
                 <Row>
                     <Col>
+                    <div className="skill-bx-wrap">
                     <div className="skill-bx">
                         <h2>
                             Skills
@@ -62,6 +64,7 @@ export const Skills = () => {
 
 
                         </Carousel>
+                    </div>
                     </div>
                     </Col>
                 </Row>

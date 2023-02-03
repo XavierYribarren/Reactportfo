@@ -55,7 +55,7 @@ h1, h2, h3, h4, h5, h6{
   height: 100vh;
   background-color: rgb(0, 0, 0);
   position:fixed;
- 
+
 }
 .loadingScreen button{
   width: 3rem;
@@ -368,21 +368,118 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
     }
 }
 .txt-rotate > .wrap {
-  border-right: 0.08em solid #666;
+  border-right: 0.08em solid rgb(98, 98, 98);
 }
 
+.skill .interdiv{
+  /* box-shadow: black 20px 20px 20px; */
+  background: rgb(0,0,0);
+  background: linear-gradient(0deg, rgba(0,0,0,0) 0%, rgba(0, 0, 0, 0.68) 35%, rgba(0,0,0,1) 50%, rgba(0,0,0,0.6875700963979341) 85%, rgba(0,0,0,0) 100%);
+  /* margin-top: 0rem; */
+  height: 20vh;
+  width: 100vw;
+  z-index: 1;
+  position: absolute;
+}
 
 .skill{
   padding: 0 0 50px 0;
   position: relative;
+  
 }
+
+ .else{
+  background: linear-gradient(180deg, rgba(0,0,0,1)0%, rgba(20, 20, 20, 0.912) 15%,rgba(0,0,0,0.9116597322522759) 21%, rgba(0,0,0,1) 100%);
+  /* background-color: #00e5e9; */
+} 
+
+
 .skill-bx {
-  background: #151515;
+  background: #2222228e;
   border-radius:  64px;
   text-align: center;
   padding: 60px 50px;
   /* margin-top:  -60px; */
+    /* border: red solid 2px; */
+    z-index: 5;
+    /* opacity: 0.2; */
 }
+
+/*GRADDDDDDD ANIMMMMMMMMMM */
+
+
+.skill-bx-wrap {
+  --borderWidth: 3px;
+  /* background: #1D1F20; */
+  position: relative;
+  border-radius: var(--borderWidth);
+  z-index: 1;
+}
+.skill-bx-wrap:after {
+  content: '';
+  position: absolute;
+  top: calc(-1 * var(--borderWidth));
+  left: calc(-1 * var(--borderWidth));
+  height: calc(100% + var(--borderWidth) * 2);
+  width: calc(100% + var(--borderWidth) * 2);
+  /* background: radial-gradient(circle, #ffffff8c, #e4e4e491, #b2b6b31c); */
+  /* border-radius: calc(2 * var(--borderWidth)); */
+  background: 
+  radial-gradient(ellipse 70% 100%, #000 0%, #ff00d4a5 80%, #ffd8d8 100%),
+radial-gradient(ellipse 100% 70%, #000 0%, #ff00d4a5 80%, #ffd8d8 100%);
+  border-radius: 64px;
+  z-index: -1;
+  animation: animatedgradientskills 3s  infinite;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  /* background-position: 0% 50%; */
+  box-shadow: 
+  0 0 2rem #bc13fe,
+  0 0 0.8rem #bc13fe,
+  0 0 2.8rem #bc13fe,
+  inset 0 0 1.3rem #bc13fe; 
+}
+
+
+@keyframes animatedgradientskills {
+	0% {
+    background: 
+    radial-gradient(ellipse 70% 100%, #000 0%, #ff00d4a5 80%, #ffd8d8 100%),
+ radial-gradient(ellipse 100% 70%, #000 0%, #ff00d4a5 80%, #ffd8d8 100%);
+	}
+  50% {
+    background: 
+    radial-gradient(ellipse 70% 100%, #000 0%, #ff00d4a5 80%, #ffd8d8 100%),
+ radial-gradient(ellipse 100% 70%, #000 0%, #ff00d4a5 80%, #ffd8d8 100%);
+	}
+ 52% {
+    background: 
+    radial-gradient(ellipse 70% 100%, #550d4d8a 0%, #6c00674b 20%, #ff00d4a5 80%, #ffffff 100%),
+ radial-gradient(ellipse 100% 70%, #550d4d8a 0%, #6c00674b 20%, #ff21dadb 80%, #ffffff 100%);
+	} 
+ 54% {
+    background: 
+    radial-gradient(ellipse 70% 100%,  #000 0%, #ff00d4a5 80%, #ffd8d8 100%),
+ radial-gradient(ellipse 100% 70%,  #000 0%, #ff00d4a5 80%, #ffd8d8 100%);
+	}
+	55% {
+    background: 
+    radial-gradient(ellipse 70% 100%, #550d4d8a 0%, #6c00674b 20%, #ff21dadb 80%, #ffffff 100%),
+ radial-gradient(ellipse 100% 70%, #550d4d8a 0%, #6c00674b 20%, #ff21dadb 80%, #ffffff 100%);
+	}
+	56% {
+    background: 
+    radial-gradient(ellipse 70% 100%,  #000 0%, #ff00d4a5 80%, #ffd8d8 100%),
+ radial-gradient(ellipse 100% 70%,  #000 0%, #ff00d4a5 80%, #ffd8d8 100%);
+	} 
+  100% {
+    background: 
+    radial-gradient(ellipse 70% 100%, #000 0%,  #ff00d4a5 80%, #ffd8d8 100%),
+ radial-gradient(ellipse 100% 70%, #000 0%, #ff00d4a5 80%, #ffd8d8 100%);
+	}
+}
+
+/*GRADDDDDDD ANIMMMMMMMMMM */
 
 .skill h2 {
   font-size: 45px;
@@ -482,6 +579,17 @@ z-index: -4;
     z-index: -1;
     transition: 0.3s ease-in-out;
 }
+
+.project .nav.nav-pills .nav-link:hover{
+  text-shadow:  0 0 10px rgb(255, 255, 255) ;
+  color: white;
+  box-shadow: inset white 0 0 5px 5px;
+}
+
+
+
+
+
 .project .nav.nav-pills .nav-link.active::before {
     width: 100% !important;
 }
@@ -799,15 +907,17 @@ margin-top: -5px;
 
 .App-hidden  {
   text-align: center;
-  opacity: 0.2;
+  opacity: 0;
   z-index: 0 !important;
   overflow: hidden;
   pointer-events: none !important;
   /* height: 100%; */
+position: fixed;
 }
 .App-hidden canvas{
   z-index: 0;
   pointer-events: none !important;
+  overflow:hidden ;
 }
 
 .App-hidden .else{
@@ -822,7 +932,6 @@ overflow: hidden;
   width: 80vw;
   margin: auto;
   display: flex;
-  /* scale: 100%; */ 
   justify-content: center;
 }
 
