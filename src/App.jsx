@@ -8,7 +8,7 @@ import { Projects } from './Components/Projects';
 import { Contact } from './Components/Contact';
 import { Footer } from './Components/Footer';
 import Face from './Components/Face';
-import CircleLoader from "react-spinners/CircleLoader"
+import RingLoader from "react-spinners/RingLoader"
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -23,7 +23,7 @@ function App() {
         {/* <h1>OUUUUUUUI</h1>
         <button onClick={() => setLoaded(!loaded)}> ENTER</button> */}
 
-<CircleLoader
+<RingLoader
 className='circleLoader'
   color="#d636d5"
   size={100}

@@ -60,7 +60,7 @@ export const Contact = () => {
                   <input
                     type='text'
                     value={formDetails.from_name}
-                    onChange={(e) => onFormUpdate('name', e.target.value)}
+                    onChange={(e) => onFormUpdate('from_name', e.target.value)}
                     name='from_name'
                     placeholder='Your name'
                   />

@@ -54,7 +54,7 @@ h1, h2, h3, h4, h5, h6{
   width: 100vw;
   height: 100vh;
   background-color: rgb(0, 0, 0);
-  position:absolute;
+  position:fixed;
  
 }
 .loadingScreen button{
@@ -822,7 +822,8 @@ overflow: hidden;
   width: 80vw;
   margin: auto;
   display: flex;
-  /* scale: 100%; */
+  /* scale: 100%; */ 
+  justify-content: center;
 }
 
 /* #projects-tabs-tabpane-first > div > div.Four.by.Four\(WIP\).col-md-4.col-sm-6 > .proj-imgbx {
@@ -832,12 +833,14 @@ overflow: hidden;
 
 #projects-tabs-tabpane-first > div > div.Four.by.Four\(WIP\).col-md-4.col-sm-6 > .proj-imgbx {
   display: flex;
+
   /* max-width: none; */
   /* width: 80vw;  */
     /* scale: 100%; */
 }
 #projects-tabs-tabpane-first > div > div.Four.by.Four\(WIP\).col-md-4.col-sm-6 > .proj-imgbx > .proj-txtx{
-height: inherit;
+
+
 }
 
 
