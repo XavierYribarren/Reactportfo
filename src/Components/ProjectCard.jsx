@@ -28,18 +28,6 @@ export const ArtCard = ({softwares, imgUrl}) => {
     const [imageSize, setImageSize] = useState(false)
 
 setImageSize? console.log(imageSize) : ''
-const enterFullscreen = (elem, options) => {
-    return elem[
-      [
-        'requestFullscreen',
-        'mozRequestFullScreen',
-        'msRequestFullscreen',
-        'webkitRequestFullscreen',
-      ].find((prop) => typeof elem[prop] === 'function')
-    ]?.(options);
-  };
-
-  const target = document.getElementById('imagus');
 
     return(
     

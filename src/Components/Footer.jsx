@@ -20,7 +20,7 @@ export const Footer = () => {
             />
           </div>
           <div md={10}>
-            <p> Made by Xavier Yribarren :)</p>
+            <p> © Xavier Yribarren</p>
           </div>
           <div sm={6} className='text-center text-sm-end'>
             <div className='social-icon'>
