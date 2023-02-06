@@ -7,7 +7,7 @@ import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader";
 import { CubeCamera, Environment, Sparkles, useEnvironment, useGLTF } from "@react-three/drei";
 import { Clock, DoubleSide, Fog, RepeatWrapping } from "three";
 import { Lights } from "./Lights";
-// import Model from "./City";
+
 
 export default function Background(){
 
@@ -27,7 +27,7 @@ const floorMap = useLoader(TextureLoader,'./Floor_Pass.png')
 cityMap.flipY = false
 
 const skyMap = useLoader(TextureLoader,'./SkyRend2.png')
-// skyMap.flipY = false
+
 
 const matus =   new THREE.MeshBasicMaterial({ map:cityMap, alphaTest: 0})
     const Model = React.forwardRef((props, ref) => {

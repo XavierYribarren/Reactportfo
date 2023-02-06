@@ -115,7 +115,7 @@ console.log(artProj.project)
             </Nav>
             <Tab.Content>
                 <Tab.Pane eventKey="first">
-                    <Row>
+                    <div className="projwrap">
                         {
                             devProj.map((project,index) => {
                                 return(
@@ -126,7 +126,7 @@ console.log(artProj.project)
                                 )
                             })
                         }
-                    </Row>
+                    </div>
                 </Tab.Pane>
                 <Tab.Pane eventKey="second">
          <Gallery>
