@@ -1,5 +1,5 @@
 import './App.css';
-import React, { useState } from 'react';
+import React, { startTransition, useState } from 'react';
 import { NavBar } from './Components/NavBar';
 import { Banner } from './Components/Banner';
 import { Skills } from './Components/Skills';
@@ -20,8 +20,6 @@ function App() {
       <div
         className={loaded === true ? 'loadingScreen-hidden' : 'loadingScreen'} 
       >
-        {/* <h1>OUUUUUUUI</h1>
-        <button onClick={() => setLoaded(!loaded)}> ENTER</button> */}
 
 <RingLoader
 className='circleLoader'

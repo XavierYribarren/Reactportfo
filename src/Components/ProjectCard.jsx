@@ -1,14 +1,15 @@
 import { useState } from "react"
 import { Col } from "react-bootstrap"
+import { Item } from "react-photoswipe-gallery"
 
 
-export const DevCard = ({title, titleprecision, description, languages, imgUrl}) => {
+export const DevCard = ({title, titleprecision, description, languages, imgUrl, orientation}) => {
 return(
 
 <Col className={title} sm={6} md={4}>
-<div className="proj-imgbx">
+<div className={orientation === "mob" ? "proj-imgbx" : "proj-imgbx-desktop"}>
     <img src={imgUrl}/>
-    <div className="proj-txtx">
+    <div className={orientation === "mob" ? "proj-txtx" : "proj-txtx-desktop"}>
         <h4>{title}</h4>
         <p>{titleprecision}</p>
         <span>{description}</span><br/>
@@ -23,29 +24,3 @@ return(
 
 }
 
-export const ArtCard = ({softwares, imgUrl}) => {
-
-    const [imageSize, setImageSize] = useState(false)
-
-setImageSize? console.log(imageSize) : ''
-
-    return(
-    
-
-    <div  onClick={() => setImageSize(!imageSize)} 
-    className="artProjs">
-        <img src={imgUrl} id="imagus"
-     className={imageSize ?  "full" :  "mini"}
-        />
-             <div className="softwares">Softwares :
-             <span>{softwares}
-             </span>
-             </div>
- 
-    </div>
-
-    
-    
-    )
-    
-    }
