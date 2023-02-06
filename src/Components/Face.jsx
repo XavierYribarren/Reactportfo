@@ -13,8 +13,6 @@ import {
   Environment,
   OrbitControls,
   PerspectiveCamera,
-  Sparkles,
-  useEnvironment,
 } from "@react-three/drei";
 import { LayerMaterial, Depth, Noise } from "lamina";
 import { ACESFilmicToneMapping, sRGBEncoding } from "three";

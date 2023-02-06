@@ -1,5 +1,6 @@
 import { Container, Row, Col, Tab, Nav } from "react-bootstrap"
-import { DevCard, ArtCard } from "./ProjectCard";
+import { CSSProperties } from "react";
+import { DevCard} from "./ProjectCard";
 import { YoutubeEmbed } from "./YoutubeEmbed";
 import colorSharp2 from '../assets/img/color-sharp2.png'
 import projImg1 from "../assets/img/ProjImgs/Narif.png"
@@ -9,6 +10,8 @@ import artImg1 from "../assets/ArtImgs/pringle3x1.png"
 import artImg2 from "../assets/ArtImgs/SkullRoom.png"
 import artImg3 from "../assets/ArtImgs/tub-min.png"
 import fourByFour from "../assets/img/ProjImgs/FourbyFour.gif"
+import { Gallery, Item } from "react-photoswipe-gallery";
+import 'photoswipe/dist/photoswipe.css'
 
 export const Projects = () => {
   const devProj = [
@@ -18,6 +21,7 @@ export const Projects = () => {
       description: "Pretending there's a Native American Roulette Federation, it's basically a Russian Roulette with a bow. It was a fun exercise to show that something absurd with a serious shape could still work!",
       languages : "HTML, CSS, JavaScript",
       imgUrl: projImg1,
+      orientation : 'mob'
     },
     {
       title: "2nd School Project",
@@ -25,6 +29,7 @@ export const Projects = () => {
       description: "We had to create a React App and fetch some API informations. We then decided to create an alibi generator to turn down some propositions!",
       languages : "HTML, CSS, JavaScript, React",
       imgUrl: projImg2,
+      orientation : 'mob'
     },
     {
       title: "3rd School Project",
@@ -32,12 +37,14 @@ export const Projects = () => {
       description: "We worked on a webApp for EmerGa, a life-saving app allowing faster interventions and more precise information on an incident. We had to make both Frontend and Backend parts",
       languages : "HTML, CSS, JavaScript, React, Express, MySQL",
       imgUrl: projImg3,
+      orientation : 'mob'
     },
     {
       title: "Four by Four(WIP)",
       description: "Personnal project of making a 'Connect Four' on which you play on all 3 axes. The red arrows appearing are showing the 76 axes of calculations!",
       languages : "ThreeJS, Cannon-JS, React",
       imgUrl: fourByFour,
+      orientation : 'desktop'
     },
     // {
     //   title: "Business Startup",
@@ -77,9 +84,14 @@ export const Projects = () => {
     //   softwares : "Blender"
     // },
   ];
+  const smallItemStyles = {
+    cursor: 'pointer',
+    objectFit: 'cover',
+    width: '150px',
+    height: '150px',
+  }
 
-
-
+console.log(artProj.project)
   return (
     <section className="project" id="project">
       <Container>
@@ -103,7 +115,7 @@ export const Projects = () => {
             </Nav>
             <Tab.Content>
                 <Tab.Pane eventKey="first">
-                    <Row>
+                    <div className="projwrap">
                         {
                             devProj.map((project,index) => {
                                 return(
@@ -114,21 +126,37 @@ export const Projects = () => {
                                 )
                             })
                         }
-                    </Row>
+                    </div>
                 </Tab.Pane>
                 <Tab.Pane eventKey="second">
-                <Row>
+         <Gallery>
                         {
                             artProj.map((project,index) => {
-                                return(
-                                    <ArtCard
-                                    key={index}
-                                    {...project}
-                                    />
+                                return(        
+                                
+                                 <Item
+      original={project.imgUrl}
+      thumbnail={project.imgUrl}
+      width="1920"
+      height="1080"
+    >
+       
+      {({ ref, open }) => (
+      <div className="imagenorm">   <img ref={ref}
+        onClick={open}
+        //  style={smallItemStyles} 
+        className="thumbnail"
+         src={project.imgUrl} />   
+          <div className="softwares">Softwares :
+        <span>{project.softwares}
+            </span></div>
+            </div>
+      )}
+    </Item> 
                                 )
                             })
                         }
-                    </Row>
+                   </Gallery>
                 </Tab.Pane>
                 <Tab.Pane eventKey="third">
                     <YoutubeEmbed embedId="4ujgky1Vc3k"/>
