@@ -72,11 +72,12 @@ h6 {
 nav.navbar {
   padding: 18px 0;
   position: fixed;
-  width: 100%;
+  width: 100vw;
   height: 6rem;
   top: 0;
   z-index: 9999;
   transition: 0.32s ease-in-out;
+
 }
 nav.navbar.scrolled {
   padding: 0px 0;
@@ -85,21 +86,29 @@ nav.navbar.scrolled {
 box-shadow: 0 0 8px 10px #000000;
 }
 nav.navbar a.navbar-brand {
-  width: 9%;
+  /* width: 9%; */
   /* height: 9% !important; */
+   /* margin-left: -3rem; */
 }
 
 nav > .container {
   height: inherit;
-  /* margin-left: 0 !important; */
+  /* margin-left: 0 !important; */ 
+   /* display: flex; */
+   max-width: 90vw;
+  /* justify-content: space-between; */
 }
 nav > .container > a {
   height: inherit;
 }
 nav > .container > a > img {
   scale: 30%;
+  /* margin-left: -6rem; */
+
+/* position: absolute; */
   margin-left: -6rem;
   margin-top: -4rem;
+  
 }
 /* nav.navbar .logoPiti{
   scale: 30%;

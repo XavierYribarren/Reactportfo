@@ -137,7 +137,7 @@ export default function Scene({ mobil, setLoader }) {
       <group
         dispose={null}
         ref={headFull}
-        position={mobil ? [5, -2, 17.5] : [4, -1.2, 21.5]}
+        position={mobil ? [5, -2, 17.5] : [4, -1.2, 21]}
         rotation={mobil ? [-0.05, -0.9, 0] : [0.9, -0.8, 0.051]}
       >
         <spotLight
