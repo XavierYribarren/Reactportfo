@@ -7,23 +7,28 @@ export const DevCard = ({title, titleprecision, description, languages, imgUrl, 
     
 const [closed, setClosed] = useState(true)
 
+console.log(closed)
 return(
 
-<Col className={title} sm={6} md={4}>
-<div onClick={() => {setClosed(!closed)}} className={orientation === "mob" ? "proj-imgbx" : "proj-imgbx-desktop"}>
-    <img src={imgUrl}/>
-    {/* <div  className={closed ? 'd-none' : 'd-block'}> */}
-    <div className={orientation === "mob" ? "proj-txtx" : "proj-txtx-desktop"}>
-        <h4>{title}</h4>
-        <p>{titleprecision}</p>
-        <span>{description}</span><br/>
-        <span className="languages">Languages : {languages}</span>
+ <Col className={title} sm={6} md={4}>
+    <div onClick={() => { setClosed(!closed); }} className={orientation === 'mob' ? 'proj-imgbx' : 'proj-imgbx-desktop'}>
+      <img src={imgUrl} />
+      <div className={orientation === 'mob' ? 'proj-txtx' : 'proj-txtx-desktop'}>
+        {/* {!closed && ( */}
+        <div className='bg-div visible'>
+          <h4>{title}</h4>
+          <p>{titleprecision}</p>
+          <span>{description}</span>
+          <br />
+          <span className="languages">
+            Languages :
+            {languages}
+          </span>
+        </div>
+        {/* )} */}
+      </div>
     </div>
-    </div>
-{/* </div> */}
-
-</Col>
-
+  </Col>
 
 )
 
