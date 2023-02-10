@@ -12,6 +12,7 @@ import artImg3 from "../assets/ArtImgs/tub-min.png"
 import fourByFour from "../assets/img/ProjImgs/FourbyFour.gif"
 import { Gallery, Item } from "react-photoswipe-gallery";
 import 'photoswipe/dist/photoswipe.css'
+import './projects.css'
 
 export const Projects = () => {
   const devProj = [
@@ -91,15 +92,16 @@ export const Projects = () => {
     height: '150px',
   }
 
-console.log(artProj.project)
+
   return (
     <section className="project" id="project">
       <Container>
         <Row>
           <Col>
+            <Tab.Container id="projects-tabs" defaultActiveKey='first'>
+          <div className="proj-head-wrap">
             <h2>Projects</h2>
             <p>You'll find here some stuff I made !</p>
-            <Tab.Container id="projects-tabs" defaultActiveKey='first'>
             <Nav variant="pills" className="nav-pills mb-5 justify-content-center align-itemps-center" id="pills-tab">
               <Nav.Item>
                 <Nav.Link eventKey="first">Dev</Nav.Link>
@@ -113,6 +115,7 @@ console.log(artProj.project)
                 </Nav.Link>
               </Nav.Item>
             </Nav>
+            </div>
             <Tab.Content>
                 <Tab.Pane eventKey="first">
                     <div className="projwrap">
