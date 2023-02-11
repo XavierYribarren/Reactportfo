@@ -30,18 +30,23 @@ export default function Scene({ mobil, setLoader }) {
   faceRough.flipY = false;
   const faceSpec = useLoader(TextureLoader, "/headus/Spec_8k-min2.jpg");
   faceSpec.flipY = false;
-
+  const faceDisp = useLoader(TextureLoader, "/headus/Cavity_8k-min.png");
+  faceDisp.flipY = false;
 
   const headus = new THREE.MeshStandardMaterial({
     // wireframe: true,
     map: faceMap,
-    normalMap: faceNorm,
-    normalScale: new THREE.Vector2(1, -1),
+    // normalMap: faceNorm,
+    // normalScale: new THREE.Vector2(1, -1),
     roughnessMap: faceRough,
     roughness: 0.8,
     // metalnessMap: faceSpec,
     // metalness: 0.4,
-    side: FrontSide
+    side: FrontSide,
+   bumpMap: faceDisp,
+   bumpScale: 0.0049,
+  displacementMap: faceDisp,
+  displacementScale: 0.002
   });
 
   const headusMob = new THREE.MeshStandardMaterial({
