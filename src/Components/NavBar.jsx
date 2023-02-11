@@ -32,7 +32,7 @@ const onUpdateActiveLink = (value) => {
 }
 
     return(
-        <Navbar expand="lg" className={scrolled ? "scrolled" : ""}>
+        <Navbar collapseOnSelect="true" expand="lg" className={scrolled ? "scrolled" : ""}>
         <Container>
           <Navbar.Brand  href="#home"><img src={logo}  alt="logo"/>
           </Navbar.Brand>
