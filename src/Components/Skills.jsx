@@ -1,5 +1,6 @@
 import { Col, Container, Row } from "react-bootstrap";
 import Carousel from "react-multi-carousel"
+import 'bootstrap/dist/css/bootstrap.min.css';
 import "react-multi-carousel/lib/styles.css"
 import blender from "../assets/img/SoftIcons/blender.svg"
 import css3 from "../assets/img/SoftIcons/css3.svg"

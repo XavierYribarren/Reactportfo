@@ -10,7 +10,7 @@ export const Banner = () => {
     const [isDeleting, setIsDeleting] = useState(false)
     const toRotate = ["Web Developer", "Web Designer", "Creative Developer"]
     const [text, setText] = useState('')
-    const [delta, setDelta] = useState(300 - Math.random()*10)
+    const [delta, setDelta] = useState(Math.random()*5)
     const period = 200
 
 
@@ -40,7 +40,7 @@ const tick = () => {
     } else if(isDeleting && updatedText === ''){
         setIsDeleting(false)
         setLoopNum(loopNum + 1)
-        setDelta(500)
+        setDelta(200)
     }
 }
 

@@ -7,7 +7,6 @@ export const DevCard = ({title, titleprecision, description, languages, imgUrl, 
     
 const [closed, setClosed] = useState(true)
 
-console.log(closed)
 return(
 
  <Col className={title} sm={6} md={4}>

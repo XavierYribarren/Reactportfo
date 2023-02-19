@@ -3,7 +3,6 @@ import React, { startTransition, useState } from 'react';
 import { NavBar } from './Components/NavBar';
 import { Banner } from './Components/Banner';
 import { Skills } from './Components/Skills';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import { Projects } from './Components/Projects';
 import { Contact } from './Components/Contact';
 import { Footer } from './Components/Footer';

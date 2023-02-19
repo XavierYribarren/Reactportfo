@@ -10,6 +10,7 @@ import {
 } from "@react-three/postprocessing";
 import {
 
+  CycleRaycast,
   Environment,
   OrbitControls,
   PerspectiveCamera,
@@ -23,11 +24,16 @@ import Background from "./Background";
 export const Face = ({ setLoader }) => {
   const [mobil, setMobil] = useState(false);
 
+
+
   useEffect(() => {
     if (window.innerWidth < 700) {
       setMobil(true);
     }
   }, []);
+
+  // const [{ objects, cycle }, set] = useState({ objects: [], cycle: 0 })
+
   return (
     <div className="headxav">
       <Suspense fallback={null}>
@@ -40,7 +46,9 @@ export const Face = ({ setLoader }) => {
             toneMapping: ACESFilmicToneMapping,
             alpha: true,
           }}
+  
         >
+
      
           <Background/>
           <Scene mobil={mobil} setLoader={setLoader} />
@@ -102,7 +110,7 @@ export const Face = ({ setLoader }) => {
             </>
           )}
 
-          {/* <Perf deepAnalyze={true} /> */}
+          <Perf deepAnalyze={true} />
         </Canvas>
       </Suspense>
     </div>
