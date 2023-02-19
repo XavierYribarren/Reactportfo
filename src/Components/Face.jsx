@@ -110,7 +110,7 @@ export const Face = ({ setLoader }) => {
             </>
           )}
 
-          <Perf deepAnalyze={true} />
+          {/* <Perf deepAnalyze={true} /> */}
         </Canvas>
       </Suspense>
     </div>
