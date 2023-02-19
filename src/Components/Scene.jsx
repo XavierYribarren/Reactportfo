@@ -17,7 +17,7 @@ import { DepthOfField, EffectComposer } from "@react-three/postprocessing";
 
 export default function Scene({ mobil, setLoader }) {
   const headFull = React.useRef();
-
+  const [ray, setRay] = useState(false)
 
   const faceMap = useLoader(TextureLoader, "/headus/Faceandshad-min.png");
   faceMap.flipY = false;
@@ -92,7 +92,7 @@ export default function Scene({ mobil, setLoader }) {
 
 
   const traverse = (object) => {
-    console.log(object)
+
     if (object.isMesh) {
       if (object.name === "Sphere1002" || object.name === "Sphere1003") {
         object.material = eyeMaterial;
@@ -135,10 +135,16 @@ export default function Scene({ mobil, setLoader }) {
         });
   }
 
+  const clickHandler = (event) =>
+  {
+event.intersections[0].object.material.wireframe = !event.object.material.wireframe
+
+
+  }
 
   return (
     <>
-      
+  
       <group
         dispose={null}
         ref={headFull}
@@ -155,8 +161,9 @@ export default function Scene({ mobil, setLoader }) {
         />
         <directionalLight intensity={0.81} position={[-2, 6, 10]} />
         
-        <primitive object={clonedScene} position={[0, 0, 0]} />
+        <primitive object={clonedScene} position={[0, 0, 0]} onClick={clickHandler}/>
       </group>
+    
     </>
   );
 }
