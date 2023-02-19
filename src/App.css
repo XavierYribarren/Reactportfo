@@ -403,7 +403,7 @@ opacity: 0;
     rgba(0, 0, 0, 0.6875700963979341) 85%,
     rgba(0, 0, 0, 0) 100%
   );
-  margin-top: 2rem;
+  margin-top: -3rem;
   height: 20vh;
   width: 100vw;
   z-index: 1;
