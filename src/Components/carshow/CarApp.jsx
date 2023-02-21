@@ -113,7 +113,7 @@ function CarApp() {
 
       </div>
       <Canvas shadows linear gl={{antialias: true}} onClick={() => setADonf(!aDonf)} className="car-canv">
-        <Text3D font='helvetiker_regular.typeface.json'
+        {/* <Text3D font='helvetiker_regular.json'
 
 size={ 0.25 }
 height={ 0.2 }
@@ -126,7 +126,7 @@ bevelSegments={ 5 }
         position={[0,1,-4]}>
           CLICK TO ACCELERATE !
           <meshStandardMaterial roughness={0} emissive={'#c5ffff'} emissiveIntensity={0.2}/>
-        </Text3D>
+        </Text3D> */}
         <CarShow aDonf={aDonf}/>
         <Stars radius={100} depth={500} count={5000} factor={4} saturation={0} fade speed={1}/>
   
