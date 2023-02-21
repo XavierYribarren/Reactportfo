@@ -1,6 +1,6 @@
 import { Container, Row, Col, Tab, Nav } from "react-bootstrap"
 import { CSSProperties } from "react";
-import { DevCard} from "./ProjectCard";
+import {DevCardDesktop, DevCardMob} from "./ProjectCard";
 import { YoutubeEmbed } from "./YoutubeEmbed";
 import colorSharp2 from '../assets/img/color-sharp2.png'
 import projImg1 from "../assets/img/ProjImgs/Narif.png"
@@ -10,12 +10,14 @@ import artImg1 from "../assets/ArtImgs/pringle3x1.png"
 import artImg2 from "../assets/ArtImgs/SkullRoom.png"
 import artImg3 from "../assets/ArtImgs/tub-min.png"
 import fourByFour from "../assets/img/ProjImgs/FourbyFour.gif"
+import cargif from '../assets/img/ProjImgs/cargif.gif'
 import { Gallery, Item } from "react-photoswipe-gallery";
 import 'photoswipe/dist/photoswipe.css'
 import './projects.css'
+import CarApp from "./carshow/CarApp";
 
 export const Projects = () => {
-  const devProj = [
+  const devProjMob = [
     {
       title: "1st School Project",
       titleprecision : "(Week 3-4 of the course)",
@@ -39,7 +41,8 @@ export const Projects = () => {
       languages : "HTML, CSS, JavaScript, React, Express, MySQL",
       imgUrl: projImg3,
       orientation : 'mob'
-    },
+    }]
+    const devProjDesktop = [
     {
       title: "Four by Four(WIP)",
       description: "Personnal project of making a 'Connect Four' on which you play on all 3 axes. The red arrows appearing are showing the 76 axes of calculations!",
@@ -47,11 +50,14 @@ export const Projects = () => {
       imgUrl: fourByFour,
       orientation : 'desktop'
     },
-    // {
-    //   title: "Business Startup",
-    //   description: "Design & Development",
-    //   imgUrl: projImg2,
-    // },
+    {
+      title: "Vaporwave Car",
+      description: "Having Fun with React Three Fiber",
+      languages : "React Three Fiber, React Drei, PostProcessing",
+      imgUrl: cargif,
+    orientation: 'desktop',
+    refPage : '/car'
+    },
     // {
     //   title: "Business Startup",
     //   description: "Design & Development",
@@ -119,17 +125,31 @@ export const Projects = () => {
             <Tab.Content>
                 <Tab.Pane eventKey="first">
                     <div className="projwrap">
+                      
                         {
-                            devProj.map((project,index) => {
+                            devProjMob.map((project,index) => {
                                 return(
-                                    <DevCard
+                                    <DevCardMob
+                                    key={index}
+                                    {...project}
+                                    />
+                                )
+                            })
+                        }    </div>
+                                  {
+                            devProjDesktop.map((project,index) => {
+                                return(
+                                    <DevCardDesktop
+                                    className='devCardDesk'
                                     key={index}
                                     {...project}
                                     />
                                 )
                             })
                         }
-                    </div>
+                        
+                        
+                
                 </Tab.Pane>
                 <Tab.Pane eventKey="second">
          <Gallery>
@@ -169,6 +189,7 @@ export const Projects = () => {
           </Col>
         </Row>
       </Container>
+    
       <img className="background-image-right" src={colorSharp2} alt="background"/>
     </section>
   );
