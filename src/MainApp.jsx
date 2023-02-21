@@ -9,7 +9,7 @@ import { Contact } from './Components/Contact';
 import { Footer } from './Components/Footer';
 import Face from './Components/Face';
 import RingLoader from "react-spinners/RingLoader"
-import CarApp from './Components/carshow/CarApp';
+
 
 function MainApp() {
   const [loaded, setLoaded] = useState(false);
@@ -42,7 +42,7 @@ className='circleLoader'
         <div className='else'>
           <Skills />
           <Projects />
-          {/* <CarApp/> */}
+
           <Contact />
           <Footer />
         </div>
