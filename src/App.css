@@ -59,19 +59,27 @@ h6 {
 }
 
 .loadingScreen {
-  display: block;
+  display: flex;
   z-index: 9999 !important;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgb(0, 0, 0);
   position: fixed;
+  background-color: rgb(0, 0, 0);
+  height: 100%;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
 
+  overflow: hidden;
   transition: 3s ease-out;
 }
 
 .circleLoader {
-  margin: 45vh 45vw;
-  transition: 10s ease-out;
+  /* margin: 75% 100%; */
+  /* position: absolute; */
+  padding-left: 0;
+  display: flex;
+  justify-self: center;
+  /* align-self: center; */
+  /* transition: 10s ease-out; */
 }
 
 

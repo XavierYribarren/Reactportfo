@@ -26,6 +26,7 @@ function MainApp() {
 className='circleLoader'
   color="#d636d5"
   size={100}
+  
 />
       </div>
       
