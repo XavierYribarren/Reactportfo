@@ -83,7 +83,7 @@ export const Face = ({ setLoader }) => {
 
                 <Vignette eskil={false} offset={0.1} darkness={0.8} />
               </EffectComposer>
-              <Environment background resolution={128} blur={0}>
+              {/* <Environment background resolution={128} blur={0}>
                 <mesh scale={3}>
                   <sphereGeometry args={[160, 32, 32]} />
                   <LayerMaterial
@@ -104,13 +104,13 @@ export const Face = ({ setLoader }) => {
       
                   </LayerMaterial>
                 </mesh>
-              </Environment>
+              </Environment> */}
 
               
             </>
           )}
 
-          {/* <Perf deepAnalyze={true} /> */}
+          <Perf deepAnalyze={true} />
         </Canvas>
       </Suspense>
     </div>

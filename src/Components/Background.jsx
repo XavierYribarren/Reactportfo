@@ -94,13 +94,13 @@ useEffect(() => {
           /> */}
         
           <mesh position={[-10,20,-60]}>
-            <planeBufferGeometry args={[150,80]}/>
+            <planeGeometry args={[150,80]}/>
             <meshLambertMaterial map={skyMap} roughness={0.5}/>
           </mesh>
           <mesh ref={mesh} 
          rotation={[-Math.PI * 0.5,0,0]} 
            position={[0,-12,0]}>
-            <planeBufferGeometry args={[80,150]} />
+            <planeGeometry args={[80,150]} />
             <meshBasicMaterial  map={floorMap} />
           </mesh>
           {/* <group ref={sparkles} dispose={null}>
