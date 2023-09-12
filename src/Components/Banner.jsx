@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import { Container, Row, Col } from "react-bootstrap"
 import {ArrowRightCircle} from 'react-bootstrap-icons'
-
+import './banner.css'
 
 
 export const Banner = () => {
@@ -15,13 +15,13 @@ export const Banner = () => {
 
 
 
-useEffect(()=> {
-    let ticker = setInterval(()=> {
-        tick()
-    }, delta)
+// useEffect(()=> {
+//     let ticker = setInterval(()=> {
+//         tick()
+//     }, delta)
 
-    return () => {clearInterval(ticker)}
-}, [text])
+//     return () => {clearInterval(ticker)}
+// }, [text])
 
 const tick = () => {
     let i = loopNum % toRotate.length;

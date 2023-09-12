@@ -30,18 +30,18 @@ export const Face = ({ setLoader }) => {
     if (window.innerWidth < 700) {
       setMobil(true);
     }
+    setLoader(true)
   }, []);
 
   // const [{ objects, cycle }, set] = useState({ objects: [], cycle: 0 })
 
   return (
     <div className="headxav">
-      <Suspense fallback={null}>
+
         <Canvas
           dpr={[1, 2]}
           gl={{
-            outputEncoding: sRGBEncoding,
-            physicallyCorrectLights: true,
+            // physicallyCorrectLights: true,
             antialias: true,
             toneMapping: ACESFilmicToneMapping,
             alpha: true,
@@ -51,14 +51,14 @@ export const Face = ({ setLoader }) => {
 
      
           <Background/>
-          <Scene mobil={mobil} setLoader={setLoader} />
+          {/* <Scene mobil={mobil}  /> */}
 {/* <OrbitControls/> */}
           <PerspectiveCamera
             makeDefault
             fov={50}
             near={0.1}
             far={100}
-            position={mobil ? [3.5, 0, 25] : [2, 0, 26]}
+            position={[2, 0, 26]}
           />
            
           {mobil ? (
@@ -112,7 +112,7 @@ export const Face = ({ setLoader }) => {
 
           <Perf deepAnalyze={true} />
         </Canvas>
-      </Suspense>
+    
     </div>
   );
 };

@@ -1,170 +1,122 @@
-import React, { useState } from "react";
-import * as THREE from "three";
 import {
-  useGLTF,
-  useHelper,
+  Box,
+  CameraShake,
+  Environment,
   MeshReflectorMaterial,
-  MeshWobbleMaterial,
-} from "@react-three/drei";
-import { TextureLoader } from "three/src/loaders/TextureLoader";
-import { useFrame, useLoader, useThree } from "@react-three/fiber";
-import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
-import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader";
-import { BoxHelper, FrontSide } from "three";
-import { useMemo } from "react";
-import { useLayoutEffect } from "react";
-import { DepthOfField, EffectComposer } from "@react-three/postprocessing";
+  Scroll,
+  useScroll,
+} from '@react-three/drei';
+import React, { useRef, useState } from 'react';
+import { Tv } from './Tv';
+import * as THREE from 'three';
+import { useFrame, useThree } from 'react-three-fiber';
+import { Letter } from './Letter';
+import PostProc from './PostProc';
+import Introduce from './Introduce';
 
-export default function Scene({ mobil, setLoader }) {
-  const headFull = React.useRef();
-  const [ray, setRay] = useState(false)
+export default function Scene() {
+  const group = useRef();
 
-  const faceMap = useLoader(TextureLoader, "/headus/Faceandshad-min.png");
-  faceMap.flipY = false;
-  const faceNorm = useLoader(
-    TextureLoader,
-    "/headus/Normal-Map_SubDivision_1-min-min2.jpg"
-  );
-  faceNorm.flipY = false;
-  const faceRough = useLoader(TextureLoader, "/headus/Gloss_8k-min.jpg");
-  faceRough.flipY = false;
-  const faceSpec = useLoader(TextureLoader, "/headus/Spec_8k-min2.jpg");
-  faceSpec.flipY = false;
-  const faceDisp = useLoader(TextureLoader, "/headus/Cavity_8k-min.png");
-  faceDisp.flipY = false;
+  const {viewport} = useThree()
+  // Add a single event listener to capture all mouse events
+  // document.addEventListener('mousemove', logMouseEvent);
 
-  const headus = new THREE.MeshStandardMaterial({
-    // wireframe: true,
-    map: faceMap,
-    // normalMap: faceNorm,
-    // normalScale: new THREE.Vector2(1, -1),
-    roughnessMap: faceRough,
-    roughness: 0.8,
-    // metalnessMap: faceSpec,
-    // metalness: 0.4,
-    side: FrontSide,
-   bumpMap: faceDisp,
-   bumpScale: 0.0049,
-  displacementMap: faceDisp,
-  displacementScale: 0.002
-  });
+  // // Event handler function to log all mouse events
+  // function logMouseEvent(event) {
+  //   console.log(event);
+  // }
 
-  const headusMob = new THREE.MeshStandardMaterial({
-    // wireframe: true,
-    map: faceMap,
-  });
-  //   ////INNER EYE
-  const innerEyeMap = useLoader(
-    TextureLoader,
-    "/headus/Sphere1_TXTR-min-min3.png"
-  );
-  innerEyeMap.flipY = false;
-  const innerEyeNorm = useLoader(TextureLoader, "/headus/Sphere1_NM-min2.png");
-  innerEyeNorm.flipY = false;
-
-  const eyeMaterial = new THREE.MeshStandardMaterial({
-    map: innerEyeMap,
-    normalMap: innerEyeNorm,
-
-  });
-
-  const facialHairsMat = new THREE.MeshBasicMaterial({ color: "#111111" });
-
-
-  const model = useLoader(
-    GLTFLoader,
-    mobil
-      ? "/HeadDefDISPMOB.glb"
-      : "/optgueul.glb",
-    (loader) => {
-
-      const dracoLoader = new DRACOLoader();
-      dracoLoader.setDecoderPath("/draco/");
-      loader.setDRACOLoader(dracoLoader);
-    }
-  );
-  const { scene } = model;
-  const clonedScene = useMemo(() => scene.clone(), []);
-  useLayoutEffect(() => {
-    clonedScene.traverse((object) => traverse(object));
-    setLoader(true);
-  }, [clonedScene]);
-
-
-  const traverse = (object) => {
-
-    if (object.isMesh) {
-      if (object.name === "Sphere1002" || object.name === "Sphere1003") {
-        object.material = eyeMaterial;
-      }
-      if (object.name === "Head2001") {
-        object.material = headus;
-      } else if (object.name === "Mesh002") {
-        object.material = facialHairsMat;
-      }
-      if (object.name === "Torus") {
-        object.material = new THREE.MeshStandardMaterial({
-          side: FrontSide,
-          color: "#9d9d9d",
-          metalness: 1,
-          roughness: 0,
-        });
-      }
-      if (object.name === "Broaux" || 
-      object.name ==="Mesh001" || 
-      object.name ==="Mesh003" || 
-      object.name ==="Mesh007") {
-        object.material = facialHairsMat;
-      }
-    }
-
-  };
-
-  //
-  {
-    mobil
-      ? useFrame(({ clock }) => {
-          const a = clock.getElapsedTime();
-          headFull.current.rotation.y = -1 + Math.sin(a / 4) * 0.1; // the value will be 0 at scene initialization and grow each frame
-          headFull.current.position.x = 5 + Math.cos((a / 2) * 2) * 0.03; // the value will be 0 at scene initialization and grow each frame
-        })
-      : useFrame(({ clock }) => {
-          const a = clock.getElapsedTime();
-          headFull.current.rotation.y = -1 + Math.sin(a * 1) * 0.03; // the value will be 0 at scene initialization and grow each frame
-          headFull.current.rotation.x = 0.2 + Math.cos((a / 2) * 2) * 0.03; // the value will be 0 at scene initialization and grow each frame
-        });
+  function Rig() {
+    const [vec] = useState(() => new THREE.Vector3());
+    const { camera, mouse } = useThree();
+    useFrame(() => camera.position.lerp(vec.set(-1, 0.1, 1.6), 0.05));
+    // return <CameraShake maxYaw={0.01} maxPitch={0.01} maxRoll={0.01} yawFrequency={0.05} pitchFrequency={0.05} rollFrequency={0.04} />
   }
 
-  const clickHandler = (event) =>
-  {
-event.intersections[0].object.material.wireframe = !event.object.material.wireframe
+  const scroll = useScroll();
+  const { width, height } = useThree((state) => state.viewport);
+
+  useFrame((state, delta) => {
+    const r1 = scroll.range(0 / 4, 0.01,4);
+    const r2 = scroll.range(0, 0.6);
+    const r3 = scroll.range(0.6, 2);
+    // const r3 = scroll.visible(4 / 5, 1 / 5)
+    // state.camera.position.x = THREE.MathUtils.damp(state.camera.position.x, (-Math.PI/ 1.45) * r2, 10, 1)
+    group.current.position.x = THREE.MathUtils.damp(
+      group.current.position.x,
+      (-Math.PI / 1.45) * (r2)+r2 *0.5,
+      10,
+      1
+    );
+    group.current.rotation.y = THREE.MathUtils.damp(
+      group.current.rotation.y,
+      (width / 7) * r2,
+      10,
+     1
+    );
+    // group.current.children[2].position.z = THREE.MathUtils.damp(group.current.children[2].position.z, (-6) * r1, 100, delta/4)
+    //   group.current.children[2].scale.x = 1 + scroll.range(0.005 / 100, 0.05 ) /3
+    //   console.log(group.current)
+  });
 
 
-  }
-
+  const w = 1 / 3;
   return (
     <>
-  
+      <Rig />
+
       <group
+        ref={group}
         dispose={null}
-        ref={headFull}
-        position={mobil ? [5, -2, 17.5] : [4, -1.2, 21.5]}
-        rotation={mobil ? [-0.05, -0.9, 0] : [0.9, -0.8, 0.051]}
+        // position={[width * w,0,0]}
       >
+        <mesh
+          rotation={[-Math.PI * 0.5, 0, 0]}
+          position={[0, 0.01, 0]}
+          receiveShadow
+          castShadow
+        >
+          <circleBufferGeometry args={[5, 50]} />
+          <MeshReflectorMaterial
+            color='#efefef'
+            blur={[100, 100]}
+            resolution={2048}
+            mixBlur={0}
+            mixStrength={20}
+            depthScale={10}
+            minDepthThreshold={2}
+            metalness={0}
+            roughness={1}
+            // depthToBlurRatioBias={0.25}
+            mirror={1}
+          />
+        </mesh>
+
         <spotLight
           lookAt={[12, 8, 2]}
-          position={[-4, -4, 14]}
-          intensity={8}
-          color="#ff00ff"
-          penumbra={0.02}
+          position={[0, 4, 14]}
+          intensity={2}
+          // color="#ff00ff"
+          penumbra={0.2}
           castShadow
         />
-        <directionalLight intensity={0.81} position={[-2, 6, 10]} />
-        
-        <primitive object={clonedScene} position={[0, 0, 0]} onClick={clickHandler}/>
+{/* <Scroll distance={0.5} horizontal pages={4} damping={1}> */}
+
+        <Tv scale={1} position={[0, window.innerWidth*0, 0]}/>
+
+        <Letter
+          scale={0.5}
+          position={[1.4, 0, 0.2]}
+          rotation={[0, -Math.PI * 0.3, 0]}
+          />
+
+<Introduce
+position={[viewport.width*1,1,2]}
+rotation={[0, -Math.PI * 0.55, 0]}
+/>
+{/* </Scroll> */}
+        <Environment preset='dawn' background blur={1} />
       </group>
-    
     </>
   );
 }
-

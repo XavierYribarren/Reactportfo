@@ -9,10 +9,11 @@ import { Contact } from './Components/Contact';
 import { Footer } from './Components/Footer';
 import Face from './Components/Face';
 import RingLoader from "react-spinners/RingLoader"
+import HeroPage from './Components/HeroPage';
 
 
 function MainApp() {
-  const [loaded, setLoaded] = useState(false);
+  const [loaded, setLoaded] = useState(true);
 
 
 
@@ -31,14 +32,15 @@ className='circleLoader'
       </div>
       
       <div className={loaded === true ? 'App' : 'App-hidden'}>
-        <NavBar />
+        {/* <NavBar /> */}
 
      
     
     
         <div className='banner-face'>
-          <Face setLoader={setLoaded} />
-          <Banner />
+
+          <HeroPage/>
+          {/* <Banner /> */}
         </div>
         <div className='else'>
           <Skills />
