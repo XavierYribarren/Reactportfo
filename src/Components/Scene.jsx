@@ -18,13 +18,8 @@ export default function Scene() {
   const group = useRef();
 
   const {viewport} = useThree()
-  // Add a single event listener to capture all mouse events
-  // document.addEventListener('mousemove', logMouseEvent);
 
-  // // Event handler function to log all mouse events
-  // function logMouseEvent(event) {
-  //   console.log(event);
-  // }
+const [hover, setHover] = useState(false)
 
   function Rig() {
     const [vec] = useState(() => new THREE.Vector3());
@@ -102,7 +97,11 @@ export default function Scene() {
         />
 {/* <Scroll distance={0.5} horizontal pages={4} damping={1}> */}
 
-        <Tv scale={1} position={[0, window.innerWidth*0, 0]}/>
+        <Tv scale={1} position={[0, 0, 0]}
+              onPointerOver={(e) => (e.stopPropagation(), setHover(true))}
+              onPointerOut={() => setHover(false)}
+              hover={hover}
+        />
 
         <Letter
           scale={0.5}

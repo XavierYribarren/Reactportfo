@@ -24,8 +24,7 @@ const WhyMaterial = new THREE.MeshPhysicalMaterial({
  reflectivity: 1
  
 })
- 
-console.log(WhyMaterial)
+
   return (
     <group {...props} dispose={null}>
         {/* <PostProc/> */}

@@ -1,11 +1,15 @@
 import React, { useRef, useState } from 'react';
-import { Html, Scroll, useGLTF } from '@react-three/drei';
+import { Html, Image, Scroll, useGLTF } from '@react-three/drei';
 import * as THREE from 'three';
 import CurrentW from './CurrentW';
+import { TextureLoader } from "three/src/loaders/TextureLoader";
+import { useLoader, useThree } from 'react-three-fiber';
+import PostProc from './PostProc';
 export function Tv(props) {
   const { nodes, materials } = useGLTF('/screen.glb');
   const [iframeLoaded, setIframeLoaded] = useState(false);
 
+  const hover = props.hover
   const tv = useRef()
   // Code to execute when the iframe content is loaded
   const handleIframeLoad = () => {
@@ -17,22 +21,44 @@ export function Tv(props) {
     }
     // Update the state to indicate that the iframe is loaded
   };
-  materials.screen = new THREE.MeshStandardMaterial({
-    roughness: 1,
-    // metalness: 0.4,
-    color: "#000000"
+
+  const tasScreen = useLoader(TextureLoader, "/tasScreenHD.png");
+// tasScreen.toneMapping = THREE.ReinhardToneMapping
+  tasScreen.flipY = false;
+
+
+  materials.screenLight = new THREE.MeshStandardMaterial({
+    // roughness: 1,
+    // metalness: 1,
+    // flatShading: true,
+    // color: "#000000",
+    map: tasScreen,
+    
+    // emissive: '#222' ,
+    toneMapped : false,
+    emissiveIntensity: '0.1',
+    emissiveMap: tasScreen
+    
   });
+
+  materials.screenNorm = new THREE.MeshBasicMaterial({
+    map: tasScreen,
+    toneMapped: false
+  })
 
   const tvPlastic = new THREE.MeshStandardMaterial({
     color: '#0c0c0c',
     metalness: 1,
     roughness: 0.04,
 })
+const { camera, mouse } = useThree();
 
   return (
-  <Scroll>
+  // <Scroll>
     <group  {...props} dispose={null}>
-      <CurrentW/>
+        <PostProc /> 
+        <CurrentW />
+   
       <mesh
       
         castShadow
@@ -46,35 +72,16 @@ export function Tv(props) {
         castShadow
         receiveShadow
         geometry={nodes.Cube003_1.geometry}
-        material={materials.screen}
+        material={hover ? materials.screenLight : materials.screenNorm}
       >
      
-
-        <Html
-        castShadow
-        receiveShadow
-        style={{ position: 'sticky'}}
-        className='htmlScreen'
-        position={[0, 0.38, 0.022 ]}
-        transform
-        occlude
-        scale={1}
-        distanceFactor={0.3}
-        zIndexRange={[10, 0]}
-        >
-          <iframe src='http://tweakasix.netlify.app' 
-             style={{ 
-               width: '69vw',
-               height: '86vh',
-               top:'-43.5vh',
-               left: '-34.5vw',
-              //  position: 'inherit',
-               visibility: iframeLoaded ? 'visible' : 'hidden', scrollSnapType: 'auto'}}
-               onLoad={handleIframeLoad}
-               
-               
-               />
-        </Html>
+{/* <Image url="/tasScreenHD.png"
+toneMapped={false}
+grayscale={-0.1}
+position={[-0.005,0.34,0.03]}
+scale={[0.94,0.54]}
+/> */}
+        
           
       </mesh>    
       <mesh
@@ -86,7 +93,7 @@ export function Tv(props) {
         position={[0, 0.345, -0.133]}
       />
     </group> 
-    </Scroll>
+    // </Scroll>
   );
 }
 

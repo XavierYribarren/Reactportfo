@@ -44,7 +44,7 @@ function HeroPage() {
     <div className='headxav'>
       <Canvas
         fallback={null}
-        camera={{ position: [-1, 20.1, 10.6], fov: 30 }}
+        camera={{ position: [-1, 20.1, 10.6], fov:30 }}
         linear
         fla
         shadows
