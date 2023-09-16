@@ -42,7 +42,7 @@ html {
 
 body {
   font-weight: 400;
-  overflow: hidden;
+  /* overflow: hidden; */
   position: relative;
   background-color: var(--light-col) !important;
   color: #fff !important;

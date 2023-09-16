@@ -55,9 +55,11 @@ const { camera, mouse } = useThree();
 
   return (
   // <Scroll>
-    <group  {...props} dispose={null}>
+    <group  {...props} dispose={null}
+  
+    >
         <PostProc /> 
-        <CurrentW />
+      
    
       <mesh
       
@@ -74,15 +76,7 @@ const { camera, mouse } = useThree();
         geometry={nodes.Cube003_1.geometry}
         material={hover ? materials.screenLight : materials.screenNorm}
       >
-     
-{/* <Image url="/tasScreenHD.png"
-toneMapped={false}
-grayscale={-0.1}
-position={[-0.005,0.34,0.03]}
-scale={[0.94,0.54]}
-/> */}
-        
-          
+      
       </mesh>    
       <mesh
         castShadow

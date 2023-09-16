@@ -3,24 +3,19 @@ import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import './hero-page.css';
 import Scene from './Scene';
 import * as THREE from 'three';
-import {
-  EffectComposer,
-  DepthOfField,
-  Vignette,
-} from '@react-three/postprocessing';
+
 import {
   Backdrop,
   CameraShake,
   CycleRaycast,
   Environment,
+  Html,
   MeshReflectorMaterial,
   OrbitControls,
   PerspectiveCamera,
   Scroll,
   ScrollControls,
 } from '@react-three/drei';
-import { LayerMaterial, Depth, Noise } from 'lamina';
-import { ACESFilmicToneMapping, sRGBEncoding } from 'three';
 import { Perf } from 'r3f-perf';
 
 function HeroPage() {
@@ -46,7 +41,6 @@ function HeroPage() {
         fallback={null}
         camera={{ position: [-1, 20.1, 10.6], fov:30 }}
         linear
-        fla
         shadows
         legacy
         dpr={[1, 1.5]}
@@ -59,8 +53,7 @@ function HeroPage() {
           // powerPreference: "low-power"
         }}
       >
-        {/* <color attach="background" args={["#0c0c0c"]}/> */}
-        <fog attach='fog' color='#efefef' near={1} far={20} />
+            <fog attach='fog' color='#efefef' near={1} far={20} />
 
         <OrbitControls
           makeDefault
@@ -76,32 +69,11 @@ function HeroPage() {
          pages={4} damping={1}
         horizontal
          >
-          {/* <Scroll> */}
-
-          <mesh
-            rotation={[-Math.PI * 0.5, 0, 0]}
-            position={[0, 0.01, 0]}
-            receiveShadow
-            castShadow
-          >
-            <circleBufferGeometry args={[5, 50]} />
-            <MeshReflectorMaterial
-              color='#efefef'
-              blur={[100, 100]}
-              resolution={2048}
-              mixBlur={0}
-              mixStrength={20}
-              depthScale={10}
-              minDepthThreshold={2}
-              metalness={0}
-              roughness={1}
-              // depthToBlurRatioBias={0.25}
-              mirror={1}
-            />
-          </mesh>
+       
 
           <Scene />
-          {/* </Scroll> */}
+      
+
         </ScrollControls>
         {/* <Perf deepAnalyze={true} /> */}
       </Canvas>
