@@ -1,7 +1,7 @@
 
 import React, { useRef } from "react";
 import { useGLTF } from "@react-three/drei";
-import { useLoader } from "react-three-fiber";
+import { useLoader } from '@react-three/fiber';
 import { TextureLoader } from "three/src/loaders/TextureLoader";
 import * as THREE from 'three'
 import PostProc from "./PostProc";

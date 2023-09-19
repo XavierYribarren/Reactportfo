@@ -13,7 +13,6 @@ import fourByFour from "../assets/img/ProjImgs/FourbyFour.gif"
 import cargif from '../assets/img/ProjImgs/cargif.gif'
 import { Gallery, Item } from "react-photoswipe-gallery";
 import 'photoswipe/dist/photoswipe.css'
-import './projects.css'
 import CarApp from "./carshow/CarApp";
 
 export const Projects = () => {

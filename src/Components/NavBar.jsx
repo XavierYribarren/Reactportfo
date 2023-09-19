@@ -5,7 +5,7 @@ import logo from '../assets/img/LogoPiti.gif'
 import navIcon1 from '../assets/img/nav-icon1.svg'
 import navIcon2 from '../assets/img/github-1.svg'
 import navIcon3 from '../assets/img/nav-icon3.svg'
-import './navbar.css'
+
 
 
 export const NavBar = () => {

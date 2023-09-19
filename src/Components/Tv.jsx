@@ -3,7 +3,7 @@ import { Html, Image, Scroll, useGLTF } from '@react-three/drei';
 import * as THREE from 'three';
 import CurrentW from './CurrentW';
 import { TextureLoader } from "three/src/loaders/TextureLoader";
-import { useLoader, useThree } from 'react-three-fiber';
+import { useLoader, useThree } from '@react-three/fiber';
 import PostProc from './PostProc';
 export function Tv(props) {
   const { nodes, materials } = useGLTF('/screen.glb');

@@ -2,7 +2,7 @@ import { Text, useScroll } from '@react-three/drei'
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import typo from '../../public/Typo_Round2.json'
 import gsap from "gsap";
-import { useFrame } from 'react-three-fiber';
+import { useFrame } from '@react-three/fiber';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
 import { MotionConfig } from "framer-motion";
