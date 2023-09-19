@@ -31,7 +31,7 @@ function HeroPage() {
         {/* <fog attach='fog' color='#efefef' near={1} far={20} /> */}
 
         <ScrollControls
-          distance={0.5}
+          // distance={0.5}
           pages={8}
           damping={1}
       
