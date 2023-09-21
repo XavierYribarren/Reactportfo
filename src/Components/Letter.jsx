@@ -1,13 +1,16 @@
 
-import React, { useRef } from "react";
+import React, { forwardRef, useRef } from "react";
 import { useGLTF } from "@react-three/drei";
 import { useLoader } from '@react-three/fiber';
 import { TextureLoader } from "three/src/loaders/TextureLoader";
 import * as THREE from 'three'
 import PostProc from "./PostProc";
-export function Letter(props) {
+import { BlurPass, Resizer, KernelSize } from 'postprocessing'
+import { SelectiveBloom } from "@react-three/postprocessing";
+export const Letter = forwardRef(function (props, ref) {
   const { nodes, materials } = useGLTF("/logoCUB.glb");
 
+const tvScreen =  useRef()
 
   const YsEmitIntensity = useLoader(TextureLoader, "/letterMaps/YS_Pass2.png");
   YsEmitIntensity.flipY = false;
@@ -25,9 +28,13 @@ const WhyMaterial = new THREE.MeshPhysicalMaterial({
  
 })
 
+
   return (
     <group {...props} dispose={null}>
         {/* <PostProc/> */}
+        {/* <SelectiveBloom
+        lights={ref}
+   /> */}
       <mesh
         castShadow
         receiveShadow
@@ -41,6 +48,7 @@ const WhyMaterial = new THREE.MeshPhysicalMaterial({
         material={materials["Material.001"]}
       />
       <mesh
+      ref={tvScreen}
         castShadow
         receiveShadow
         geometry={nodes.Plane001.geometry}
@@ -49,6 +57,6 @@ const WhyMaterial = new THREE.MeshPhysicalMaterial({
       />
     </group>
   );
-}
+})
 
 useGLTF.preload("/logoCUB.glb");

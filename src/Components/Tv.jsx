@@ -58,8 +58,8 @@ const { camera, mouse } = useThree();
     <group  {...props} dispose={null}
   
     >
-        <PostProc /> 
-      
+        {/* <PostProc />  */}
+
    
       <mesh
       

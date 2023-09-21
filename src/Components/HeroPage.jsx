@@ -6,7 +6,7 @@ import * as THREE from 'three';
 
 import {
 
-  ScrollControls,
+  ScrollControls, Stage,
 } from '@react-three/drei';
 
 
@@ -36,7 +36,10 @@ function HeroPage() {
           damping={0.51}
       
         >
+         
+
           <Scene />
+      
         </ScrollControls>
         {/* <Perf deepAnalyze={true} /> */}
       </Canvas>

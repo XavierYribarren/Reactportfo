@@ -62,12 +62,12 @@ useLayoutEffect(() => {
 
 tl.current.pause()
 // tl.current.play()
-tl.current.fromTo(rings.current.scale, {x: 0,y :0, z : 0}, {
-  duration : 0.05,
-  x : 1,
-  y:1,
-  z : 1,
-}, "+=0.2")
+// tl.current.fromTo(rings.current.scale, {x: 0,y :0, z : 0}, {
+//   duration : 0.05,
+//   x : 1,
+//   y:1,
+//   z : 1,
+// }, "+=0.2")
 })
 
 

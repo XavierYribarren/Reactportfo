@@ -7,6 +7,7 @@ import {
   OrbitControls,
   PerspectiveCamera,
   Scroll,
+  Stage,
   Text,
   useScroll,
 } from '@react-three/drei';
@@ -21,6 +22,9 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
 import { TextSection } from './TextSection';
 import { ReactLogo } from './ReactLogo';
+import { Background } from './Background';
+import PostProc from './PostProc';
+import { SelectiveBloom } from '@react-three/postprocessing';
 
 export default function Scene() {
   const group = useRef();
@@ -46,15 +50,13 @@ const reactLogo = useRef()
   const introduce = useRef();
 const backG = useRef()  
 const envbl = useRef(null)
+const spotRef = useRef()
   const scroll = useScroll();
   const { width, height } = useThree((state) => state.viewport);
 const [visibility, setVisibility] = useState(false)
 let  ringScaleM
 
 
-const prout = () => {
-  console.log("PROUUUUUUT")
-}
 
   const cameraRail = useRef();
   const FRICTION_DISTANCE = 42;
@@ -80,16 +82,17 @@ const tl = useRef()
     end: "bottom 100%",// when the top of the trigger hits the top of the viewport
     // end: "+=500", // end after scrolling 500px beyond the start
     markers : true,
-    scrub: 0.1, }})
+    // scrub: 0.01 
+  }})
 tl.current.pause()
 
 tl.current.fromTo(tv.current.position, {x: 0, z : 0}, {
-  duration : 0.51,
+  duration : 0.21,
   x : -2,
   z : -2
 })
 .to(camGroup.current.rotation,  {
-  duration: 1,
+  duration: 0.3,
   ease: "power1.out",
   y : -Math.PI *0.20,
 }, "<")
@@ -99,50 +102,92 @@ tl.current.fromTo(tv.current.position, {x: 0, z : 0}, {
 color: "#ff00ff"
   }, "<")
   tl.current.fromTo(introduce.current.position, {x : 20, z: - 10 },{
-    duration : 0.5,
+    duration : 0.3,
     ease: "power1.out",
 x : 3,
 z:1
-  },"-=0.8" )
+  },"-=0.3" )
 
   tl.current.fromTo(introduce.current, {fillOpacity : 0 },{
-    duration : 1,
+    duration : 0.1,
     ease: "power1.inOut",
  fillOpacity: 1
   }, "-=0.2")
   tl.current.to(introduce.current, {
     ease: "power1.in",
-    duration : 1,
-  },"<0.5")
+    duration : 0.1,
+  },"<0.1")
 
   .to(camGroup.current.rotation,  {
-    duration: 1,
+    duration: 0.3,
     ease: "power1.in",
     y : -Math.PI *0.70,
    
-  }, "<0.2"  )
+  }, 
+  // "<0.2"  
+  )
+  .to(camGroup.current.rotation,  {
+    duration: 0.3,
+    ease: "power1.in",
+    y : -Math.PI *0.70,
+   
+  }, 
+  // "<0.2"  
+  )  .to(camGroup.current.rotation,  {
+    duration: 0.3,
+    ease: "power1.in",
+    y : -Math.PI *0.70,
+   
+  }, 
+  // "<0.2"  
+  )  .to(camGroup.current.rotation,  {
+    duration: 0.3,
+    ease: "power1.in",
+    y : -Math.PI *0.70,
+   
+  }, 
+  // "<0.2"  
+  )
 // tl.current.kill()
 
 
  })
-
+ const backgroundColors = useRef({
+  colorA: "#505050",
+  colorB: "#505050",
+});
   return (
     <>
       {/* <Rig /> */}
+
+  
+     
       <group
         ref={camGroup}
         position={[0, 0.1, 1.8]}
 
       >
+        <spotLight
+          lookAt={[1, 0, 2]}
+          position={[0, 4, 14]}
+          intensity={5}
+          penumbra={0.2}
+          castShadow
+          ref={spotRef}
+          // spotRef={spotRef}
+        />
+
+            <Background backgroundColors={backgroundColors} />
         {/* <OrbitControls enableZoom={false}/> */}
         <group    ref={cameraRail}     rotation={[0,-Math.PI*0.17,0]}>
-
+  
         <PerspectiveCamera
           fov={30}
           rotation={[0.2, 0, 0]}
           makeDefault
           />
           </group>
+         
 
 
 
@@ -151,11 +196,13 @@ z:1
       {/* {textSections.map((textSection, index) => (
           <TextSection {...textSection} key={index} />
         ))} */}
+
       <group
         // ref={group}
         dispose={null}
         position={[width * w, 0, 0]}
       >
+     
         <mesh
           rotation={[-Math.PI * 0.5, 0, 0]}
           position={[0, 0.01, 0]}
@@ -178,13 +225,7 @@ z:1
           {/* <meshBasicMaterial ref={backG} side={THREE.DoubleSide}  /> */}
         </mesh>
 
-        <spotLight
-          lookAt={[12, 8, 2]}
-          position={[0, 4, 14]}
-          intensity={2}
-          penumbra={0.2}
-          castShadow
-        />
+     
 
         <group ref={tv}>
           <CurrentW />
@@ -204,11 +245,13 @@ z:1
             hover={hover}
           />
         </group>
+
         <group ref={letter}>
           <Letter
             scale={0.5}
             position={[1.4, 0, -0.2]}
             rotation={[0, -Math.PI * 0.3, 0]}
+            ref={spotRef}
           />
         </group>
 
@@ -225,7 +268,7 @@ z:1
         // fillOpacity={0}
         maxWidth={2.3}
         rotation={[0,-Math.PI*0.4,0]}
-        color={"black"}
+        color={"white"}
         >
 
  Hi, I'm Xavier Yribarren,
@@ -249,10 +292,11 @@ scale={1.5}
 </group>
         <Environment 
         preset='dawn'
-         background 
+        //  background 
          blur={3}
          />
-      </group>
+      
+      </group>  
     </>
   );
 }

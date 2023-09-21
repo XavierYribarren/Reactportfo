@@ -20,16 +20,16 @@ function PostProc() {
         />
         <Bloom
           blendFunction={BlendFunction.ADD}
-          intensity={0.2}
+          intensity={0.82}
           width={400}
           height={400}
           kernelSize={5}
-          luminanceThreshold={0.98}
+          luminanceThreshold={0.08}
           luminanceSmoothing={0.2}
         />
         {/* <ChromaticAberration
-          // blendFunction={BlendFunction.NORMAL}
-          // offset={[0.0006, 0.0002]}
+          blendFunction={BlendFunction.NORMAL}
+          offset={[0.0006, 0.0002]}
         /> */}
       </EffectComposer>
     </>

@@ -7,7 +7,7 @@ import { Skills } from './Components/Skills';
 import { Projects } from './Components/Projects';
 import { Contact } from './Components/Contact';
 import { Footer } from './Components/Footer';
-import Face from './Components/Face';
+
 import RingLoader from 'react-spinners/RingLoader';
 import HeroPage from './Components/HeroPage';
 import { SkinnedMesh } from 'three';
