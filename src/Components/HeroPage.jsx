@@ -32,8 +32,8 @@ function HeroPage() {
 
         <ScrollControls
           // distance={0.5}
-          pages={8}
-          damping={1}
+          pages={22}
+          damping={0.51}
       
         >
           <Scene />

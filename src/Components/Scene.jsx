@@ -16,10 +16,11 @@ import * as THREE from 'three';
 import { useFrame, useThree } from '@react-three/fiber';
 import { Letter } from './Letter';
 import CurrentW from './CurrentW';
-import gsap from 'gsap';
+import {gsap} from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
 import { TextSection } from './TextSection';
+import { ReactLogo } from './ReactLogo';
 
 export default function Scene() {
   const group = useRef();
@@ -39,13 +40,21 @@ export default function Scene() {
 color: "#ffffff"
 
 })
+
+const reactLogo = useRef()
+
   const introduce = useRef();
 const backG = useRef()  
 const envbl = useRef(null)
   const scroll = useScroll();
   const { width, height } = useThree((state) => state.viewport);
+const [visibility, setVisibility] = useState(false)
+let  ringScaleM
 
 
+const prout = () => {
+  console.log("PROUUUUUUT")
+}
 
   const cameraRail = useRef();
   const FRICTION_DISTANCE = 42;
@@ -53,10 +62,6 @@ const envbl = useRef(null)
     
     tl.current.seek(scroll.offset * tl.current.duration())
 
-
-  // backG.current.color = new THREE.Color(lightCol.current.color) 
-// envbl.current.blur = envbl.current.blur * (3*scroll.offset)
-  //  console.log( envbl.current)
   });
   const handleOpenNewTab = () => {
     const urlToOpen = 'http://tweakasix.netlify.app';
@@ -72,11 +77,11 @@ const tl = useRef()
     trigger: ".main",
     // pin: true,   // pin the trigger element while active
     start: "top top",
-    end: "bottom bottom",// when the top of the trigger hits the top of the viewport
+    end: "bottom 100%",// when the top of the trigger hits the top of the viewport
     // end: "+=500", // end after scrolling 500px beyond the start
     markers : true,
     scrub: 0.1, }})
-// tl.current.pause()
+tl.current.pause()
 
 tl.current.fromTo(tv.current.position, {x: 0, z : 0}, {
   duration : 0.51,
@@ -86,7 +91,7 @@ tl.current.fromTo(tv.current.position, {x: 0, z : 0}, {
 .to(camGroup.current.rotation,  {
   duration: 1,
   ease: "power1.out",
-  y : -Math.PI *0.20
+  y : -Math.PI *0.20,
 }, "<")
 
   tl.current.to(lightCol.current, {
@@ -108,15 +113,17 @@ z:1
   tl.current.to(introduce.current, {
     ease: "power1.in",
     duration : 1,
- fillOpacity: 0
   },"<0.5")
 
   .to(camGroup.current.rotation,  {
     duration: 1,
     ease: "power1.in",
-    y : -Math.PI *0.70
-  }, "<0.2")
-  
+    y : -Math.PI *0.70,
+   
+  }, "<0.2"  )
+// tl.current.kill()
+
+
  })
 
   return (
@@ -161,7 +168,7 @@ z:1
             blur={[100, 100]}
             resolution={2048}
             mixBlur={0}
-            mixStrength={20}
+            mixStrength={1}
             depthScale={10}
             minDepthThreshold={2}
             metalness={0}
@@ -230,6 +237,16 @@ z:1
         {/* </div> */}
 
         {/* </Scroll> */}
+
+<group ref={reactLogo} position={[1,0.5,2.5]}
+scale={1.5}
+>
+
+        <ReactLogo 
+        visibility={visibility}
+        ringScaleM={ringScaleM}
+        />
+</group>
         <Environment 
         preset='dawn'
          background 
