@@ -5,12 +5,17 @@ import CurrentW from './CurrentW';
 import { TextureLoader } from "three/src/loaders/TextureLoader";
 import { useLoader, useThree } from '@react-three/fiber';
 import PostProc from './PostProc';
+import { BlurPass, Resizer, KernelSize } from 'postprocessing'
+import { ChromaticAberration, DepthOfField, EffectComposer, SelectiveBloom } from "@react-three/postprocessing";
+import { BlendFunction } from 'postprocessing';
 export function Tv(props) {
   const { nodes, materials } = useGLTF('/screen.glb');
   const [iframeLoaded, setIframeLoaded] = useState(false);
 
   const hover = props.hover
   const tv = useRef()
+
+  const spot = props.light
   // Code to execute when the iframe content is loaded
   const handleIframeLoad = () => {
     const iframe = document.querySelector('iframe');
@@ -58,9 +63,43 @@ const { camera, mouse } = useThree();
     <group  {...props} dispose={null}
   
     >
-        {/* <PostProc />  */}
+        <PostProc /> 
+    
 
+        
+    {hover &&(
+      <>  
+      <EffectComposer>
+<SelectiveBloom
+    lights={[spot,tv]} // ⚠️ REQUIRED! all relevant lights
+    selection={[tv]} // selection of objects that will have bloom effect
+    selectionLayer={10} // selection layer
+    intensity={1} // The bloom intensity.
+    // blurPass={new BlurPass()} // A blur pass.
+    width={Resizer.AUTO_SIZE} // render width
+    height={Resizer.AUTO_SIZE} // render height
+    kernelSize={KernelSize.LARGE} // blur kernel size
+    luminanceThreshold={0.49} // luminance threshold. Raise this value to mask out darker elements in the scene.
+    luminanceSmoothing={0.5} // smoothness of the luminance threshold. Range is [0, 1]
+    />  
+    <DepthOfField
+  focusDistance={0.14}
+  focalLength={1.9}
+  blur={50.4}
+  bokehScale={40}
+  height={480}
+  /> 
+
+  {/* <ChromaticAberration
+       blendFunction={BlendFunction.NORMAL}
+       offset={[0.0006, 0.0002]}
+  />  */}
+   </EffectComposer>
+    </>
+    )}
+  
    
+  
       <mesh
       
         castShadow
@@ -71,10 +110,13 @@ const { camera, mouse } = useThree();
       /> 
       
       <mesh
+
+      ref={tv}
         castShadow
         receiveShadow
         geometry={nodes.Cube003_1.geometry}
-        material={hover ? materials.screenLight : materials.screenNorm}
+        // material={hover ? materials.screenLight : materials.screenNorm}
+        material={materials.screenNorm}
       >
       
       </mesh>    

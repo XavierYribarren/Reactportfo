@@ -7,78 +7,45 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
 import { MotionConfig } from "framer-motion";
 import { motion } from "framer-motion-3d";
+import * as THREE from 'three'
 
-function Introduce({position, rotation}) {
-const tl = useRef();
+function Introduce({introduce}) {
 
-const scroll = useScroll()
-const [model, setModel] = useState(false)
-const ref = useRef()
+const opacityRef = useRef()
+const posRef = useRef()
 
-
-//  console.log(tl.current.scrollTrigger.scroll.v)
-let scrollX;
-
-
+// console.log(introduce)
 
 useFrame(() => {
+opacityRef.current.fillOpacity = introduce.current.fillOpacity
 
-  // console.log(scroll.offset)
+opacityRef.current.position.x= introduce.current.position.x
+opacityRef.current.position.y= introduce.current.position.y
+opacityRef.current.position.z= introduce.current.position.z
+
 })
-
-if(scroll.offset > 0.5){
-  setModel(true)
-}
 
   return (
     <>
 
 
-{/* <MotionConfig
-              transition={{
-                type: "spring",
-                duration: 2,
-                ease: "easeInOut",
-                repeat: 1,
-                repeatDelay: 1,
-              }}
-            >
-              <motion.group animate={scroll.offset < 0.1 ? "es335" : "tele"}>
-                <motion.group
-                  variants={{
-                    es335: {     x: 1,
-                      scale: 0, },
-                    tele: {
-                      x: 1,
-                      scale: 1,
-                    },
-                  }}
-                >   */}
-                <Text 
-    // position={position}
-    position={[4,1,1]}
-    rotation={rotation}
-    // overflowWrap='normal'
-    font={'typo'} 
-    // clipRect={[-100,-100,0,1220]}
-    textAlign='center'
-    maxWidth={2.1}
-    fontSize={0.2}
-    // lineHeight={0.8}
-    color={'black'}
-    // whiteSpace='normal'
-    >
-    Hi, I'm Xavier Yribarren,
+     
+<Text 
+ref={opacityRef}
+        // className='pipi'
+        fontSize={0.2}
+        // position={opacityRef.current.position}
+        rotation={[0,-Math.PI*0.4,0]}
+        // fillOpacity={0}
+        maxWidth={2.3}
+        color={"white"}
+        >
+
+ Hi, I'm Xavier Yribarren,
     a 28 years old web developper 
     actually living in Lyon, FR.
-    </Text>
-           
-                {/* </motion.group>
-
-              
-              </motion.group>
-            </MotionConfig>
-   */}
+    
+        </Text>
   
     </>
   )

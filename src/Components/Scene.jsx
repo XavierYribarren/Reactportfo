@@ -24,8 +24,9 @@ import { TextSection } from './TextSection';
 import { ReactLogo } from './ReactLogo';
 import { Background } from './Background';
 import PostProc from './PostProc';
-import { SelectiveBloom } from '@react-three/postprocessing';
-
+import { DepthOfField, EffectComposer, SelectiveBloom, ChromaticAberration } from '@react-three/postprocessing';
+import Introduce from './Introduce';
+import { BlendFunction } from 'postprocessing';
 export default function Scene() {
   const group = useRef();
   const tv = useRef();
@@ -82,7 +83,7 @@ const tl = useRef()
     end: "bottom 100%",// when the top of the trigger hits the top of the viewport
     // end: "+=500", // end after scrolling 500px beyond the start
     markers : true,
-    // scrub: 0.01 
+    scrub: 0.01 
   }})
 tl.current.pause()
 
@@ -92,31 +93,33 @@ tl.current.fromTo(tv.current.position, {x: 0, z : 0}, {
   z : -2
 })
 .to(camGroup.current.rotation,  {
-  duration: 0.3,
+  duration: 0.2,
   ease: "power1.out",
   y : -Math.PI *0.20,
-}, "<")
+}, "<0.01")
 
-  tl.current.to(lightCol.current, {
-    duration : 0.1,
-color: "#ff00ff"
-  }, "<")
-  tl.current.fromTo(introduce.current.position, {x : 20, z: - 10 },{
-    duration : 0.3,
+//   tl.current.to(lightCol.current, {
+//     duration : 0.1,
+// color: "#ff00ff"
+//   }, "<")
+  tl.current.fromTo(introduce.current.position, {x : 20, y: 0.5,z: - 10 },{
+    duration : 0.25,
     ease: "power1.out",
-x : 3,
-z:1
-  },"-=0.3" )
+x : 1.5,
+y:0.5,
+z:0.5
+  },"-=0.2" )
 
   tl.current.fromTo(introduce.current, {fillOpacity : 0 },{
-    duration : 0.1,
+    duration : 0.2,
     ease: "power1.inOut",
  fillOpacity: 1
-  }, "-=0.2")
+  }, "-=0.1")
   tl.current.to(introduce.current, {
-    ease: "power1.in",
+    ease: "power1.inOut",
+    fillOpacity: "0",
     duration : 0.1,
-  },"<0.1")
+  },"<0.2")
 
   .to(camGroup.current.rotation,  {
     duration: 0.3,
@@ -124,7 +127,7 @@ z:1
     y : -Math.PI *0.70,
    
   }, 
-  // "<0.2"  
+  "-=0.3"  
   )
   .to(camGroup.current.rotation,  {
     duration: 0.3,
@@ -174,7 +177,6 @@ z:1
           penumbra={0.2}
           castShadow
           ref={spotRef}
-          // spotRef={spotRef}
         />
 
             <Background backgroundColors={backgroundColors} />
@@ -187,16 +189,22 @@ z:1
           makeDefault
           />
           </group>
-         
 
-
-
-          
       </group>
       {/* {textSections.map((textSection, index) => (
           <TextSection {...textSection} key={index} />
         ))} */}
+      
 
+
+  <EffectComposer>
+<DepthOfField
+  focusDistance={0.14}
+  focalLength={0.49}
+  blur={1.4}
+  bokehScale={4}
+  height={480}
+  /> 
       <group
         // ref={group}
         dispose={null}
@@ -243,6 +251,7 @@ z:1
               setHover(false), (document.body.style.cursor = 'auto')
             )}
             hover={hover}
+            light={spotRef}
           />
         </group>
 
@@ -251,7 +260,7 @@ z:1
             scale={0.5}
             position={[1.4, 0, -0.2]}
             rotation={[0, -Math.PI * 0.3, 0]}
-            ref={spotRef}
+            light={spotRef}
           />
         </group>
 
@@ -259,10 +268,19 @@ z:1
 
         {/* <div ref={introduce} id="introduce" style={{ position: 'fixed' , top:'33vh', left:'100vw' , width:'30vw'}}> */}
         {/* <Html> */}
+<group
+ ref={introduce}
+//  position={[0,0.1,0]}
+ >
 
-      
-        <Text ref={introduce}
-        className='pipi'
+      <Introduce 
+           introduce={introduce}
+          //  position={[14,0.8,2]}
+            // rotation={[0,-Math.PI*0.4,0]}
+            />
+        </group>
+        {/* <Text ref={introduce}
+        // className='pipi'
         fontSize={0.2}
         position={[14,0.8,2]}
         // fillOpacity={0}
@@ -270,16 +288,14 @@ z:1
         rotation={[0,-Math.PI*0.4,0]}
         color={"white"}
         >
-
+        
  Hi, I'm Xavier Yribarren,
     a 28 years old web developper 
     actually living in Lyon, FR.
     
-        </Text>
-        {/* </Html> */}
-        {/* </div> */}
+        </Text> */}
+  
 
-        {/* </Scroll> */}
 
 <group ref={reactLogo} position={[1,0.5,2.5]}
 scale={1.5}
@@ -296,7 +312,7 @@ scale={1.5}
          blur={3}
          />
       
-      </group>  
+      </group>  </EffectComposer>
     </>
   );
 }
