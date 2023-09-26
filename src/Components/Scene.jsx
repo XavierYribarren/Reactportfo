@@ -180,14 +180,14 @@ z:0.5
         />
 
             <Background backgroundColors={backgroundColors} />
-        {/* <OrbitControls enableZoom={false}/> */}
+        <OrbitControls enableZoom={false}/>
         <group    ref={cameraRail}     rotation={[0,-Math.PI*0.17,0]}>
   
-        <PerspectiveCamera
+        {/* <PerspectiveCamera
           fov={30}
           rotation={[0.2, 0, 0]}
           makeDefault
-          />
+          /> */}
           </group>
 
       </group>
@@ -199,8 +199,8 @@ z:0.5
 
   <EffectComposer>
 <DepthOfField
-  focusDistance={0.14}
-  focalLength={0.49}
+  focusDistance={0.0082}
+  focalLength={0.09}
   blur={1.4}
   bokehScale={4}
   height={480}

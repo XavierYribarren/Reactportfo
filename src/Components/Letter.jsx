@@ -40,7 +40,7 @@ console.log(props)
    /> */}
 {/* <EffectComposer> */}
 
-<SelectiveBloom
+{/* <SelectiveBloom
     lights={[spot]} // ⚠️ REQUIRED! all relevant lights
     selection={[tvScreen]} // selection of objects that will have bloom effect
     selectionLayer={10} // selection layer
@@ -51,7 +51,7 @@ console.log(props)
     kernelSize={KernelSize.LARGE} // blur kernel size
     luminanceThreshold={0.79} // luminance threshold. Raise this value to mask out darker elements in the scene.
     luminanceSmoothing={0.025} // smoothness of the luminance threshold. Range is [0, 1]
-    />
+    /> */}
     {/* </EffectComposer> */}
       <mesh
         castShadow

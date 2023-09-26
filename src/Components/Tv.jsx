@@ -72,21 +72,21 @@ const { camera, mouse } = useThree();
       <EffectComposer>
 <SelectiveBloom
     lights={[spot,tv]} // ⚠️ REQUIRED! all relevant lights
-    selection={[tv]} // selection of objects that will have bloom effect
+    // selection={[tv]} // selection of objects that will have bloom effect
     selectionLayer={10} // selection layer
-    intensity={1} // The bloom intensity.
+    intensity={0.81} // The bloom intensity.
     // blurPass={new BlurPass()} // A blur pass.
     width={Resizer.AUTO_SIZE} // render width
     height={Resizer.AUTO_SIZE} // render height
     kernelSize={KernelSize.LARGE} // blur kernel size
-    luminanceThreshold={0.49} // luminance threshold. Raise this value to mask out darker elements in the scene.
+    luminanceThreshold={0.79} // luminance threshold. Raise this value to mask out darker elements in the scene.
     luminanceSmoothing={0.5} // smoothness of the luminance threshold. Range is [0, 1]
     />  
     <DepthOfField
-  focusDistance={0.14}
-  focalLength={1.9}
-  blur={50.4}
-  bokehScale={40}
+  focusDistance={0.00082}
+  focalLength={0.0009}
+  blur={4.4}
+  bokehScale={4}
   height={480}
   /> 
 
