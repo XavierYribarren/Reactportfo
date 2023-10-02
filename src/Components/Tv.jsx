@@ -61,6 +61,7 @@ const { camera, mouse } = useThree();
   return (
   // <Scroll>
     <group  {...props} dispose={null}
+    
   
     >
         <PostProc /> 
@@ -69,7 +70,7 @@ const { camera, mouse } = useThree();
         
     {hover &&(
       <>  
-      <EffectComposer>
+      <EffectComposer disableNormalPass={true}>
 <SelectiveBloom
     lights={[spot,tv]} // ⚠️ REQUIRED! all relevant lights
     // selection={[tv]} // selection of objects that will have bloom effect

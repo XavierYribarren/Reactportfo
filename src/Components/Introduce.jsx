@@ -1,6 +1,6 @@
 import { Html, Text, useScroll } from '@react-three/drei';
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
-import typo from '../../public/Typo_Round2.json';
+// import typo from './Typo_Round2.json';
 import gsap from 'gsap';
 import { events, useFrame } from '@react-three/fiber';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -25,7 +25,7 @@ function Introduce({ introduce }) {
     textGPRef.current.position.x = introduce.current.position.x;
     textGPRef.current.position.y = introduce.current.position.y;
     textGPRef.current.position.z = introduce.current.position.z;
-console.log(opacityRef.current.fillOpacity)
+// console.log(opacityRef.current.fillOpacity)
     // tl.current.seek(scroll.offset * tl.current.duration());
     const time = state.clock.getElapsedTime();
   });

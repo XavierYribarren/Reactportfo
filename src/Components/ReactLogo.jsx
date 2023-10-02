@@ -93,6 +93,7 @@ tl.current.pause()
         // castShadow
         receiveShadow
         geometry={nodes.Torus002.geometry}
+        scale={0.8}
         material={ringMat}
       />
     </group>

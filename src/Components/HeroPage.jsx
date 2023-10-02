@@ -17,18 +17,19 @@ function HeroPage() {
         fallback={null}
         // camera={{ position: [-1, 20.1, 10.6], fov:30 }}
         linear
+
         shadows
         legacy
         dpr={[1, 1.5]}
         gl={{
-          preserveDrawingBuffer: true,
+          // preserveDrawingBuffer: true,
           antialias: true,
           alpha: true,
           powerPreference: 'high-performance',
   
         }}
       >
-        <fog attach='fog' color='#040404' near={1} far={20} />
+        {/* <fog attach='fog' color='#040404' near={1} far={20} /> */}
 
         <ScrollControls
           // distance={0.5}
