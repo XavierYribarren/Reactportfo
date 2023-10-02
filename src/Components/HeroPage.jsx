@@ -21,7 +21,7 @@ function HeroPage() {
         legacy
         dpr={[1, 1.5]}
         gl={{
-          // preserveDrawingBuffer: true,
+          preserveDrawingBuffer: true,
           antialias: true,
           alpha: true,
           powerPreference: 'high-performance',

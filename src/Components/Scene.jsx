@@ -98,15 +98,12 @@ tl.current.fromTo(tv.current.position, {x: 0, z : 0}, {
   y : -Math.PI *0.20,
 }, "<0.01")
 
-//   tl.current.to(lightCol.current, {
-//     duration : 0.1,
-// color: "#ff00ff"
-//   }, "<")
-  tl.current.fromTo(introduce.current.position, {x : 20, y: 0.5,z: - 10 },{
+
+  tl.current.fromTo(introduce.current.position, {x : 10, y: 0.5,z: - 10 },{
     duration : 0.25,
     ease: "power1.out",
 x : 1.5,
-y:0.5,
+y:0.45,
 z:0.5
   },"-=0.2" )
 
@@ -114,7 +111,7 @@ z:0.5
     duration : 0.2,
     ease: "power1.inOut",
  fillOpacity: 1
-  }, "-=0.1")
+  }, "-=0.01")
   tl.current.to(introduce.current, {
     ease: "power1.inOut",
     fillOpacity: "0",
@@ -180,14 +177,14 @@ z:0.5
         />
 
             <Background backgroundColors={backgroundColors} />
-        <OrbitControls enableZoom={false}/>
+        {/* <OrbitControls enableZoom={false}/> */}
         <group    ref={cameraRail}     rotation={[0,-Math.PI*0.17,0]}>
   
-        {/* <PerspectiveCamera
+        <PerspectiveCamera
           fov={30}
           rotation={[0.2, 0, 0]}
           makeDefault
-          /> */}
+          />
           </group>
 
       </group>
@@ -274,6 +271,7 @@ z:0.5
  >
 
       <Introduce 
+      
            introduce={introduce}
           //  position={[14,0.8,2]}
             // rotation={[0,-Math.PI*0.4,0]}

@@ -7,14 +7,13 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { MotionConfig } from 'framer-motion';
 import { motion } from 'framer-motion-3d';
 import * as THREE from 'three';
-import AnimatedText from './AnimatedText';
 
 gsap.registerPlugin(ScrollTrigger);
 
 function Introduce({ introduce }) {
   const opacityRef = useRef();
   const posRef = useRef();
-  const textRef = useRef(null);
+  const textGPRef = useRef(null);
   const tl = useRef();
   const scroll = useScroll();
   // console.log(introduce)
@@ -23,11 +22,11 @@ function Introduce({ introduce }) {
   useFrame((state) => {
     opacityRef.current.fillOpacity = introduce.current.fillOpacity;
 
-    opacityRef.current.position.x = introduce.current.position.x;
-    opacityRef.current.position.y = introduce.current.position.y;
-    opacityRef.current.position.z = introduce.current.position.z;
-
-    tl.current.seek(scroll.offset * tl.current.duration());
+    textGPRef.current.position.x = introduce.current.position.x;
+    textGPRef.current.position.y = introduce.current.position.y;
+    textGPRef.current.position.z = introduce.current.position.z;
+console.log(opacityRef.current.fillOpacity)
+    // tl.current.seek(scroll.offset * tl.current.duration());
     const time = state.clock.getElapsedTime();
   });
 
@@ -36,54 +35,49 @@ function Introduce({ introduce }) {
   const characters = textBase.split('');
   const characterRefs = characters.map(() => useRef());
 
-  useLayoutEffect(() => {
-    if (opacityRef != undefined && opacityRef.current.position.x < 6) {
-      tl.current = gsap.timeline({
-        scrollTrigger: {
-          trigger: '.headxav',
-          start: 'top 10%',
-          // end: 'top 15%',
-          markers: true,
-          scrub: 0.01,
-        },
-      });
-      tl.current.play();
-      // tl.current.timeScale(2)
+  // useLayoutEffect(() => {
+  //   // if (opacityRef != undefined && opacityRef.current.position.x < 6) {
+  //     tl.current = gsap.timeline({
+  //       scrollTrigger: {
+  //         trigger: '.headxav',
+  //         start: 'top 40%',
+  //         // end: 'top 15%',
+  //         markers: true,
+  //         scrub:1,
+  //       },
+  //     });
+  //     tl.current.pause();
+  //     // tl.current.timeScale(2)
+  //     tl.current.fromTo(opacityRef.current, {
+  //      fillOpacity : 0
+  //     }, {
+  //      fillOpacity : 1,
+  //      duration: 10
+  //     })
 
-      characters.forEach((char, index) => {
-        tl.current.timeScale(2);
-        tl.current.fromTo(
-          characterRefs[index].current.position,
-          { x: 1 * index, y: -(1 + index), z: -(index) },
-          { x: index / 12, y: 0, z: 0, duration: 0.1*scroll.offset },
-          '<0.15'
-        );
-      });
-    }
-  }, [characters, characterRefs]);
+  //   // }
+  // }, []);
 
   return (
     <>
-      {/* <Html     > */}
-      <group ref={opacityRef} rotation={[0, -Math.PI * 0.4, 0]}>
-        {characters.map((char, index) => (
-          <Text
+  
+      <group ref={textGPRef} rotation={[0, -Math.PI * 0.4, 0]}>
+
+                <Text
+
+                ref={opacityRef}
             className='hi-intro'
             fontSize={0.2}
-            maxWidth={0.0003}
+            maxWidth={1.3}
             color={'white'}
-            fillOpacity={opacityRef.fillOpacity}
-            position={characterRefs[index].position}
-            ref={characterRefs[index]}
+            // fillOpacity={opacityRef.current.fillOpacity}
+            // position={characterRefs[index].position}
+            // ref={characterRefs[index]}
           >
-            {/* <div key={index}> */}
-
-            {char}
-            {/* </div> */}
-          </Text>
-        ))}
+        {textBase}
+        </Text>
       </group>
-      {/* </Html> */}
+     
     </>
   );
 }
