@@ -23,16 +23,18 @@ gsap.registerPlugin(ScrollTrigger);
 import { TextSection } from './TextSection';
 import { ReactLogo } from './ReactLogo';
 import { Background } from './Background';
+
 import PostProc from './PostProc';
-import { DepthOfField, EffectComposer, SelectiveBloom, ChromaticAberration } from '@react-three/postprocessing';
+import { DepthOfField, EffectComposer, SelectiveBloom, ChromaticAberration, Noise } from '@react-three/postprocessing';
 import Introduce from './Introduce';
 import { BlendFunction } from 'postprocessing';
+import About from './About';
 export default function Scene() {
   const group = useRef();
   const tv = useRef();
   const letter = useRef();
   const camGroup = useRef();
-
+  const about = useRef()
   const [hover, setHover] = useState(false);
   const { camera, mouse } = useThree();
   function Rig() {
@@ -93,19 +95,20 @@ tl.current.fromTo(tv.current.position, {x: 0, z : 0}, {
   z : -2
 })
 .to(camGroup.current.rotation,  {
-  duration: 0.2,
+  duration: 0.21,
+  ease: 'none',
   ease: "power1.out",
   y : -Math.PI *0.20,
-}, "<0.01")
+}, "<-0.01")
 
 
   tl.current.fromTo(introduce.current.position, {x : 10, y: 0.5,z: - 10 },{
-    duration : 0.25,
+    duration : 0.15,
     ease: "power1.out",
 x : 1.5,
 y:0.45,
 z:0.5
-  },"-=0.2" )
+  },camGroup.current )
 
   tl.current.fromTo(introduce.current, {fillOpacity : 0 },{
     duration : 0.2,
@@ -115,17 +118,36 @@ z:0.5
   tl.current.to(introduce.current, {
     ease: "power1.inOut",
     fillOpacity: "0",
-    duration : 0.1,
-  },"<0.2")
+    duration : 0.15,
+  },"<-0.15")
 
   .to(camGroup.current.rotation,  {
-    duration: 0.3,
+    duration: 0.2,
     ease: "power1.in",
-    y : -Math.PI *0.70,
+    y : -Math.PI *0.55,
    
   }, 
-  "-=0.3"  
+  "-=0.15"  
   )
+  tl.current.fromTo(about.current.position, {x : 10, y: 0.5,z: 10 },{
+    duration : 0.825,
+    ease: "power1.out",
+x : 0.5,
+y:0.75,
+z:2.5
+  },"-=0.2" )
+
+//   tl.current.fromTo(about.current, {fillOpacity : 0 },{
+//     duration : 0.2,
+//     ease: "power1.inOut",
+//  fillOpacity: 1
+//   }, "-=0.01")
+//   tl.current.to(about.current, {
+//     ease: "power1.inOut",
+//     fillOpacity: "0",
+//     duration : 0.1,
+//   },"<0.2")
+
   .to(camGroup.current.rotation,  {
     duration: 0.3,
     ease: "power1.in",
@@ -170,7 +192,7 @@ z:0.5
         <spotLight
           lookAt={[1, 0, 2]}
           position={[0, 4, 14]}
-          intensity={5}
+          intensity={2}
           penumbra={0.2}
           castShadow
           ref={spotRef}
@@ -271,27 +293,26 @@ z:0.5
  >
 
       <Introduce 
-      
+      castShadow
            introduce={introduce}
           //  position={[14,0.8,2]}
             // rotation={[0,-Math.PI*0.4,0]}
             />
         </group>
-        {/* <Text ref={introduce}
-        // className='pipi'
-        fontSize={0.2}
-        position={[14,0.8,2]}
-        // fillOpacity={0}
-        maxWidth={2.3}
-        rotation={[0,-Math.PI*0.4,0]}
-        color={"white"}
-        >
-        
- Hi, I'm Xavier Yribarren,
-    a 28 years old web developper 
-    actually living in Lyon, FR.
     
-        </Text> */}
+        <group
+ ref={about}
+//  position={[0,0.1,0]}
+ >
+
+      <About
+      castShadow
+           about={about}
+          //  position={[14,0.8,2]}
+            // rotation={[0,-Math.PI*0.4,0]}
+            />
+        </group>
+    
   
 
 
@@ -309,8 +330,21 @@ scale={1.5}
         //  background 
          blur={3}
          />
-      
-      </group>  </EffectComposer>
+  
+      </group>    
+       {/* <Noise  
+        premultiply 
+
+    blendFunction={BlendFunction.ADD} // blend mode
+    /> 
+     */}
+    {/* <ChromaticAberration
+    blendFunction={BlendFunction.INVERT} // blend mode
+    offset={[0.001, 0.002]} // color offset
+  /> */}
+
+  
+    </EffectComposer>
     </>
   );
 }

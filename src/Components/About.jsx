@@ -10,27 +10,26 @@ import * as THREE from 'three';
 
 gsap.registerPlugin(ScrollTrigger);
 
-function Introduce({ introduce }) {
+function About({ about }) {
   const opacityRef = useRef();
-  const posRef = useRef();
+
   const textGPRef = useRef(null);
   const tl = useRef();
   const scroll = useScroll();
-  // console.log(introduce)
-  const [textTrig, setTextTrig] = useState(false);
+
 
   useFrame((state) => {
-    opacityRef.current.fillOpacity = introduce.current.fillOpacity;
+    opacityRef.current.fillOpacity = about.current.fillOpacity;
 
-    textGPRef.current.position.x = introduce.current.position.x;
-    textGPRef.current.position.y = introduce.current.position.y;
-    textGPRef.current.position.z = introduce.current.position.z;
+    textGPRef.current.position.x = about.current.position.x;
+    textGPRef.current.position.y = about.current.position.y;
+    textGPRef.current.position.z = about.current.position.z;
 console.log(opacityRef.current.fillOpacity)
     // tl.current.seek(scroll.offset * tl.current.duration());
     const time = state.clock.getElapsedTime();
   });
 
-  const textBase = `Hi, I'm Xavier Yribarren, a 28 years old web developer actually living in Lyon, FR.`;
+  const textBase = `The technos I use`;
 
   const characters = textBase.split('');
   const characterRefs = characters.map(() => useRef());
@@ -61,21 +60,20 @@ console.log(opacityRef.current.fillOpacity)
   return (
     <>
   
-      <group ref={textGPRef} rotation={[0, -Math.PI * 0.4, 0]}>
+      <group ref={textGPRef} rotation={[0, -Math.PI * 0.76, 0]}>
 
                 <Text
 castShadow
 font='./Rajdhani-Medium.ttf'
                 ref={opacityRef}
             className='hi-intro'
-            fontSize={0.2}
-            maxWidth={1.3}
+            fontSize={0.3}
+            maxWidth={2.5}
             color={'white'}
             // fillOpacity={opacityRef.current.fillOpacity}
-            // position={characterRefs[index].position}
-            // ref={characterRefs[index]}
+            position={[0,1,0]}
           >
-        {textBase}
+       The technos I use
         </Text>
       </group>
      
@@ -83,4 +81,4 @@ font='./Rajdhani-Medium.ttf'
   );
 }
 
-export default Introduce;
+export default About;
