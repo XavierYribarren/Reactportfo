@@ -1,4 +1,5 @@
 import {
+  Cloud,
   Environment,
   Float,
   MeshReflectorMaterial,
@@ -24,7 +25,7 @@ gsap.registerPlugin(ScrollTrigger);
 import { TextSection } from './TextSection';
 import { ReactLogo } from './ReactLogo';
 import { Background } from './Background';
-
+import { Physics, usePlane, useBox } from '@react-three/cannon'
 import PostProc from './PostProc';
 import {
   DepthOfField,
@@ -39,6 +40,7 @@ import Introduce from './Introduce';
 import { BlendFunction, Effect, TextureEffect } from 'postprocessing';
 import About from './About';
 import ProjectsShow from './ProjectsShow';
+import Floor from './Floor';
 
 export default function Scene() {
   const tv = useRef();
@@ -51,6 +53,8 @@ export default function Scene() {
     r3fRef: 0,
     sqlRef: 0,
   });
+
+
   const projects = useRef();
   const [hover, setHover] = useState(false);
   const { camera, mouse } = useThree();
@@ -69,6 +73,7 @@ export default function Scene() {
   const scroll = useScroll();
   const { width, height } = useThree((state) => state.viewport);
   const [visibility, setVisibility] = useState(false);
+  const [pause, setPause] = useState(true)
   let ringScaleM;
 
   const cameraRail = useRef();
@@ -86,6 +91,9 @@ export default function Scene() {
   const tl = useRef();
 
   useLayoutEffect(() => {
+
+
+
     tl.current = gsap.timeline({
       scrollTrigger: {
         trigger: '.main',
@@ -243,7 +251,8 @@ export default function Scene() {
         {
           duration: 0.3,
           ease: 'power1.in',
-          y: -Math.PI * 0.7,
+          y: -Math.PI * 0.7,   
+            ontoggle: (pause) => { setPause(false) } 
         },
         "<"
       )
@@ -253,7 +262,8 @@ export default function Scene() {
           duration: 0.3,
           ease: 'power1.in',
           y: -Math.PI * 1,
-        }
+     
+        },  
         // "<0.2"
       )
       .to(
@@ -277,7 +287,7 @@ console.log(cameraRail)
       {/* <Rig /> */}
 
       <group ref={camGroup} position={[0, 0.1, 1.8]}>
-        <spotLight
+        {/* <spotLight
           lookAt={[1, 0, 2]}
           position={[0, 4, 14]}
           intensity={2}
@@ -285,16 +295,19 @@ console.log(cameraRail)
           castShadow
           ref={spotRef}
         />
+         */}
+
 
         <Background backgroundColors={backgroundColors} />
         {/* <OrbitControls enableZoom={false}/> */}
         <group ref={cameraRail} rotation={[0, -Math.PI * 0.17, 0]}>
-      
+   
           <PerspectiveCamera fov={30} rotation={[0.2, 0, 0]} makeDefault />
         </group>
       </group>
 
-      <EffectComposer disableNormalPass={true}  autoClear camera={cameraRail.PerspectiveCamera}>
+      <EffectComposer disableNormalPass={true}  autoClear >
+
         {/* <DepthOfField
           // focusDistance={0.0082}
           // focalLength={0.09}
@@ -307,28 +320,7 @@ console.log(cameraRail)
           dispose={null}
           position={[width * w, 0, 0]}
         >
-          <mesh
-            rotation={[-Math.PI * 0.5, 0, 0]}
-            position={[0, 0.01, 0]}
-            receiveShadow
-            castShadow
-          >
-            <circleBufferGeometry args={[5, 50]} />
-            <MeshReflectorMaterial
-              color='#151515'
-              blur={[100, 100]}
-              resolution={2048}
-              mixBlur={0}
-              mixStrength={1}
-              depthScale={10}
-              minDepthThreshold={2}
-              metalness={0}
-              roughness={1}
-              mirror={1}
-            />
-            {/* <meshBasicMaterial ref={backG} side={THREE.DoubleSide}  /> */}
-          </mesh>
-
+  
           <group ref={tv}>
             <CurrentW />
             <Tv
@@ -368,18 +360,28 @@ console.log(cameraRail)
           <group ref={reactLogo} position={[1, 0.5, 2.5]} scale={1.5}>
             <ReactLogo visibility={visibility} ringScaleM={ringScaleM} />
           </group>
-<group ref={projects} rotation={[0,-Math.PI*0.8,0]} position={[0.5,0.01,3.22]}>
+        <Physics isPaused={pause} gravity={[0, -9.81, 0]} allowSleep={true} tolerance={0}>
+    <Floor   />
+<group 
+position={[1.05,0,5.2]}
+rotation={[0,-Math.PI*0.8,0]}
+>
 
+{/* <mesh ref={projRef}> */}
 
-<ProjectsShow/>
+<ProjectsShow ref={projects}  />
+{/* </mesh> */}
 </group>
-
+  </Physics>
           <Environment
             preset='dawn'
             //  background
             blur={2}
           />
         </group>
+
+
+
         {/* <Noise  
         premultiply 
 
@@ -398,6 +400,7 @@ console.log(cameraRail)
 blendFunction={BlendFunction.LIGHTEN} textureSrc='/scratches.jpg'/> */}
 
 
+    
       </EffectComposer>
     </>
   );
