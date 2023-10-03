@@ -30,7 +30,7 @@ function Floor(props) {
         mirror={1}
       />
       
-      {/* <meshBasicMaterial ref={backG} side={THREE.DoubleSide}  /> */}
+      {/* <meshStandardMaterial  color={"#252525"} /> */}
     </mesh>
 
 
@@ -38,8 +38,8 @@ function Floor(props) {
 ref={ref}
      rotation={[-Math.PI * 0.5, 0, 0]}
      position={[0, 0.00, 0]}
-     receiveShadow
-     castShadow
+    //  receiveShadow
+    //  castShadow
    >
      <circleBufferGeometry args={[5, 50]} />
 

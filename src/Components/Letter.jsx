@@ -11,7 +11,7 @@ import { EffectComposer, SelectiveBloom } from "@react-three/postprocessing";
 export const Letter = forwardRef(function (props, ref) {
   const { nodes, materials } = useGLTF("/logoCUB.glb");
 
-const tvScreen =  useRef()
+const whysRef =  useRef()
 
   const YsEmitIntensity = useLoader(TextureLoader, "/letterMaps/YS_Pass2.png");
   YsEmitIntensity.flipY = false;
@@ -38,11 +38,11 @@ console.log(props)
         {/* <SelectiveBloom
         lights={ref}
    /> */}
-{/* <EffectComposer> */}
+<EffectComposer>
 
-{/* <SelectiveBloom
+<SelectiveBloom
     lights={[spot]} // ⚠️ REQUIRED! all relevant lights
-    selection={[tvScreen]} // selection of objects that will have bloom effect
+    selection={[whysRef]} // selection of objects that will have bloom effect
     selectionLayer={10} // selection layer
     intensity={1.0} // The bloom intensity.
     blurPass={undefined} // A blur pass.
@@ -51,8 +51,8 @@ console.log(props)
     kernelSize={KernelSize.LARGE} // blur kernel size
     luminanceThreshold={0.79} // luminance threshold. Raise this value to mask out darker elements in the scene.
     luminanceSmoothing={0.025} // smoothness of the luminance threshold. Range is [0, 1]
-    /> */}
-    {/* </EffectComposer> */}
+    />
+    </EffectComposer>
       <mesh
         castShadow
         receiveShadow
@@ -66,7 +66,7 @@ console.log(props)
         material={materials["Material.001"]}
       />
       <mesh
-      ref={tvScreen}
+      ref={whysRef}
         castShadow
         receiveShadow
         geometry={nodes.Plane001.geometry}

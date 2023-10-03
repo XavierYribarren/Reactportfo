@@ -278,8 +278,8 @@ export default function Scene() {
     // tl.current.kill()
   });
   const backgroundColors = useRef({
-    colorA: '#505050',
-    colorB: '#505050',
+    colorA: '#a5a5a5',
+    colorB: '#aaaaaaa',
   });
 console.log(cameraRail)
   return (
@@ -287,26 +287,26 @@ console.log(cameraRail)
       {/* <Rig /> */}
 
       <group ref={camGroup} position={[0, 0.1, 1.8]}>
-        {/* <spotLight
+        <spotLight
           lookAt={[1, 0, 2]}
-          position={[0, 4, 14]}
-          intensity={2}
+          position={[0, 10, 14]}
+          intensity={1.2}
           penumbra={0.2}
           castShadow
           ref={spotRef}
         />
-         */}
+        
 
 
         <Background backgroundColors={backgroundColors} />
         {/* <OrbitControls enableZoom={false}/> */}
         <group ref={cameraRail} rotation={[0, -Math.PI * 0.17, 0]}>
    
-          <PerspectiveCamera fov={30} rotation={[0.2, 0, 0]} makeDefault />
+          <PerspectiveCamera fov={30}  rotation={[0.2, 0, 0]} makeDefault />
         </group>
       </group>
 
-      <EffectComposer disableNormalPass={true}  autoClear >
+      <EffectComposer disableNormalPass={true}   >
 
         {/* <DepthOfField
           // focusDistance={0.0082}
@@ -369,14 +369,16 @@ rotation={[0,-Math.PI*0.8,0]}
 
 {/* <mesh ref={projRef}> */}
 
-<ProjectsShow ref={projects}  />
+<ProjectsShow ref={projects}   light={spotRef} />
 {/* </mesh> */}
 </group>
   </Physics>
           <Environment
+      
             preset='dawn'
+            // files='satara_night_4k.hdr'
             //  background
-            blur={2}
+            blur={4}
           />
         </group>
 

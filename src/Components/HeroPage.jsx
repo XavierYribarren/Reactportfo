@@ -22,14 +22,14 @@ function HeroPage() {
         legacy
         dpr={[1, 1.5]}
         gl={{
-          // preserveDrawingBuffer: true,
+          preserveDrawingBuffer: true,
           antialias: true,
           alpha: true,
           powerPreference: 'high-performance',
   
         }}
       >
-        {/* <fog attach='fog' color='#040404' near={1} far={20} /> */}
+        <fog attach='fog' color='#252525' near={2} far={8} />
 
         <ScrollControls
           // distance={0.5}

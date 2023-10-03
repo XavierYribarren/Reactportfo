@@ -30,15 +30,15 @@ export const Background = ({ backgroundColors }) => {
   return (
     <>
       <Sphere scale={[500, 500, 500]} rotation-y={Math.PI / 2}>
-        <LayerMaterial color={"#050505"} side={THREE.BackSide}>
+        <LayerMaterial color={"#252525"} side={THREE.BackSide}>
           {/* <Gradient ref={gradientRef} axes={"y"} start={start} end={end} /> */}
         </LayerMaterial>
       </Sphere>
-      <Environment 
+      {/* <Environment 
         preset='dawn'
         //  background 
          blur={3}
-         />
+         /> */}
     </>
   );
 };
