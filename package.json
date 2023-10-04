@@ -5,8 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
-    "postbuild": "mkdir ./dist/typos && cp ./typos/* ./dist/typos",
+    "build": "vite build && mkdir ./dist/typos && cp ./typos/* ./dist/typos",
     "preview": "vite preview"
   },
   "dependencies": {
