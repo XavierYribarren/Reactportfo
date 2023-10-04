@@ -1,170 +1,440 @@
-import React, { useState } from "react";
-import * as THREE from "three";
 import {
-  useGLTF,
-  useHelper,
+  Cloud,
+  Environment,
+  Float,
   MeshReflectorMaterial,
-  MeshWobbleMaterial,
-} from "@react-three/drei";
-import { TextureLoader } from "three/src/loaders/TextureLoader";
-import { useFrame, useLoader, useThree } from "@react-three/fiber";
-import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
-import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader";
-import { BoxHelper, FrontSide } from "three";
-import { useMemo } from "react";
-import { useLayoutEffect } from "react";
-import { DepthOfField, EffectComposer } from "@react-three/postprocessing";
+  OrbitControls,
+  PerspectiveCamera,
+  useScroll,
+} from '@react-three/drei';
+import React, {
+  Suspense,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
+import { Tv } from './Tv';
+import * as THREE from 'three';
+import { useFrame, useThree } from '@react-three/fiber';
+import { Letter } from './Letter';
+import CurrentW from './CurrentW';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+gsap.registerPlugin(ScrollTrigger);
+import { TextSection } from './TextSection';
+import { ReactLogo } from './ReactLogo';
+import { Background } from './Background';
+import { Physics, usePlane, useBox } from '@react-three/cannon'
+import PostProc from './PostProc';
+import {
+  DepthOfField,
+  EffectComposer,
+  SelectiveBloom,
+  ChromaticAberration,
+  Noise,
+  Texture,
+  Bloom,
+  Vignette,
+  Glitch
+} from '@react-three/postprocessing';
 
-export default function Scene({ mobil, setLoader }) {
-  const headFull = React.useRef();
-  const [ray, setRay] = useState(false)
+import Introduce from './Introduce';
+import { BlendFunction, Effect, TextureEffect, GlitchMode } from 'postprocessing';
+import About from './About';
+import ProjectsShow from './ProjectsShow';
+import Floor from './Floor';
+import Clouds from './Clouds';
+import CloudSky from './Clouds';
+import ProjectsWeb from './ProjectsWeb';
 
-  const faceMap = useLoader(TextureLoader, "/headus/Faceandshad-min.png");
-  faceMap.flipY = false;
-  const faceNorm = useLoader(
-    TextureLoader,
-    "/headus/Normal-Map_SubDivision_1-min-min2.jpg"
-  );
-  faceNorm.flipY = false;
-  const faceRough = useLoader(TextureLoader, "/headus/Gloss_8k-min.jpg");
-  faceRough.flipY = false;
-  const faceSpec = useLoader(TextureLoader, "/headus/Spec_8k-min2.jpg");
-  faceSpec.flipY = false;
-  const faceDisp = useLoader(TextureLoader, "/headus/Cavity_8k-min.png");
-  faceDisp.flipY = false;
-
-  const headus = new THREE.MeshStandardMaterial({
-    // wireframe: true,
-    map: faceMap,
-    // normalMap: faceNorm,
-    // normalScale: new THREE.Vector2(1, -1),
-    roughnessMap: faceRough,
-    roughness: 0.8,
-    // metalnessMap: faceSpec,
-    // metalness: 0.4,
-    side: FrontSide,
-   bumpMap: faceDisp,
-   bumpScale: 0.0049,
-  displacementMap: faceDisp,
-  displacementScale: 0.002
+export default function Scene() {
+  const tv = useRef();
+  const letter = useRef();
+  const camGroup = useRef();
+  const about = useRef({
+    titleRef: 0,
+    reactRef: '0',
+    nodeRef: 0,
+    r3fRef: 0,
+    sqlRef: 0,
   });
 
-  const headusMob = new THREE.MeshStandardMaterial({
-    // wireframe: true,
-    map: faceMap,
+const envRef=useRef()
+  const projects = useRef();
+  const [hover, setHover] = useState(false);
+  const { camera, mouse } = useThree();
+  function Rig() {
+    const [vec] = useState(() => new THREE.Vector3());
+
+    useFrame(() => camera.position.lerp(vec.set(-1, 0.1, 1.6), 0.05));
+    // return <CameraShake maxYaw={0.01} maxPitch={0.01} maxRoll={0.01} yawFrequency={0.05} pitchFrequency={0.05} rollFrequency={0.04} />
+  }
+
+  const reactLogo = useRef();
+
+  const introduce = useRef();
+
+  const spotRef = useRef();
+  const scroll = useScroll();
+  const { width, height } = useThree((state) => state.viewport);
+  const [visibility, setVisibility] = useState(false);
+  const [pause, setPause] = useState(true)
+  let ringScaleM;
+
+  const cameraRail = useRef();
+  const FRICTION_DISTANCE = 42;
+  useFrame((state, delta) => {
+    tl.current.seek(scroll.offset * tl.current.duration());
   });
-  //   ////INNER EYE
-  const innerEyeMap = useLoader(
-    TextureLoader,
-    "/headus/Sphere1_TXTR-min-min3.png"
-  );
-  innerEyeMap.flipY = false;
-  const innerEyeNorm = useLoader(TextureLoader, "/headus/Sphere1_NM-min2.png");
-  innerEyeNorm.flipY = false;
+  const handleOpenNewTab = () => {
+    const urlToOpen = 'http://tweakasix.netlify.app';
 
-  const eyeMaterial = new THREE.MeshStandardMaterial({
-    map: innerEyeMap,
-    normalMap: innerEyeNorm,
-
-  });
-
-  const facialHairsMat = new THREE.MeshBasicMaterial({ color: "#111111" });
-
-
-  const model = useLoader(
-    GLTFLoader,
-    mobil
-      ? "/HeadDefDISPMOB.glb"
-      : "/optgueul.glb",
-    (loader) => {
-
-      const dracoLoader = new DRACOLoader();
-      dracoLoader.setDecoderPath("/draco/");
-      loader.setDRACOLoader(dracoLoader);
-    }
-  );
-  const { scene } = model;
-  const clonedScene = useMemo(() => scene.clone(), []);
-  useLayoutEffect(() => {
-    clonedScene.traverse((object) => traverse(object));
-    setLoader(true);
-  }, [clonedScene]);
-
-
-  const traverse = (object) => {
-
-    if (object.isMesh) {
-      if (object.name === "Sphere1002" || object.name === "Sphere1003") {
-        object.material = eyeMaterial;
-      }
-      if (object.name === "Head2001") {
-        object.material = headus;
-      } else if (object.name === "Mesh002") {
-        object.material = facialHairsMat;
-      }
-      if (object.name === "Torus") {
-        object.material = new THREE.MeshStandardMaterial({
-          side: FrontSide,
-          color: "#9d9d9d",
-          metalness: 1,
-          roughness: 0,
-        });
-      }
-      if (object.name === "Broaux" || 
-      object.name ==="Mesh001" || 
-      object.name ==="Mesh003" || 
-      object.name ==="Mesh007") {
-        object.material = facialHairsMat;
-      }
-    }
-
+    window.open(urlToOpen, '_blank');
   };
+  const w = 1 / 3;
 
-  //
-  {
-    mobil
-      ? useFrame(({ clock }) => {
-          const a = clock.getElapsedTime();
-          headFull.current.rotation.y = -1 + Math.sin(a / 4) * 0.1; // the value will be 0 at scene initialization and grow each frame
-          headFull.current.position.x = 5 + Math.cos((a / 2) * 2) * 0.03; // the value will be 0 at scene initialization and grow each frame
-        })
-      : useFrame(({ clock }) => {
-          const a = clock.getElapsedTime();
-          headFull.current.rotation.y = -1 + Math.sin(a * 1) * 0.03; // the value will be 0 at scene initialization and grow each frame
-          headFull.current.rotation.x = 0.2 + Math.cos((a / 2) * 2) * 0.03; // the value will be 0 at scene initialization and grow each frame
-        });
-  }
+  const tl = useRef();
 
-  const clickHandler = (event) =>
-  {
-event.intersections[0].object.material.wireframe = !event.object.material.wireframe
+  useLayoutEffect(() => {
 
 
-  }
 
+    tl.current = gsap.timeline({
+      scrollTrigger: {
+        trigger: '.main',
+        // pin: true,   // pin the trigger element while active
+        start: 'top top',
+        end: 'bottom 100%', // when the top of the trigger hits the top of the viewport
+        // end: "+=500", // end after scrolling 500px beyond the start
+        markers: true,
+        scrub: 0.01,
+      },
+    });
+    tl.current.pause();
+
+    tl.current
+      .fromTo(
+        tv.current.position,
+        { x: 0, z: 0 },
+        {
+          duration: 0.21,
+          x: -2,
+          z: -2,
+        }
+      )
+      .to(
+        camGroup.current.rotation,
+        {
+          duration: 0.21,
+          ease: 'power1.out',
+          y: -Math.PI * 0.2,
+        },
+        '<'
+      );
+
+    tl.current.fromTo(
+      introduce.current.position,
+      { x: 10, y: 0.5, z: -10 },
+      {
+        duration: 0.15,
+        ease: 'power1.out',
+        x: 1.5,
+        y: 0.45,
+        z: 0.5,
+      },
+      camGroup.current
+    );
+
+    tl.current.fromTo(
+      introduce.current,
+      { fillOpacity: 0 },
+      {
+        duration: 0.2,
+        ease: 'power1.inOut',
+        fillOpacity: 1,
+      },
+      '-=0.01'
+    );
+    tl.current
+      .to(
+        introduce.current,
+        {
+          ease: 'power1.inOut',
+          fillOpacity: '0',
+          duration: 0.15,
+        },
+        '<-0.15'
+      )
+
+      .to(
+        camGroup.current.rotation,
+        {
+          duration: 0.2,
+          ease: 'power1.in',
+          y: -Math.PI * 0.55,
+        },
+        '-=0.15'
+      );
+    tl.current.fromTo(
+      about.current.position,
+      { x: 10, y: 0.5, z: 10 },
+      {
+        duration: 0.25,
+        ease: 'power1.out',
+        x: 1.5,
+        y: 0.75,
+        z: 3.1,
+      },
+      '<-0.2'
+    );
+
+    tl.current.fromTo(
+      about.current,
+      { titleRef: 0 },
+      {
+        duration: 0.2,
+        ease: 'power1.inOut',
+        titleRef: 1,
+      },
+      '-=0.01'
+    );
+
+    tl.current.fromTo(
+      about.current,
+      { reactRef: 0 },
+      {
+        ease: 'power1.inOut',
+        reactRef: 1,
+        duration: 0.1,
+      },
+      '<0.2'
+    );
+    tl.current.fromTo(
+      about.current,
+      { r3fRef: 0 },
+      {
+        ease: 'power1.inOut',
+        r3fRef: 1,
+        duration: 0.1,
+      },
+      '<0.2'
+    );
+    tl.current.fromTo(
+      about.current,
+      { nodeRef: 0 },
+      {
+        ease: 'power1.inOut',
+        nodeRef: 1,
+        duration: 0.05,
+      },
+      '<0.2'
+    );
+
+    tl.current
+      .fromTo(
+        about.current,
+        { sqlRef: 0 },
+        {
+          // ease: 'power1.inOut',
+          sqlRef: 1,
+          duration: 0.1,
+        },
+        '<0.2',
+      )
+   
+
+      tl.current.to(about.current.position, {
+        // ease: "elastic.in(1, 0.3)",
+        y: 15,
+        x:10,
+        z: 10,
+        duration: 0.2
+      })
+      
+      tl.current.to(
+        camGroup.current.rotation,
+        {
+          duration: 0.3,
+          ease: 'power1.in',
+          y: -Math.PI * 0.7,   
+            ontoggle: (pause) => { setPause(false) } 
+        },
+        "<"
+      )
+      .to(
+        camGroup.current.rotation,
+        {
+          duration: 0.3,
+          ease: 'power1.in',
+          y: -Math.PI * 1,
+     
+        },  
+        // "<0.2"
+      )
+      .to(
+        camGroup.current.rotation,
+        {
+          duration: 0.3,
+          ease: 'power1.in',
+          y: -Math.PI * 1.4,
+        }
+        // "<0.2"
+      );
+    // tl.current.kill()
+  });
+  const backgroundColors = useRef({
+    colorA: '#a5a5a5',
+    colorB: '#aaaaaaa',
+  });
+console.log(cameraRail)
   return (
     <>
-  
-      <group
-        dispose={null}
-        ref={headFull}
-        position={mobil ? [5, -2, 17.5] : [4, -1.2, 21.5]}
-        rotation={mobil ? [-0.05, -0.9, 0] : [0.9, -0.8, 0.051]}
-      >
-        <spotLight
-          lookAt={[12, 8, 2]}
-          position={[-4, -4, 14]}
-          intensity={8}
-          color="#ff00ff"
-          penumbra={0.02}
+      {/* <Rig /> */}
+     <spotLight
+          lookAt={[1, 0, 2]}
+          position={[8.0, 5, -14]}
+          intensity={1.2}
+          penumbra={0.2}
           castShadow
-        />
-        <directionalLight intensity={0.81} position={[-2, 6, 10]} />
+          // shadowBias={-0.00001}
+          shadow-camera-near={0.1}
+          shadow-mapSize-width={2048}
+          shadow-mapSize-height={2048}
+          shadow-camera-far={100}
+          shadow-camera-left={-100}
+          shadow-camera-right={100}
+          shadow-camera-top={100}
+          shadow-camera-bottom={-100}
+          ref={spotRef}
+                  />
+      <group ref={camGroup} position={[0, 0.1, 1.8]}>
+     
+
+
+        <Background backgroundColors={backgroundColors} />
+        {/* <OrbitControls enableZoom={false}/> */}
+        <group ref={cameraRail} rotation={[0, -Math.PI * 0.17, 0]}>
+          
+ 
         
-        <primitive object={clonedScene} position={[0, 0, 0]} onClick={clickHandler}/>
+          <PerspectiveCamera fov={30}  rotation={[0.2, 0, 0]} makeDefault />
+        </group>
       </group>
-    
+<CloudSky/>
+        <group
+          // ref={group}
+          dispose={null}
+          position={[width * w, 0, 0]}
+        >
+  
+          <group ref={tv} dispose={null}>
+            <CurrentW dispose={null}/>
+            <Tv dispose={null}
+              className='TV'
+              // style={{cursor: 'pointer'}}
+              onClick={handleOpenNewTab}
+              scale={1}
+              onPointerOver={(e) => (
+                e.stopPropagation(),
+                setHover(true),
+                (document.body.style.cursor = 'pointer')
+              )}
+              onPointerOut={() => (
+                setHover(false), (document.body.style.cursor = 'auto')
+              )}
+              hover={hover}
+              light={spotRef}
+            />
+          </group>
+
+          <group ref={letter} dispose={null}>
+            <Letter
+              scale={0.5}
+              position={[1.4, 0, -0.2]}
+              rotation={[0, -Math.PI * 0.3, 0]}
+              light={spotRef}
+            />
+          </group>
+
+  
+          <group ref={introduce} dispose={null}>
+            <Introduce castShadow introduce={introduce} />
+          </group>
+
+          <group ref={about}><About castShadow about={about} dispose={null}/></group>
+
+          <group  ref={reactLogo}  position={[1, 0.5, 2.5]} scale={1.5} dispose={null}>
+            <ReactLogo visibility={visibility} ringScaleM={ringScaleM} />
+          </group>
+        <Physics isPaused={pause} gravity={[0, -9.81, 0]} allowSleep={true} tolerance={0}>
+  
+    <Floor   />
+<group 
+position={[1.05,0,5.2]}
+rotation={[0,-Math.PI*0.8,0]}
+>
+
+
+<ProjectsShow ref={projects} env={envRef}  />
+
+</group>
+  </Physics>
+
+<group position={[-2.5,2,10]} scale={15}>
+
+<ProjectsWeb/>
+</group>
+
+
+
+
+
+
+          <Environment
+      ref={envRef}
+      
+            preset='dawn'
+            // files='satara_night_4k.hdr'
+            //  background
+            blur={4}
+          />
+        </group>
+
+
+      <EffectComposer disableNormalPass={true}   >
+
+        {/* <DepthOfField
+          focusDistance={0.0082}
+          focalLength={0.09}
+          blur={1.4}
+          bokehScale={4}
+          // height={480}
+        /> */}
+
+        {/* <Noise  
+        premultiply 
+opacity={0.14}
+    blendFunction={BlendFunction.ADD} // blend mode
+    />  */}
+
+        {/* <ChromaticAberration
+    blendFunction={BlendFunction.ADD} // blend mode
+    offset={[0.001, 0.002]} // color offset
+  /> */}
+{/* <Bloom luminanceThreshold={0.3} luminanceSmoothing={0.49} height={300}/> */}
+
+{/* <Texture 
+// aspectCorrection={true} 
+
+blendFunction={BlendFunction.LIGHTEN} textureSrc='/scratches.jpg'/> */}
+
+{/* <Vignette 
+eskil={false} 
+offset={0.49} darkness={0.49} /> */}
+
+      </EffectComposer>
     </>
   );
 }
-
