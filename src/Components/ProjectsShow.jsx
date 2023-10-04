@@ -42,7 +42,7 @@ useFrame((state, delta) => {
 multicolo.offset.x = (Math.sin(elapsedTime/10)*1+delta)
 multicolo.offset.y = (Math.sin(elapsedTime/10)*1.2-delta)
 })
-const fontus = useFont('/typos/BigBlackBear.json')
+const fontus = useFont('/typos/Big_BlackBear.json')
 const textGeo = useMemo(
   () => new TextGeometry( 'Projects', {
 		font: fontus,
