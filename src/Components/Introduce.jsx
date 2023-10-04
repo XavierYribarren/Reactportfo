@@ -1,4 +1,4 @@
-import { Html, Text, useScroll } from '@react-three/drei';
+import { Html, Text, Text3D, useScroll } from '@react-three/drei';
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 // import typo from './Typo_Round2.json';
 import gsap from 'gsap';
@@ -7,7 +7,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { MotionConfig } from 'framer-motion';
 import { motion } from 'framer-motion-3d';
 import * as THREE from 'three';
-
+import typo from '/typos/Kids_Now_Regular1.json';
 gsap.registerPlugin(ScrollTrigger);
 
 function Introduce({ introduce }) {
@@ -35,28 +35,7 @@ function Introduce({ introduce }) {
   const characters = textBase.split('');
   const characterRefs = characters.map(() => useRef());
 
-  // useLayoutEffect(() => {
-  //   // if (opacityRef != undefined && opacityRef.current.position.x < 6) {
-  //     tl.current = gsap.timeline({
-  //       scrollTrigger: {
-  //         trigger: '.headxav',
-  //         start: 'top 40%',
-  //         // end: 'top 15%',
-  //         markers: true,
-  //         scrub:1,
-  //       },
-  //     });
-  //     tl.current.pause();
-  //     // tl.current.timeScale(2)
-  //     tl.current.fromTo(opacityRef.current, {
-  //      fillOpacity : 0
-  //     }, {
-  //      fillOpacity : 1,
-  //      duration: 10
-  //     })
 
-  //   // }
-  // }, []);
 
   return (
     <>
@@ -77,6 +56,19 @@ font='./Kids_Now.ttf'
           >
         {textBase}
         </Text>
+{/* 
+        <Text3D   ref={opacityRef} font={typo} size={0.15} position={[-0.5,0.72,0]}
+    curveSegments={8}
+    //       bevelEnabled
+          // bevelSize={0.04}
+          // bevelThickness={0.1}
+          castShadow
+          receiveShadow
+          
+          height={0.04}>
+            {textBase}
+<meshBasicMaterial color={'black'}/>
+        </Text3D> */}
       </group>
      
     </>

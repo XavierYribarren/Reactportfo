@@ -6,6 +6,7 @@ import * as THREE from 'three';
 
 import {
 
+  Environment,
   ScrollControls, Stage,
 } from '@react-three/drei';
 import { Perf } from 'r3f-perf';
@@ -16,17 +17,18 @@ function HeroPage() {
     <div className='headxav'>
       <Canvas
         fallback={null}
+     
         // camera={{ position: [-1, 20.1, 10.6], fov:30 }}
         linear
 
         shadows
         legacy
-        dpr={[1, 1.5]}
+        // dpr={[1, 1.5]}
         gl={{
-          preserveDrawingBuffer: true,
+          // preserveDrawingBuffer: true,
           antialias: true,
           alpha: true,
-          powerPreference: 'high-performance',
+          powerPreference: 'default',
           
   
         }}
@@ -39,7 +41,13 @@ function HeroPage() {
           damping={0.51}
       
         >
-         
+                <Environment
+    
+            preset='dawn'
+            // files='satara_night_4k.hdr'
+            //  background
+            blur={4}
+          />
 
           <Scene />
       
