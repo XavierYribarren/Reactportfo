@@ -1,23 +1,29 @@
 import { Text3D } from '@react-three/drei';
 import React from 'react';
-import typo from './Typo_Round2.json';
+import typo from '../../public/Kids_Now_Regular1.json';
 function CurrentW() {
   return (
-    <Text3D font={typo} size={0.08} position={[-0.35,0.72,0]}
-    // // curveSegments={32}
+    <Text3D font={typo} size={0.15} position={[-0.5,0.72,0]}
+    curveSegments={8}
     //       bevelEnabled
           // bevelSize={0.04}
           // bevelThickness={0.1}
           castShadow
           receiveShadow
           
-          height={0.015}
+          height={0.04}
           >
       Current work
-      <meshStandardMaterial
+      <meshPhysicalMaterial
       color={'#000'} 
-      roughness={1}
-      metalness={0}
+      roughness={.1}
+      metalness={.31}
+      transparent
+   specularIntensity={1}
+   sheen={.21}
+   sheenColor={"#8ce8f4"}
+   sheenRoughness={.21}
+
       />
     </Text3D>
   );

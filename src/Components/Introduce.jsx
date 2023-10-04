@@ -64,13 +64,13 @@ function Introduce({ introduce }) {
       <group ref={textGPRef} rotation={[0, -Math.PI * 0.4, 0]}>
 
                 <Text
-castShadow
-font='./Rajdhani-Medium.ttf'
+// castShadow
+font='./Kids_Now.ttf'
                 ref={opacityRef}
             className='hi-intro'
             fontSize={0.2}
             maxWidth={1.3}
-            color={'white'}
+            color={'black'}
             // fillOpacity={opacityRef.current.fillOpacity}
             // position={characterRefs[index].position}
             // ref={characterRefs[index]}

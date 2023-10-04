@@ -1,12 +1,7 @@
 import './App.css';
 import React, { startTransition, useLayoutEffect, useRef, useState } from 'react';
 import { Parallax, ParallaxLayer } from '@react-spring/parallax';
-import { NavBar } from './Components/NavBar';
-import { Banner } from './Components/Banner';
-import { Skills } from './Components/Skills';
-import { Projects } from './Components/Projects';
-import { Contact } from './Components/Contact';
-import { Footer } from './Components/Footer';
+
 
 import RingLoader from 'react-spinners/RingLoader';
 import HeroPage from './Components/HeroPage';

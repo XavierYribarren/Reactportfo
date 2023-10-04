@@ -1,6 +1,6 @@
-import { Html, Text, useScroll } from '@react-three/drei';
+import { Html, Text, Text3D, useFont, useScroll, useTexture } from '@react-three/drei';
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
-// import typo from './Typo_Round2.json';
+// import typo from '../../public/Kids_Now_Regular.json';
 import gsap from 'gsap';
 import { events, useFrame } from '@react-three/fiber';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -21,6 +21,7 @@ const nodeRef = useRef(null)
 const r3fRef = useRef(null)
 const sqlRef = useRef(null)
 
+// const typo = useFont('../../public/Kids_Now.ttf')
 
   useFrame((state) => {  
     
@@ -82,12 +83,12 @@ const sqlRef = useRef(null)
 
                 <Text
 castShadow
-font='./Rajdhani-Medium.ttf'
+font= './Kids_Now.ttf'
                 ref={titleRef}
             className='hi-intro'
             fontSize={0.3}
             maxWidth={2.5}
-            color={'white'}
+            color={'black'}
             // fillOpacity={opacityRef.current.fillOpacity}
             position={[0,1,0]}
           >

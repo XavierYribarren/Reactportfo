@@ -38,7 +38,7 @@ console.log(props)
         {/* <SelectiveBloom
         lights={ref}
    /> */}
-<EffectComposer>
+{/* <EffectComposer>
 
 <SelectiveBloom
     lights={[spot]} // ⚠️ REQUIRED! all relevant lights
@@ -52,7 +52,7 @@ console.log(props)
     luminanceThreshold={0.79} // luminance threshold. Raise this value to mask out darker elements in the scene.
     luminanceSmoothing={0.025} // smoothness of the luminance threshold. Range is [0, 1]
     />
-    </EffectComposer>
+    </EffectComposer> */}
       <mesh
         castShadow
         receiveShadow

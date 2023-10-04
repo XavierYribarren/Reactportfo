@@ -8,6 +8,7 @@ import {
   useScroll,
 } from '@react-three/drei';
 import React, {
+  Suspense,
   useEffect,
   useLayoutEffect,
   useMemo,
@@ -33,14 +34,20 @@ import {
   SelectiveBloom,
   ChromaticAberration,
   Noise,
-  Texture
+  Texture,
+  Bloom,
+  Vignette,
+  Glitch
 } from '@react-three/postprocessing';
 
 import Introduce from './Introduce';
-import { BlendFunction, Effect, TextureEffect } from 'postprocessing';
+import { BlendFunction, Effect, TextureEffect, GlitchMode } from 'postprocessing';
 import About from './About';
 import ProjectsShow from './ProjectsShow';
 import Floor from './Floor';
+import Clouds from './Clouds';
+import CloudSky from './Clouds';
+import ProjectsWeb from './ProjectsWeb';
 
 export default function Scene() {
   const tv = useRef();
@@ -54,7 +61,7 @@ export default function Scene() {
     sqlRef: 0,
   });
 
-
+const envRef=useRef()
   const projects = useRef();
   const [hover, setHover] = useState(false);
   const { camera, mouse } = useThree();
@@ -285,45 +292,46 @@ console.log(cameraRail)
   return (
     <>
       {/* <Rig /> */}
-
-      <group ref={camGroup} position={[0, 0.1, 1.8]}>
-        <spotLight
+     <spotLight
           lookAt={[1, 0, 2]}
-          position={[0, 10, 14]}
+          position={[8.0, 5, -14]}
           intensity={1.2}
           penumbra={0.2}
           castShadow
+          // shadowBias={-0.00001}
+          shadow-camera-near={0.1}
+          shadow-mapSize-width={2048}
+          shadow-mapSize-height={2048}
+          shadow-camera-far={100}
+          shadow-camera-left={-100}
+          shadow-camera-right={100}
+          shadow-camera-top={100}
+          shadow-camera-bottom={-100}
           ref={spotRef}
-        />
-        
+                  />
+      <group ref={camGroup} position={[0, 0.1, 1.8]}>
+     
 
 
         <Background backgroundColors={backgroundColors} />
         {/* <OrbitControls enableZoom={false}/> */}
         <group ref={cameraRail} rotation={[0, -Math.PI * 0.17, 0]}>
-   
+          
+ 
+        
           <PerspectiveCamera fov={30}  rotation={[0.2, 0, 0]} makeDefault />
         </group>
       </group>
-
-      <EffectComposer disableNormalPass={true}   >
-
-        {/* <DepthOfField
-          // focusDistance={0.0082}
-          // focalLength={0.09}
-          // blur={1.4}
-          // bokehScale={4}
-          // // height={480}
-        /> */}
+<CloudSky/>
         <group
           // ref={group}
           dispose={null}
           position={[width * w, 0, 0]}
         >
   
-          <group ref={tv}>
-            <CurrentW />
-            <Tv
+          <group ref={tv} dispose={null}>
+            <CurrentW dispose={null}/>
+            <Tv dispose={null}
               className='TV'
               // style={{cursor: 'pointer'}}
               onClick={handleOpenNewTab}
@@ -341,7 +349,7 @@ console.log(cameraRail)
             />
           </group>
 
-          <group ref={letter}>
+          <group ref={letter} dispose={null}>
             <Letter
               scale={0.5}
               position={[1.4, 0, -0.2]}
@@ -351,29 +359,41 @@ console.log(cameraRail)
           </group>
 
   
-          <group ref={introduce}>
+          <group ref={introduce} dispose={null}>
             <Introduce castShadow introduce={introduce} />
           </group>
 
-          <group ref={about}><About castShadow about={about} /></group>
+          <group ref={about}><About castShadow about={about} dispose={null}/></group>
 
-          <group ref={reactLogo} position={[1, 0.5, 2.5]} scale={1.5}>
+          <group  ref={reactLogo}  position={[1, 0.5, 2.5]} scale={1.5} dispose={null}>
             <ReactLogo visibility={visibility} ringScaleM={ringScaleM} />
           </group>
         <Physics isPaused={pause} gravity={[0, -9.81, 0]} allowSleep={true} tolerance={0}>
+  
     <Floor   />
 <group 
 position={[1.05,0,5.2]}
 rotation={[0,-Math.PI*0.8,0]}
 >
 
-{/* <mesh ref={projRef}> */}
 
-<ProjectsShow ref={projects}   light={spotRef} />
-{/* </mesh> */}
+<ProjectsShow ref={projects} env={envRef}  />
+
 </group>
   </Physics>
+
+<group position={[-2.5,2,10]} scale={15}>
+
+<ProjectsWeb/>
+</group>
+
+
+
+
+
+
           <Environment
+      ref={envRef}
       
             preset='dawn'
             // files='satara_night_4k.hdr'
@@ -383,26 +403,37 @@ rotation={[0,-Math.PI*0.8,0]}
         </group>
 
 
+      <EffectComposer disableNormalPass={true}   >
+
+        {/* <DepthOfField
+          focusDistance={0.0082}
+          focalLength={0.09}
+          blur={1.4}
+          bokehScale={4}
+          // height={480}
+        /> */}
 
         {/* <Noise  
         premultiply 
-
+opacity={0.14}
     blendFunction={BlendFunction.ADD} // blend mode
     />  */}
 
         {/* <ChromaticAberration
-    blendFunction={BlendFunction.INVERT} // blend mode
+    blendFunction={BlendFunction.ADD} // blend mode
     offset={[0.001, 0.002]} // color offset
   /> */}
-
+{/* <Bloom luminanceThreshold={0.3} luminanceSmoothing={0.49} height={300}/> */}
 
 {/* <Texture 
 // aspectCorrection={true} 
 
 blendFunction={BlendFunction.LIGHTEN} textureSrc='/scratches.jpg'/> */}
 
+{/* <Vignette 
+eskil={false} 
+offset={0.49} darkness={0.49} /> */}
 
-    
       </EffectComposer>
     </>
   );

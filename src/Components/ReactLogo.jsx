@@ -85,7 +85,8 @@ tl.current.pause()
         // material={coreMat}
       >
         <sphereGeometry args={[0.05,36,36,10]}/>
-<MeshWobbleMaterial factor={10} speed={2} roughness={0} metalness={1} color={"#0cd2ec"}/>
+        <meshPhysicalMaterial roughness={1} metalness={0} color={"#0cd2ec"}  specularIntensity={1} specularColor={"#0cd2ec"}  clearcoat={0.21} clearcoatRoughness={0.04} transmission={0.1} transparent/>
+{/* <MeshWobbleMaterial factor={10} speed={2}  roughness={0.4} metalness={0.41} color={"#0cd2ec"}/> */}
       </mesh>
       <mesh
       ref={rings}

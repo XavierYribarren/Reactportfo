@@ -8,6 +8,7 @@ import {
 
   ScrollControls, Stage,
 } from '@react-three/drei';
+import { Perf } from 'r3f-perf';
 
 
 function HeroPage() {
@@ -26,10 +27,11 @@ function HeroPage() {
           antialias: true,
           alpha: true,
           powerPreference: 'high-performance',
+          
   
         }}
       >
-        <fog attach='fog' color='#252525' near={2} far={8} />
+        <fogExp2 attach='fog' color='#8ce8f4' near={20} far={85} density={0.021} />
 
         <ScrollControls
           // distance={0.5}
@@ -42,7 +44,7 @@ function HeroPage() {
           <Scene />
       
         </ScrollControls>
-        {/* <Perf deepAnalyze={true} /> */}
+        <Perf deepAnalyze={true} trackCPU />
       </Canvas>
 
     </div>

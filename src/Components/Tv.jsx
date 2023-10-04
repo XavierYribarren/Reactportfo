@@ -83,13 +83,13 @@ const { camera, mouse } = useThree();
     luminanceThreshold={0.79} // luminance threshold. Raise this value to mask out darker elements in the scene.
     luminanceSmoothing={0.5} // smoothness of the luminance threshold. Range is [0, 1]
     />  
-    <DepthOfField
+    {/* <DepthOfField
   focusDistance={0.00082}
   focalLength={0.0009}
   blur={4.4}
   bokehScale={4}
   height={480}
-  /> 
+  />  */}
 
   {/* <ChromaticAberration
        blendFunction={BlendFunction.NORMAL}

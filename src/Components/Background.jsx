@@ -1,6 +1,7 @@
-import { Environment, Sphere } from "@react-three/drei";
+import { Environment, MeshReflectorMaterial, Sphere } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import { Gradient, LayerMaterial } from "lamina";
+
 import { useRef } from "react";
 
 import * as THREE from "three";
@@ -29,10 +30,16 @@ export const Background = ({ backgroundColors }) => {
 
   return (
     <>
-      <Sphere scale={[500, 500, 500]} rotation-y={Math.PI / 2}>
-        <LayerMaterial color={"#252525"} side={THREE.BackSide}>
-          {/* <Gradient ref={gradientRef} axes={"y"} start={start} end={end} /> */}
+      <Sphere scale={[50, 50, 50]} rotation-y={Math.PI*0.2}  rotation-x={-Math.PI/2.4}>
+        <LayerMaterial color={"#ffffff"} side={THREE.BackSide}>
+          <Gradient  colorA={"#8af1ff"} colorB={"#004f80"}  axes={"y"} start={start} end={end} />
         </LayerMaterial>
+        {/* <meshStandardMaterial color={"#004f80"} side={THREE.DoubleSide}  metalness={0.5}
+        roughness={0.91}
+        // blur={[100, 100]}
+        // resolution={256}
+        // mirror={0.01}
+        /> */}
       </Sphere>
       {/* <Environment 
         preset='dawn'
