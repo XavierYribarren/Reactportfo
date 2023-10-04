@@ -161,7 +161,7 @@ const envRef=useRef()
       .to(
         introduce.current,
         {
-          ease: 'power1.inOut',
+          ease: 'power1.in',
           fillOpacity: '0',
           duration: 0.15,
         },
@@ -194,7 +194,7 @@ const envRef=useRef()
       about.current,
       { titleRef: 0 },
       {
-        duration: 0.2,
+        duration: 0.1,
         ease: 'power1.inOut',
         titleRef: 1,
       },
@@ -207,9 +207,9 @@ const envRef=useRef()
       {
         ease: 'power1.inOut',
         reactRef: 1,
-        duration: 0.1,
+        duration: 0.02,
       },
-      '<0.2'
+      '<0.01'
     );
     tl.current.fromTo(
       about.current,
@@ -217,9 +217,9 @@ const envRef=useRef()
       {
         ease: 'power1.inOut',
         r3fRef: 1,
-        duration: 0.1,
+        duration: 0.02,
       },
-      '<0.2'
+      '<0.01'
     );
     tl.current.fromTo(
       about.current,
@@ -227,9 +227,9 @@ const envRef=useRef()
       {
         ease: 'power1.inOut',
         nodeRef: 1,
-        duration: 0.05,
+        duration: 0.02,
       },
-      '<0.2'
+      '<0.01'
     );
 
     tl.current
@@ -239,9 +239,9 @@ const envRef=useRef()
         {
           // ease: 'power1.inOut',
           sqlRef: 1,
-          duration: 0.1,
+          duration: 0.02,
         },
-        '<0.2',
+        '<0.01', "+=0.5"
       )
    
 
@@ -259,7 +259,7 @@ const envRef=useRef()
           duration: 0.3,
           ease: 'power1.in',
           y: -Math.PI * 0.7,   
-            ontoggle: (pause) => { setPause(false) } 
+           ontoggle: (pause) => { setTimeout(() => {setPause(false)}, 1000) } 
         },
         "<"
       )
@@ -269,7 +269,7 @@ const envRef=useRef()
           duration: 0.3,
           ease: 'power1.in',
           y: -Math.PI * 1,
-     
+      
         },  
         // "<0.2"
       )
@@ -300,8 +300,8 @@ console.log(cameraRail)
           castShadow
           // shadowBias={-0.00001}
           shadow-camera-near={0.1}
-          shadow-mapSize-width={2048}
-          shadow-mapSize-height={2048}
+          shadow-mapSize-width={1024}
+          shadow-mapSize-height={1024}
           shadow-camera-far={100}
           shadow-camera-left={-100}
           shadow-camera-right={100}
@@ -350,12 +350,12 @@ console.log(cameraRail)
           </group>
 
           <group ref={letter} dispose={null}>
-            <Letter
+            {/* <Letter
               scale={0.5}
               position={[1.4, 0, -0.2]}
               rotation={[0, -Math.PI * 0.3, 0]}
               light={spotRef}
-            />
+            /> */}
           </group>
 
   
@@ -392,14 +392,14 @@ rotation={[0,-Math.PI*0.8,0]}
 
 
 
-          <Environment
+          {/* <Environment
       ref={envRef}
       
             preset='dawn'
             // files='satara_night_4k.hdr'
             //  background
             blur={4}
-          />
+          /> */}
         </group>
 
 

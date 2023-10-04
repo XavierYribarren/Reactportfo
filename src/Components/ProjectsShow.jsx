@@ -9,7 +9,6 @@ import {
   useFont,
 } from '@react-three/drei';
 import React, { forwardRef, useMemo, useRef } from 'react';
-import bigBlackBear from '../../public/BigBlackBear.json';
 import { useBox } from '@react-three/cannon';
 import { MeshPhysicalMaterial, MeshStandardMaterial } from 'three';
 import { EffectComposer, SelectiveBloom } from '@react-three/postprocessing';
@@ -18,7 +17,7 @@ import { useFrame, useThree } from 'react-three-fiber';
 import About from './About';
 import * as THREE from 'three'
 import { TextGeometry } from 'three/addons/geometries/TextGeometry.js';
-const ProjectsShow = forwardRef(function ({  char, children, stencilBuffer = false, ...props }) {
+function ProjectsShow({ ...props }) {
   const [ref] = useBox(() => ({
     mass: 1,
     position: [0, 5, 0],
@@ -29,7 +28,7 @@ const ProjectsShow = forwardRef(function ({  char, children, stencilBuffer = fal
   const spot = props.light;
   const seed = 10;
 
-const multicolo = useTexture('/multicolo2.jpg')
+const multicolo = useTexture('/multicolo2-min.jpg')
 multicolo.flipY = false
 multicolo.wrapS = THREE.RepeatWrapping
 multicolo.wrapT = THREE.RepeatWrapping
@@ -43,7 +42,7 @@ useFrame((state, delta) => {
 multicolo.offset.x = (Math.sin(elapsedTime/10)*1+delta)
 multicolo.offset.y = (Math.sin(elapsedTime/10)*1.2-delta)
 })
-const fontus = useFont('../../public/BigBlackBear.json')
+const fontus = useFont('/typos/BigBlackBear.json')
 const textGeo = useMemo(
   () => new TextGeometry( 'Projects', {
 		font: fontus,
@@ -55,7 +54,7 @@ const textGeo = useMemo(
 		bevelSize: 0.004,
 		bevelOffset: 0,
 		bevelSegments: 4,
-	} )
+	},[] )
 )
 
   return (
@@ -63,20 +62,6 @@ const textGeo = useMemo(
       <mesh ref={ref} scale={0.4} geometry={textGeo} castShadow>
 
 
-        {/* <Text3D
-       
-          font={bigBlackBear}
-          size={1}
-          curveSegments={228}
-          bevelEnabled
-          bevelSize={0.02}
-          bevelSegments={48}
-          bevelThickness={0.1}
-          castShadow
-          receiveShadow
-          height={0.15}
-          
-        > */}
           PROJECTS
           <meshPhysicalMaterial
       
@@ -99,6 +84,6 @@ const textGeo = useMemo(
       </mesh>
     </>
   );
-});
+}
 
 export default ProjectsShow;
