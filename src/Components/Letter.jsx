@@ -1,6 +1,6 @@
 
 import React, { forwardRef, useRef } from "react";
-import { Float, useGLTF, useTexture } from "@react-three/drei";
+import { Float, QuadraticBezierLine, useGLTF, useTexture } from "@react-three/drei";
 import { useFrame, useLoader } from '@react-three/fiber';
 import { TextureLoader } from "three/src/loaders/TextureLoader";
 import * as THREE from 'three'
@@ -42,20 +42,14 @@ const XlegMaterial = new THREE.MeshStandardMaterial({
   // map: multicolo,
 })
 
-const spot = props.light
-
-console.log(props)
 
 return (
   <group {...props} dispose={null}>
-        {/* <PostProc/> */}
-        {/* <SelectiveBloom
-        lights={ref}
-   /> */}
+  
 
     <Float speed={4.8} floatIntensity={1} floatingRange={[-0.2,0.2]}>
 
-    <group>
+    <group ref={ref} >
 
 
 <mesh
@@ -74,6 +68,8 @@ return (
         />
     </group>
         </Float>
+
+
         </group>
   );
 })
