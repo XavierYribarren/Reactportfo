@@ -23,10 +23,10 @@ function HeroPage() {
 
         shadows
         legacy
-        // dpr={[1, 1.5]}
+        dpr={[1, 1.5]}
         gl={{
           // preserveDrawingBuffer: true,
-          antialias: true,
+          // antialias: true,
           alpha: true,
           powerPreference: 'default',
           
@@ -52,7 +52,7 @@ function HeroPage() {
           <Scene />
       
         </ScrollControls>
-        <Perf deepAnalyze={true} trackCPU />
+        {/* <Perf deepAnalyze={true} trackCPU /> */}
       </Canvas>
 
     </div>
