@@ -22,7 +22,7 @@ function HeroPage() {
         linear
 
         shadows
-        legacy
+        // legacy
         dpr={[1, 1.5]}
         gl={{
           // preserveDrawingBuffer: true,
@@ -41,13 +41,16 @@ function HeroPage() {
           damping={0.51}
       
         >
-                <Environment
+
+
+                {/* <Environment
     
-            preset='dawn'
-            // files='satara_night_4k.hdr'
-            //  background
-            blur={4}
-          />
+    preset='dawn'
+    // files='satara_night_4k.hdr'
+    //  background
+    blur={4}
+    /> */}
+
 
           <Scene />
       
