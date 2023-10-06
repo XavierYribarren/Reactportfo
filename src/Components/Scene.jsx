@@ -108,7 +108,7 @@ const envRef=useRef()
         start: 'top top',
         end: 'bottom 100%', // when the top of the trigger hits the top of the viewport
         // end: "+=500", // end after scrolling 500px beyond the start
-        markers: true,
+        // markers: true,
         scrub: 0.01,
       },
     });
@@ -129,33 +129,34 @@ const envRef=useRef()
         {
           duration: 0.21,
           ease: 'power1.out',
-          y: -Math.PI * 0.2,
+          y: -Math.PI * 0.18,
         },
-        '<'
+        "<"
       );
 
-    tl.current.fromTo(
-      introduce.current.position,
-      { x: 10, y: 0.5, z: -10 },
-      {
-        duration: 0.15,
-        ease: 'power1.out',
-        x: 1.5,
-        y: 0.45,
-        z: 0.5,
-      },
-      camGroup.current
-    );
+    // tl.current.fromTo(
+    //   introduce.current.position,
+    //   { x: 10, y: 0.5, z: -10 },
+    //   {
+    //     duration: 0.1,
+    //     ease: 'power1.out',
+    //     x: 1.5,
+    //     y: 0.45,
+    //     z: 0.5,
+    //   },
+    //   // camGroup.current 
+    //   "<"
+    // );
 
     tl.current.fromTo(
       introduce.current,
       { fillOpacity: 0 },
       {
-        duration: 0.2,
-        ease: 'power1.inOut',
+        duration: 0.12,
+        // ease: 'power1.inOut',
         fillOpacity: 1,
       },
-      '-=0.01'
+      '-=0.02'
     );
     tl.current
       .to(
@@ -165,7 +166,7 @@ const envRef=useRef()
           fillOpacity: '0',
           duration: 0.15,
         },
-        '<-0.15'
+        '-=0.01'
       )
 
       .to(
@@ -175,7 +176,7 @@ const envRef=useRef()
           ease: 'power1.in',
           y: -Math.PI * 0.55,
         },
-        '-=0.15'
+        '-=0.1'
       );
     tl.current.fromTo(
       about.current.position,
@@ -187,7 +188,7 @@ const envRef=useRef()
         y: 0.75,
         z: 3.1,
       },
-      '<-0.2'
+      '<-=0.2'
     );
 
     tl.current.fromTo(
@@ -317,9 +318,11 @@ console.log(cameraRail)
         {/* <OrbitControls enableZoom={false}/> */}
         <group ref={cameraRail} rotation={[0, -Math.PI * 0.17, 0]}>
           
- 
+
+
         
           <PerspectiveCamera fov={30}  rotation={[0.2, 0, 0]} makeDefault />
+
         </group>
       </group>
 <CloudSky/>
@@ -350,16 +353,16 @@ console.log(cameraRail)
           </group>
 
           <group ref={letter} dispose={null}>
-            {/* <Letter
-              scale={0.5}
-              position={[1.4, 0, -0.2]}
+            <Letter
+              scale={0.6}
+              position={[1.4, 0.2, -0.2]}
               rotation={[0, -Math.PI * 0.3, 0]}
               light={spotRef}
-            /> */}
+            />
           </group>
 
   
-          <group ref={introduce} dispose={null}>
+          <group ref={introduce} dispose={null} position={[1.5,0.45,0.5]}>
             <Introduce castShadow introduce={introduce} />
           </group>
 

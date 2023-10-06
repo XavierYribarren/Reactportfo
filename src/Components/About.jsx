@@ -58,7 +58,7 @@ const sqlRef = useRef(null)
           trigger: '.headxav',
           start: 'top 45%',
           // end: 'top 15%',
-          markers: true,
+          // markers: true,
           scrub:1,
         },
       });
