@@ -1,8 +1,8 @@
 import {
-  CatmullRomLine,
   Cloud,
   Environment,
   Float,
+  Grid,
   MeshReflectorMaterial,
   OrbitControls,
   PerspectiveCamera,
@@ -28,7 +28,7 @@ gsap.registerPlugin(ScrollTrigger);
 import { TextSection } from './TextSection';
 import { ReactLogo } from './ReactLogo';
 import { Background } from './Background';
-import { Physics, usePlane, useBox } from '@react-three/cannon';
+import { Physics, usePlane, useBox } from '@react-three/cannon'
 import PostProc from './PostProc';
 import {
   DepthOfField,
@@ -39,24 +39,18 @@ import {
   Texture,
   Bloom,
   Vignette,
-  Glitch,
+  Glitch
 } from '@react-three/postprocessing';
 
 import Introduce from './Introduce';
-import {
-  BlendFunction,
-  Effect,
-  TextureEffect,
-  GlitchMode,
-} from 'postprocessing';
+import { BlendFunction, Effect, TextureEffect, GlitchMode } from 'postprocessing';
 import About from './About';
 import ProjectsShow from './ProjectsShow';
 import Floor from './Floor';
 import Clouds from './Clouds';
 import CloudSky from './Clouds';
 import ProjectsWeb from './ProjectsWeb';
-import { color } from 'framer-motion';
-import { Picket } from './Picket';
+import { useControls } from 'leva';
 
 export default function Scene() {
   const tv = useRef();
@@ -69,9 +63,8 @@ export default function Scene() {
     r3fRef: 0,
     sqlRef: 0,
   });
-  const floorRef = useRef();
-  const picketRef = useRef();
-  const envRef = useRef();
+const floorRef = useRef()
+const envRef=useRef()
   const projects = useRef();
   const [hover, setHover] = useState(false);
   const { camera, mouse } = useThree();
@@ -90,7 +83,7 @@ export default function Scene() {
   const scroll = useScroll();
   const { width, height } = useThree((state) => state.viewport);
   const [visibility, setVisibility] = useState(false);
-  const [pause, setPause] = useState(true);
+  const [pause, setPause] = useState(true)
   let ringScaleM;
 
   const cameraRail = useRef();
@@ -108,65 +101,70 @@ export default function Scene() {
   const tl = useRef();
 
   useLayoutEffect(() => {
-    let ctx = gsap.context(() => {
-      tl.current = gsap.timeline({
-        scrollTrigger: {
-          trigger: '.main',
-          // pin: true,   // pin the trigger element while active
-          start: 'top top',
-          end: 'bottom 100%', // when the top of the trigger hits the top of the viewport
-          // end: "+=500", // end after scrolling 500px beyond the start
-          // markers: true,
-          scrub: 0.01,
-        },
-      });
-      tl.current.pause();
 
-      tl.current
-        .fromTo(
-          tv.current.position,
-          { x: 0, z: 0 },
-          {
-            duration: 0.21,
-            x: -2,
-            z: -2,
-          }
-        )
-        .to(
-          camGroup.current.rotation,
-          {
-            duration: 0.21,
-            ease: 'power1.out',
-            y: -Math.PI * 0.18,
-          },
-          '<'
-        );
+let ctx = gsap.context(() => {
 
-      // tl.current.fromTo(
-      //   introduce.current.position,
-      //   { x: 10, y: 0.5, z: -10 },
-      //   {
-      //     duration: 0.1,
-      //     ease: 'power1.out',
-      //     x: 1.5,
-      //     y: 0.45,
-      //     z: 0.5,
-      //   },
-      //   // camGroup.current
-      //   "<"
-      // );
 
-      tl.current.fromTo(
-        introduce.current,
-        { fillOpacity: 0 },
+
+    tl.current = gsap.timeline({
+      scrollTrigger: {
+        trigger: '.main',
+        // pin: true,   // pin the trigger element while active
+        start: 'top top',
+        end: 'bottom 100%', // when the top of the trigger hits the top of the viewport
+        // end: "+=500", // end after scrolling 500px beyond the start
+        // markers: true,
+        scrub: 0.01,
+      },
+    });
+    tl.current.pause();
+
+    tl.current
+      .fromTo(
+        tv.current.position,
+        { x: 0, z: 0 },
         {
-          duration: 0.12,
-          // ease: 'power1.inOut',
-          fillOpacity: 1,
+          duration: 0.21,
+          x: -2,
+          z: -2,
+        }
+      )
+      .to(
+        camGroup.current.rotation,
+        {
+          duration: 0.21,
+          ease: 'power1.out',
+          y: -Math.PI * 0.18,
         },
-        '-=0.02'
+        "<"
       );
-      tl.current.to(
+
+    // tl.current.fromTo(
+    //   introduce.current.position,
+    //   { x: 10, y: 0.5, z: -10 },
+    //   {
+    //     duration: 0.1,
+    //     ease: 'power1.out',
+    //     x: 1.5,
+    //     y: 0.45,
+    //     z: 0.5,
+    //   },
+    //   // camGroup.current 
+    //   "<"
+    // );
+
+    tl.current.fromTo(
+      introduce.current,
+      { fillOpacity: 0 },
+      {
+        duration: 0.12,
+        // ease: 'power1.inOut',
+        fillOpacity: 1,
+      },
+      '-=0.02'
+    );
+    tl.current
+      .to(
         introduce.current,
         {
           ease: 'power1.in',
@@ -174,298 +172,339 @@ export default function Scene() {
           duration: 0.15,
         },
         '-=0.01'
-      );
+      )
 
       tl.current.to(
         camGroup.current.rotation,
         {
           duration: 0.2,
           ease: 'power1.in',
-          y: -Math.PI * 0.55,
+          y: -Math.PI * 0.6,
         },
         '-=0.1'
       );
-      tl.current.fromTo(
-        about.current.position,
-        { x: 10, y: 0.5, z: 10 },
-        {
-          duration: 0.25,
-          ease: 'power1.out',
-          x: 1.5,
-          y: 0.75,
-          z: 3.1,
-        },
-        '<-=0.2'
-      );
+    tl.current.fromTo(
+      about.current.position,
+      { x: 10, y: 0.5, z: 10 },
+      {
+        duration: 0.25,
+        ease: 'power1.out',
+        x: 1.2,
+        y: 0.75,
+        z: 2.8,
+      },
+      '<-=0.2'
+    );
 
-      tl.current.fromTo(
-        about.current,
-        { titleRef: 0 },
-        {
-          duration: 0.1,
-          ease: 'power1.inOut',
-          titleRef: 1,
-        },
-        '-=0.01'
-      );
+    tl.current.fromTo(
+      about.current,
+      { titleRef: 0 },
+      {
+        duration: 0.1,
+        ease: 'power1.inOut',
+        titleRef: 1,
+      },
+      '-=0.01'
+    );
 
-      tl.current.fromTo(
-        about.current,
-        { reactRef: 0 },
-        {
-          ease: 'power1.inOut',
-          reactRef: 1,
-          duration: 0.02,
-        },
-        '<0.01'
-      );
-      tl.current.fromTo(
-        about.current,
-        { r3fRef: 0 },
-        {
-          ease: 'power1.inOut',
-          r3fRef: 1,
-          duration: 0.02,
-        },
-        '<0.01'
-      );
-      tl.current.fromTo(
-        about.current,
-        { nodeRef: 0 },
-        {
-          ease: 'power1.inOut',
-          nodeRef: 1,
-          duration: 0.02,
-        },
-        '<0.01'
-      );
+    tl.current.fromTo(
+      about.current,
+      { reactRef: 0 },
+      {
+        ease: 'power1.inOut',
+        reactRef: 1,
+        duration: 0.02,
+      },
+      '<0.01'
+    );
+    tl.current.fromTo(
+      about.current,
+      { r3fRef: 0 },
+      {
+        ease: 'power1.inOut',
+        r3fRef: 1,
+        duration: 0.02,
+      },
+      '<0.01'
+    );
+    tl.current.fromTo(
+      about.current,
+      { nodeRef: 0 },
+      {
+        ease: 'power1.inOut',
+        nodeRef: 1,
+        duration: 0.02,
+      },
+      '<0.01'
+    );
 
-      tl.current.fromTo(
+    tl.current
+      .fromTo(
         about.current,
         { sqlRef: 0 },
         {
           // ease: 'power1.inOut',
           sqlRef: 1,
-          duration: 0.02,
+          duration: 0.2,
         },
-        '<0.01',
-        '+=0.5'
-      );
+        '<0.01'
+      )
+   
 
       tl.current.to(about.current.position, {
         // ease: "elastic.in(1, 0.3)",
         y: 15,
-        x: 10,
+        x:10,
         z: 10,
-        duration: 0.2,
-      });
-
-      tl.current
-        .to(
-          camGroup.current.rotation,
-          {
-            duration: 0.3,
-            ease: 'power1.in',
-            y: -Math.PI * 0.7,
-            ontoggle: (pause) => {
-              setTimeout(() => {
-                setPause(false);
-              }, 1000);
-            },
-          },
-          '<'
-        )
-        .to(
-          camGroup.current.rotation,
-          {
-            duration: 0.3,
-            ease: 'power1.in',
-            y: -Math.PI * 1,
-          }
-          // "<0.2"
-        )
-        .to(
-          camGroup.current.rotation,
-          {
-            duration: 0.3,
-            ease: 'power1.in',
-            y: -Math.PI * 1.4,
-          }
-          // "<0.2"
-        );
-      // tl.current.kill()
-    });
-    return () => ctx.revert();
+        duration: 0.2
+      })
+      
+      // tl.current.to(
+      //   camGroup.current.rotation,
+      //   {
+      //     duration: 0.3,
+      //     ease: 'power1.in',
+      //     y: -Math.PI * 0.7,   
+          
+      //   },
+      //   "<+=0.2"
+      // )
+      tl.current.to(
+        camGroup.current.rotation,
+        {
+          duration: 0.23,
+          ease: 'power1.in',
+          y: -Math.PI * 0.9,
+          onanimationstart: (pause) => { setTimeout(() => {setPause(false)}, 1000) } 
+        },  
+        "<0.1"
+      )
+      .to(
+        camGroup.current.rotation,
+        {
+          duration: 0.3,
+          ease: 'power1.in',
+          y: -Math.PI * 1.4,
+        },
+        // "<0.002"
+      );
+    // tl.current.kill()
+  })
+  return () => ctx.revert();
+  });
+  const backgroundColors = useRef({
+    colorA: '#a5a5a5',
+    colorB: '#aaaaaaa',
   });
 
   function Cable({ start, startOffset, end, endOffset }) {
-    const ref = useRef();
+    const ref = useRef()
     const v1 = new THREE.Vector3();
-    const v2 = new THREE.Vector3();
-    const [points, setPoints] = useState([v1, v2]);
+  const v2 = new THREE.Vector3();
 
-    useFrame((state, delta) => {
-      const elapsedTime = state.clock.getElapsedTime();
+
+    useFrame((state, delta) =>  {
+
+      const elapsedTime = state.clock.getElapsedTime()
       const startPosition = start.current.getWorldPosition(v1);
-      const endPosition = end.current.getWorldPosition(v2);
+    const endPosition = end.current.getWorldPosition(v2);
 
-      const startOffsetVector = new THREE.Vector3(...startOffset);
+    const startOffsetVector = new THREE.Vector3(...startOffset);
 
-      // Apply the startOffset to v1
-      v1.copy(startPosition).add(startOffsetVector);
+    // Apply the startOffset to v1
+    v1.copy(startPosition).add(startOffsetVector);
 
-      // Create a Vector3 instance from endOffset array
-      const endOffsetVector = new THREE.Vector3(...endOffset);
+    // Create a Vector3 instance from endOffset array
+    const endOffsetVector = new THREE.Vector3(...endOffset);
 
-      // Apply the endOffset to v2
-      v2.copy(endPosition).add(endOffsetVector);
+    // Apply the endOffset to v2
+    v2.copy(endPosition).add(endOffsetVector);
 
-      const midVector = new THREE.Vector3(
-        (v2.x + v1.x) / 2,
-        (v2.y + v1.y) * Math.sin(v2.y - v1.y),
-        (v2.z + v1.z) / 2
-      );
+    const midVector = new THREE.Vector3((v2.x+v1.x)/2, (v2.y+v1.y)/2*Math.sin(v2.y-v1.y), (v2.z+v1.z)/2)
 
-      const picketVector = new THREE.Vector3(
-        v1.x + 0.01,
-        v1.y + 0.08,
-        v1.z + 0.015
-      );
-      //  console.log(start.current)
-      // console.log(ref.current)
-      // Set the points for the quadratic bezier line
-      setPoints([v1, picketVector, midVector, v2]), [];
-    });
+console.log(ref.current)
+    // Set the points for the quadratic bezier line
+    ref.current.setPoints(v1, v2, midVector), []})
+    return( 
+    <mesh castShadow receiveShadow>
 
-    const ropeMat = new THREE.LineBasicMaterial({ color: 'pink' });
-    return (
-      <Physics>
-        <mesh castShadow receiveShadow material={ropeMat}>
-          {/* <QuadraticBezierLine receiveShadow  ref={ref} dashed={true} dashScale={0.01} dashSize={0.02} lineWidth={5} color={'#eeffdf'} shadowSide={THREE.DoubleSide}/> */}
-          <CatmullRomLine
-            segments={12}
-            castShadow
-            clipShadows
-            // material={THREE.LineMaterial}
-            ref={ref}
-            points={points} // Array of Points
-            // closed={false}                  // Default
-            curveType='catmullrom' // One of "centripetal" (default), "chordal", or "catmullrom"
-            tension={1} // Default (only applies to "catmullrom" curveType)
-            color='#eeffce' // Default
-            lineWidth={5} // In pixels (default)
-            dashed={false}
-          />
-        </mesh>
-      </Physics>
-    );
+    <QuadraticBezierLine receiveShadow  ref={ref}  lineWidth={5} color={'#eeffdf'} shadowSide={THREE.DoubleSide}/>
+
+    </mesh>
+    
+    )
   }
+  
 
-  console.log(picketRef);
+  const { gridSize, ...gridConfig } = useControls({
+    gridSize: [10.5, 10.5],
+    cellSize: { value: 0.6, min: 0, max: 10, step: 0.1 },
+    cellThickness: { value: 1, min: 0, max: 5, step: 0.1 },
+    cellColor: '#6f6f6f',
+    sectionSize: { value: 3.3, min: 0, max: 10, step: 0.1 },
+    sectionThickness: { value: 1.5, min: 0, max: 5, step: 0.1 },
+    sectionColor: '#9d4b4b',
+    fadeDistance: { value: 25, min: 0, max: 100, step: 1 },
+    fadeStrength: { value: 1, min: 0, max: 1, step: 0.1 },
+    followCamera: false,
+    infiniteGrid: true
+  })
 
   return (
     <>
+    <mesh rotation={[-Math.PI *0.5, 0,0]} position={[0,0.018,1]}>
+      <circleGeometry args={[2,40,12]}/>
+      <meshBasicMaterial color={"#ff00ff"}/>
+    </mesh>
       {/* <Rig /> */}
-      <spotLight
-        lookAt={[1, 0, 2]}
-        position={[8.0, 5, -14]}
-        intensity={1}
-        penumbra={0.2}
-        castShadow
-        // shadowBias={-0.00001}
-        shadow-camera-near={0.1}
-        shadow-mapSize-width={4096}
-        shadow-mapSize-height={4096}
-        shadow-camera-far={100}
-        // shadow-camera-left={-100}
-        // shadow-camera-right={100}
-        // shadow-camera-top={100}
-        // shadow-camera-bottom={-100}
-        ref={spotRef}
-      />
+     <spotLight
+          lookAt={[1, 0, 2]}
+          position={[8.0, 5, -14]}
+          intensity={1.2}
+          penumbra={0.2}
+          castShadow
+          // shadowBias={-0.00001}
+          shadow-camera-near={0.1}
+          shadow-mapSize-width={1024}
+          shadow-mapSize-height={1024}
+          shadow-camera-far={100}
+          shadow-camera-left={-100}
+          shadow-camera-right={100}
+          shadow-camera-top={100}
+          shadow-camera-bottom={-100}
+          ref={spotRef}
+                  />
       <group ref={camGroup} position={[0, 0.1, 1.8]}>
-        <Background />
+     
 
+
+        <Background backgroundColors={backgroundColors} />
+        {/* <OrbitControls enableZoom={false}/> */}
         <group ref={cameraRail} rotation={[0, -Math.PI * 0.17, 0]}>
-          <OrbitControls enableZoom={false}/>
+          
 
-          {/* <PerspectiveCamera
-            fov={30}
-            near={0.1}
-            rotation={[0.2, 0, 0]}
-            makeDefault
+
+        
+          <PerspectiveCamera fov={40} position={[-0.45, 0.051,0]} rotation={[0.2, 0, 0]} makeDefault />
+
+        </group>
+      </group>
+<CloudSky/>
+        <group
+          // ref={group}
+          dispose={null}
+          position={[0, 0, 0]}
+        >
+<Grid position={[0, 0.01, 0]} args={gridSize} {...gridConfig} />
+ 
+          <group ref={tv} dispose={null}>
+            <CurrentW dispose={null}/>
+            <Tv dispose={null}
+              className='TV'
+              // style={{cursor: 'pointer'}}
+              onClick={handleOpenNewTab}
+              scale={1}
+              onPointerOver={(e) => (
+                e.stopPropagation(),
+                setHover(true),
+                (document.body.style.cursor = 'pointer')
+              )}
+              onPointerOut={() => (
+                setHover(false), (document.body.style.cursor = 'auto')
+              )}
+              hover={hover}
+              light={spotRef}
+            />
+          </group>
+<Cable  start={floorRef} startOffset={[1.5,0,-1]}   end={letter}  endOffset={[0,0.6,-0.1]}/>
+          <group  dispose={null}>
+
+            <Letter ref={letter}
+            
+              scale={0.6}
+              position={[1.4, 0.2, -0.2]}
+              rotation={[0, -Math.PI * 0.3, 0]}
+              light={spotRef}
+            />
+          </group>
+
+  
+          <group ref={introduce} dispose={null} position={[1.5,0.45,0.5]}>
+            <Introduce castShadow introduce={introduce} />
+          </group>
+
+          <group ref={about} ><About castShadow about={about} dispose={null}/></group>
+
+          <group  ref={reactLogo}  position={[1.5, 0.5, 2.12]} scale={1.5} dispose={null}>
+            <ReactLogo visibility={visibility} ringScaleM={ringScaleM} />
+          </group>
+        <Physics isPaused={pause} gravity={[0, -9.81, 0]} allowSleep={true} tolerance={0}>
+  
+    <Floor ref={floorRef}  />
+<group 
+position={[1,0,4]}
+rotation={[0,-Math.PI*0.98,0]}
+>
+
+
+<ProjectsShow ref={projects} env={envRef}  />
+
+</group>
+  </Physics>
+
+<group position={[-2,2,8]} scale={15}>
+
+<ProjectsWeb/>
+</group>
+
+
+
+
+
+
+          {/* <Environment
+      ref={envRef}
+      
+            preset='dawn'
+            // files='satara_night_4k.hdr'
+            //  background
+            blur={4}
           /> */}
         </group>
-      </group>
-      <CloudSky />
-      <group
-        // ref={group}
-        dispose={null}
-        position={[width * w, 0, 0]}
-      >
-        <group ref={tv} dispose={null}>
-          <CurrentW dispose={null} />
-          <Tv
-            dispose={null}
-            className='TV'
-            // style={{cursor: 'pointer'}}
-            onClick={handleOpenNewTab}
-            scale={1}
-            onPointerOver={(e) => (
-              e.stopPropagation(),
-              setHover(true),
-              (document.body.style.cursor = 'pointer')
-            )}
-            onPointerOut={() => (
-              setHover(false), (document.body.style.cursor = 'auto')
-            )}
-            hover={hover}
-            light={spotRef}
-          />
-        </group>
-        <Picket ref={picketRef} />
-        <Cable
-          start={picketRef}
-          startOffset={[-0.6, 0.0, 0.0]}
-          end={letter}
-          endOffset={[-0.6, 0.6, -0.1]}
-        />
-        <group dispose={null}>
-          <Letter ref={letter} scale={0.6} light={spotRef} />
-        </group>
 
-        <group ref={introduce} dispose={null} position={[1.5, 0.45, 0.5]}>
-          <Introduce castShadow introduce={introduce} />
-        </group>
 
-        <group ref={about}>
-          <About castShadow about={about} dispose={null} />
-        </group>
+      <EffectComposer disableNormalPass={true}   >
 
-        <group
-          ref={reactLogo}
-          position={[1, 0.5, 2.5]}
-          scale={1.5}
-          dispose={null}
-        >
-          <ReactLogo visibility={visibility} ringScaleM={ringScaleM} />
-        </group>
-        <Physics
-          isPaused={pause}
-          gravity={[0, -9.81, 0]}
-          allowSleep={true}
-          tolerance={0}
-        >
-          <Floor ref={floorRef} castShadow />
-          <group position={[1.05, 0, 5.2]} rotation={[0, -Math.PI * 0.8, 0]}>
-            <ProjectsShow ref={projects} env={envRef} />
-          </group>
-        </Physics>
+        {/* <DepthOfField
+          focusDistance={0.0082}
+          focalLength={0.09}
+          blur={1.4}
+          bokehScale={4}
+          // height={480}
+        /> */}
 
-        <group position={[-2.5, 2, 10]} scale={15}>
-          <ProjectsWeb />
-        </group>
-      </group>
+        {/* <Noise  
+        premultiply 
+opacity={0.14}
+    blendFunction={BlendFunction.ADD} // blend mode
+    />  */}
+
+        {/* <ChromaticAberration
+    blendFunction={BlendFunction.ADD} // blend mode
+    offset={[0.001, 0.002]} // color offset
+  /> */}
+{/* <Bloom luminanceThreshold={0.3} luminanceSmoothing={0.49} height={300}/> */}
+
+{/* <Texture 
+// aspectCorrection={true} 
+
+blendFunction={BlendFunction.LIGHTEN} textureSrc='/scratches.jpg'/> */}
+
+{/* <Vignette 
+eskil={false} 
+offset={0.49} darkness={0.49} /> */}
+
+      </EffectComposer>
     </>
   );
 }

@@ -47,9 +47,9 @@ nopTex.flipY = false
     <mesh
 
     >
-      <Model texture={nopTex} rotation={[0,-Math.PI,0]} position={[0,0,0]}/>
-      <Model texture={nopTex} rotation={[0,-Math.PI*1.1,0]} position={[-0.18,0,-0.05]}/>
-      <Model texture={nopTex} rotation={[0,-Math.PI*1.2,0]} position={[-0.34,0,-0.16]}/>
+      <Model texture={nopTex} rotation={[0,-Math.PI * 1.1,0]} position={[-0.02,0,-0.02]}/>
+      <Model texture={nopTex} rotation={[0,-Math.PI*1.2,0]} position={[-0.22,0,-0.14]}/>
+      <Model texture={nopTex} rotation={[0,-Math.PI*1.4,0]} position={[-0.34,0,-0.3]}/>
     </mesh>
   </group>
   </>

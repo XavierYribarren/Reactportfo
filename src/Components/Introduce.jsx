@@ -47,7 +47,7 @@ function Introduce({ introduce }) {
 font='./Kids_Now.ttf'
                 ref={opacityRef}
             className='hi-intro'
-            fontSize={0.2}
+            fontSize={0.25}
             maxWidth={1.3}
             color={'black'}
             // fillOpacity={opacityRef.current.fillOpacity}

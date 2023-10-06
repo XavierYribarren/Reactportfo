@@ -79,7 +79,7 @@ const sqlRef = useRef(null)
   return (
     <>
   
-      <group ref={textGPRef} rotation={[Math.PI * 0.02, -Math.PI * 0.76, 0]}>
+      <group ref={textGPRef} rotation={[Math.PI * 0.02, -Math.PI * 0.82, 0]} >
 
                 <Text
 castShadow
