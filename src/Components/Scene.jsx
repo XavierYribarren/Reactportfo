@@ -5,6 +5,7 @@ import {
   MeshReflectorMaterial,
   OrbitControls,
   PerspectiveCamera,
+  QuadraticBezierLine,
   useScroll,
 } from '@react-three/drei';
 import React, {
@@ -60,7 +61,7 @@ export default function Scene() {
     r3fRef: 0,
     sqlRef: 0,
   });
-
+const floorRef = useRef()
 const envRef=useRef()
   const projects = useRef();
   const [hover, setHover] = useState(false);
@@ -289,7 +290,37 @@ const envRef=useRef()
     colorA: '#a5a5a5',
     colorB: '#aaaaaaa',
   });
-console.log(cameraRail)
+
+  function Cable({ start, startOffset, end, endOffset }) {
+    const ref = useRef()
+    const v1 = new THREE.Vector3();
+  const v2 = new THREE.Vector3();
+
+
+    useFrame(() =>  {
+      const startPosition = start.current.getWorldPosition(v1);
+    const endPosition = end.current.getWorldPosition(v2);
+
+    const startOffsetVector = new THREE.Vector3(...startOffset);
+
+    // Apply the startOffset to v1
+    v1.copy(startPosition).add(startOffsetVector);
+
+    // Create a Vector3 instance from endOffset array
+    const endOffsetVector = new THREE.Vector3(...endOffset);
+
+    // Apply the endOffset to v2
+    v2.copy(endPosition).add(endOffsetVector);
+
+console.log(v1,v2)
+    // Set the points for the quadratic bezier line
+    ref.current.setPoints(v1, v2), []})
+    return <QuadraticBezierLine ref={ref} lineWidth={5} color="#eeffff" />
+  }
+  
+
+
+
   return (
     <>
       {/* <Rig /> */}
@@ -351,9 +382,10 @@ console.log(cameraRail)
               light={spotRef}
             />
           </group>
+<Cable start={floorRef} startOffset={[0.2,0,0]}   end={letter}  endOffset={[-0.6,0.6,-0.1]}/>
+          <group  dispose={null}>
 
-          <group ref={letter} dispose={null}>
-            <Letter
+            <Letter ref={letter}
               scale={0.6}
               position={[1.4, 0.2, -0.2]}
               rotation={[0, -Math.PI * 0.3, 0]}
@@ -373,7 +405,7 @@ console.log(cameraRail)
           </group>
         <Physics isPaused={pause} gravity={[0, -9.81, 0]} allowSleep={true} tolerance={0}>
   
-    <Floor   />
+    <Floor ref={floorRef}  />
 <group 
 position={[1.05,0,5.2]}
 rotation={[0,-Math.PI*0.8,0]}

@@ -1,10 +1,10 @@
 import { Cloud, MeshReflectorMaterial, useTexture } from '@react-three/drei'
-import React, { useMemo } from 'react'
+import React, { forwardRef, useMemo } from 'react'
 import { usePlane } from '@react-three/cannon'
 import * as THREE from 'three'
 
-function Floor(props) {
-  const [ref] = usePlane(() => ({ rotation: [-Math.PI / 2, 0, 0], position:[0,-0.49,0],mass: 0, material:{restitution : 0.5, friction: 0.2} }))
+const  Floor = forwardRef(({ children, ...props },ref) => {
+  const [refPhy] = usePlane(() => ({ rotation: [-Math.PI / 2, 0, 0], position:[0,-0.49,0],mass: 0, material:{restitution : 0.5, friction: 0.2} }))
   const floorGeo = useMemo(() => new THREE.CircleGeometry( 20, 50),[])
 
 const floorRough = useTexture('./ground_sandy_02_roughness-min.png')
@@ -26,7 +26,7 @@ floorNorm.repeat.set(0.9,0.29)
 
 <>
     <mesh 
-
+ref={ref}
       rotation={[-Math.PI * 0.5, 0, 0]}
       position={[0, 0.0051, 0]}
       receiveShadow
@@ -71,7 +71,7 @@ floorNorm.repeat.set(0.9,0.29)
 
 
 <mesh 
-ref={ref}
+ref={refPhy}
      rotation={[-Math.PI * 0.5, 0, 0]}
      position={[0, 0.00, 0]}
      receiveShadow
@@ -84,6 +84,6 @@ ref={ref}
      <meshBasicMaterial color={"#000000"}  />
    </mesh></>
   )
-}
+})
 
 export default Floor
