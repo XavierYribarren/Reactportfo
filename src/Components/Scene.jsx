@@ -51,6 +51,8 @@ import Clouds from './Clouds';
 import CloudSky from './Clouds';
 import ProjectsWeb from './ProjectsWeb';
 import { useControls } from 'leva';
+import Baloons from './Baloons';
+import { Picket } from './Picket';
 
 export default function Scene() {
   const tv = useRef();
@@ -64,6 +66,7 @@ export default function Scene() {
     sqlRef: 0,
   });
 const floorRef = useRef()
+const picketRef = useRef()
 const envRef=useRef()
   const projects = useRef();
   const [hover, setHover] = useState(false);
@@ -254,8 +257,8 @@ let ctx = gsap.context(() => {
       tl.current.to(about.current.position, {
         // ease: "elastic.in(1, 0.3)",
         y: 15,
-        x:10,
-        z: 10,
+        x:1,
+        z: 1,
         duration: 0.2
       })
       
@@ -273,11 +276,11 @@ let ctx = gsap.context(() => {
         camGroup.current.rotation,
         {
           duration: 0.23,
-          ease: 'power1.in',
+          ease: 'power1.out',
           y: -Math.PI * 0.9,
           onanimationstart: (pause) => { setTimeout(() => {setPause(false)}, 1000) } 
         },  
-        "<0.1"
+        "<"
       )
       .to(
         camGroup.current.rotation,
@@ -322,7 +325,7 @@ let ctx = gsap.context(() => {
 
     const midVector = new THREE.Vector3((v2.x+v1.x)/2, (v2.y+v1.y)/2*Math.sin(v2.y-v1.y), (v2.z+v1.z)/2)
 
-console.log(ref.current)
+
     // Set the points for the quadratic bezier line
     ref.current.setPoints(v1, v2, midVector), []})
     return( 
@@ -336,26 +339,26 @@ console.log(ref.current)
   }
   
 
-  const { gridSize, ...gridConfig } = useControls({
-    gridSize: [10.5, 10.5],
-    cellSize: { value: 0.6, min: 0, max: 10, step: 0.1 },
-    cellThickness: { value: 1, min: 0, max: 5, step: 0.1 },
-    cellColor: '#6f6f6f',
-    sectionSize: { value: 3.3, min: 0, max: 10, step: 0.1 },
-    sectionThickness: { value: 1.5, min: 0, max: 5, step: 0.1 },
-    sectionColor: '#9d4b4b',
-    fadeDistance: { value: 25, min: 0, max: 100, step: 1 },
-    fadeStrength: { value: 1, min: 0, max: 1, step: 0.1 },
-    followCamera: false,
-    infiniteGrid: true
-  })
+  // const { gridSize, ...gridConfig } = useControls({
+  //   gridSize: [10.5, 10.5],
+  //   cellSize: { value: 0.6, min: 0, max: 10, step: 0.1 },
+  //   cellThickness: { value: 1, min: 0, max: 5, step: 0.1 },
+  //   cellColor: '#6f6f6f',
+  //   sectionSize: { value: 3.3, min: 0, max: 10, step: 0.1 },
+  //   sectionThickness: { value: 1.5, min: 0, max: 5, step: 0.1 },
+  //   sectionColor: '#9d4b4b',
+  //   fadeDistance: { value: 25, min: 0, max: 100, step: 1 },
+  //   fadeStrength: { value: 1, min: 0, max: 1, step: 0.1 },
+  //   followCamera: false,
+  //   infiniteGrid: true
+  // })
 
   return (
     <>
-    <mesh rotation={[-Math.PI *0.5, 0,0]} position={[0,0.018,1]}>
+    {/* <mesh rotation={[-Math.PI *0.5, 0,0]} position={[0,0.018,1]}>
       <circleGeometry args={[2,40,12]}/>
       <meshBasicMaterial color={"#ff00ff"}/>
-    </mesh>
+    </mesh> */}
       {/* <Rig /> */}
      <spotLight
           lookAt={[1, 0, 2]}
@@ -377,7 +380,7 @@ console.log(ref.current)
       <group ref={camGroup} position={[0, 0.1, 1.8]}>
      
 
-
+{/* <Baloons/> */}
         <Background backgroundColors={backgroundColors} />
         {/* <OrbitControls enableZoom={false}/> */}
         <group ref={cameraRail} rotation={[0, -Math.PI * 0.17, 0]}>
@@ -395,7 +398,7 @@ console.log(ref.current)
           dispose={null}
           position={[0, 0, 0]}
         >
-<Grid position={[0, 0.01, 0]} args={gridSize} {...gridConfig} />
+{/* <Grid position={[0, 0.01, 0]} args={gridSize} {...gridConfig} /> */}
  
           <group ref={tv} dispose={null}>
             <CurrentW dispose={null}/>
@@ -416,7 +419,8 @@ console.log(ref.current)
               light={spotRef}
             />
           </group>
-<Cable  start={floorRef} startOffset={[1.5,0,-1]}   end={letter}  endOffset={[0,0.6,-0.1]}/>
+          <Picket ref={picketRef}/>
+<Cable  start={picketRef} startOffset={[0.1,0,-0.1]}   end={letter}  endOffset={[0,0.6,-0.1]}/>
           <group  dispose={null}>
 
             <Letter ref={letter}

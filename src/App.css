@@ -81,7 +81,15 @@ h6 {
 }
 
 
+.tab-html{
+  /* overflow: none; */
+  position: relative;
+  white-space: nowrap;
+}
 
+.tab-html > p{
+  overflow: hidden;
+}
 
 .oui{
 /* display: block; */
