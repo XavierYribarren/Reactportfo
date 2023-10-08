@@ -1,14 +1,14 @@
 import { Cloud, useHelper, Clouds } from '@react-three/drei'
 import React, { useRef } from 'react'
 import * as THREE from 'three'
-function CloudSky() {
+function CloudSky(props) {
   const light = useRef()
 
 const matCloud = new THREE.MeshBasicMaterial({color: 'white'})
 
   return (
     <>
-    <group  position={[28.8,0.4,11.2]} rotation={[0,-Math.PI*0.5,0]} dispose={null}>
+    <group  position={props.position} rotation={props.rotation} dispose={null}>
       <Clouds material={THREE.MeshBasicMaterial} >
 
 

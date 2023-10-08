@@ -100,11 +100,11 @@ useGLTF.preload("/tabdevice.glb");
 
 function ProjectsWeb() {
 
-const nopeTex = useTexture('./src/assets/img/ProjImgs/Nope.png')
+const nopeTex = useTexture('./Nope.png')
 nopeTex.flipY = false
-const emergaTex = useTexture('./src/assets/img/ProjImgs/Emerga.png')
+const emergaTex = useTexture('./Emerga.png')
 emergaTex.flipY = false
-const narifTex = useTexture('./src/assets/img/ProjImgs/Narif.png')
+const narifTex = useTexture('./Narif.png')
 narifTex.flipY = false
 
 
