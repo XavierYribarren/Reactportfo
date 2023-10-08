@@ -2,6 +2,7 @@ import {
   Cloud,
   Environment,
   Float,
+  Grid,
   MeshReflectorMaterial,
   OrbitControls,
   PerspectiveCamera,
@@ -49,6 +50,9 @@ import Floor from './Floor';
 import Clouds from './Clouds';
 import CloudSky from './Clouds';
 import ProjectsWeb from './ProjectsWeb';
+import { useControls } from 'leva';
+import Baloons from './Baloons';
+import { Picket } from './Picket';
 
 export default function Scene() {
   const tv = useRef();
@@ -62,6 +66,7 @@ export default function Scene() {
     sqlRef: 0,
   });
 const floorRef = useRef()
+const picketRef = useRef()
 const envRef=useRef()
   const projects = useRef();
   const [hover, setHover] = useState(false);
@@ -99,6 +104,8 @@ const envRef=useRef()
   const tl = useRef();
 
   useLayoutEffect(() => {
+
+let ctx = gsap.context(() => {
 
 
 
@@ -170,12 +177,12 @@ const envRef=useRef()
         '-=0.01'
       )
 
-      .to(
+      tl.current.to(
         camGroup.current.rotation,
         {
           duration: 0.2,
           ease: 'power1.in',
-          y: -Math.PI * 0.55,
+          y: -Math.PI * 0.6,
         },
         '-=0.1'
       );
@@ -185,9 +192,9 @@ const envRef=useRef()
       {
         duration: 0.25,
         ease: 'power1.out',
-        x: 1.5,
+        x: 1.2,
         y: 0.75,
-        z: 3.1,
+        z: 2.8,
       },
       '<-=0.2'
     );
@@ -241,28 +248,38 @@ const envRef=useRef()
         {
           // ease: 'power1.inOut',
           sqlRef: 1,
-          duration: 0.02,
+          duration: 0.2,
         },
-        '<0.01', "+=0.5"
+        '<0.01'
       )
    
 
       tl.current.to(about.current.position, {
         // ease: "elastic.in(1, 0.3)",
         y: 15,
-        x:10,
-        z: 10,
+        x:1,
+        z: 1,
         duration: 0.2
       })
       
+      // tl.current.to(
+      //   camGroup.current.rotation,
+      //   {
+      //     duration: 0.3,
+      //     ease: 'power1.in',
+      //     y: -Math.PI * 0.7,   
+          
+      //   },
+      //   "<+=0.2"
+      // )
       tl.current.to(
         camGroup.current.rotation,
         {
-          duration: 0.3,
-          ease: 'power1.in',
-          y: -Math.PI * 0.7,   
-           ontoggle: (pause) => { setTimeout(() => {setPause(false)}, 1000) } 
-        },
+          duration: 0.23,
+          ease: 'power1.out',
+          y: -Math.PI * 0.9,
+          onanimationstart: (pause) => { setTimeout(() => {setPause(false)}, 1000) } 
+        },  
         "<"
       )
       .to(
@@ -270,21 +287,13 @@ const envRef=useRef()
         {
           duration: 0.3,
           ease: 'power1.in',
-          y: -Math.PI * 1,
-      
-        },  
-        // "<0.2"
-      )
-      .to(
-        camGroup.current.rotation,
-        {
-          duration: 0.3,
-          ease: 'power1.in',
           y: -Math.PI * 1.4,
-        }
-        // "<0.2"
+        },
+        // "<0.002"
       );
     // tl.current.kill()
+  })
+  return () => ctx.revert();
   });
   const backgroundColors = useRef({
     colorA: '#a5a5a5',
@@ -297,7 +306,9 @@ const envRef=useRef()
   const v2 = new THREE.Vector3();
 
 
-    useFrame(() =>  {
+    useFrame((state, delta) =>  {
+
+      const elapsedTime = state.clock.getElapsedTime()
       const startPosition = start.current.getWorldPosition(v1);
     const endPosition = end.current.getWorldPosition(v2);
 
@@ -312,17 +323,42 @@ const envRef=useRef()
     // Apply the endOffset to v2
     v2.copy(endPosition).add(endOffsetVector);
 
-console.log(v1,v2)
+    const midVector = new THREE.Vector3((v2.x+v1.x)/2, (v2.y+v1.y)/2*Math.sin(v2.y-v1.y), (v2.z+v1.z)/2)
+
+
     // Set the points for the quadratic bezier line
-    ref.current.setPoints(v1, v2), []})
-    return <QuadraticBezierLine ref={ref} lineWidth={5} color="#eeffff" />
+    ref.current.setPoints(v1, v2, midVector), []})
+    return( 
+    <mesh castShadow receiveShadow>
+
+    <QuadraticBezierLine receiveShadow  ref={ref}  lineWidth={5} color={'#eeffdf'} shadowSide={THREE.DoubleSide}/>
+
+    </mesh>
+    
+    )
   }
   
 
-
+  // const { gridSize, ...gridConfig } = useControls({
+  //   gridSize: [10.5, 10.5],
+  //   cellSize: { value: 0.6, min: 0, max: 10, step: 0.1 },
+  //   cellThickness: { value: 1, min: 0, max: 5, step: 0.1 },
+  //   cellColor: '#6f6f6f',
+  //   sectionSize: { value: 3.3, min: 0, max: 10, step: 0.1 },
+  //   sectionThickness: { value: 1.5, min: 0, max: 5, step: 0.1 },
+  //   sectionColor: '#9d4b4b',
+  //   fadeDistance: { value: 25, min: 0, max: 100, step: 1 },
+  //   fadeStrength: { value: 1, min: 0, max: 1, step: 0.1 },
+  //   followCamera: false,
+  //   infiniteGrid: true
+  // })
 
   return (
     <>
+    {/* <mesh rotation={[-Math.PI *0.5, 0,0]} position={[0,0.018,1]}>
+      <circleGeometry args={[2,40,12]}/>
+      <meshBasicMaterial color={"#ff00ff"}/>
+    </mesh> */}
       {/* <Rig /> */}
      <spotLight
           lookAt={[1, 0, 2]}
@@ -344,7 +380,7 @@ console.log(v1,v2)
       <group ref={camGroup} position={[0, 0.1, 1.8]}>
      
 
-
+{/* <Baloons/> */}
         <Background backgroundColors={backgroundColors} />
         {/* <OrbitControls enableZoom={false}/> */}
         <group ref={cameraRail} rotation={[0, -Math.PI * 0.17, 0]}>
@@ -352,7 +388,7 @@ console.log(v1,v2)
 
 
         
-          <PerspectiveCamera fov={30}  rotation={[0.2, 0, 0]} makeDefault />
+          <PerspectiveCamera fov={40} position={[-0.45, 0.051,0]} rotation={[0.2, 0, 0]} makeDefault />
 
         </group>
       </group>
@@ -360,9 +396,10 @@ console.log(v1,v2)
         <group
           // ref={group}
           dispose={null}
-          position={[width * w, 0, 0]}
+          position={[0, 0, 0]}
         >
-  
+{/* <Grid position={[0, 0.01, 0]} args={gridSize} {...gridConfig} /> */}
+ 
           <group ref={tv} dispose={null}>
             <CurrentW dispose={null}/>
             <Tv dispose={null}
@@ -382,10 +419,12 @@ console.log(v1,v2)
               light={spotRef}
             />
           </group>
-<Cable start={floorRef} startOffset={[0.2,0,0]}   end={letter}  endOffset={[-0.6,0.6,-0.1]}/>
+          <Picket ref={picketRef}/>
+<Cable  start={picketRef} startOffset={[0.1,0,-0.1]}   end={letter}  endOffset={[0,0.6,-0.1]}/>
           <group  dispose={null}>
 
             <Letter ref={letter}
+            
               scale={0.6}
               position={[1.4, 0.2, -0.2]}
               rotation={[0, -Math.PI * 0.3, 0]}
@@ -398,17 +437,17 @@ console.log(v1,v2)
             <Introduce castShadow introduce={introduce} />
           </group>
 
-          <group ref={about}><About castShadow about={about} dispose={null}/></group>
+          <group ref={about} ><About castShadow about={about} dispose={null}/></group>
 
-          <group  ref={reactLogo}  position={[1, 0.5, 2.5]} scale={1.5} dispose={null}>
+          <group  ref={reactLogo}  position={[1.5, 0.5, 2.12]} scale={1.5} dispose={null}>
             <ReactLogo visibility={visibility} ringScaleM={ringScaleM} />
           </group>
         <Physics isPaused={pause} gravity={[0, -9.81, 0]} allowSleep={true} tolerance={0}>
   
     <Floor ref={floorRef}  />
 <group 
-position={[1.05,0,5.2]}
-rotation={[0,-Math.PI*0.8,0]}
+position={[1,0,4]}
+rotation={[0,-Math.PI*0.98,0]}
 >
 
 
@@ -417,7 +456,7 @@ rotation={[0,-Math.PI*0.8,0]}
 </group>
   </Physics>
 
-<group position={[-2.5,2,10]} scale={15}>
+<group position={[-2,2,8]} scale={15}>
 
 <ProjectsWeb/>
 </group>

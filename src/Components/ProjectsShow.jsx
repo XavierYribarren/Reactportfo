@@ -32,6 +32,8 @@ const multicolo = useTexture('/multicolo2-min.jpg')
 multicolo.flipY = false
 multicolo.wrapS = THREE.RepeatWrapping
 multicolo.wrapT = THREE.RepeatWrapping
+multicolo.colorSpace = THREE.LinearSRGBColorSpace
+multicolo.premultiplyAlpha = true
 multicolo.needsUpdate = true
 multicolo.repeat.set(0.9,0.9)
 
@@ -59,25 +61,25 @@ const textGeo = useMemo(
 
   return (
     <>     
-      <mesh ref={ref} scale={0.4} geometry={textGeo} castShadow>
+      <mesh ref={ref} scale={0.35} geometry={textGeo} castShadow>
 
 
           PROJECTS
-          <meshPhysicalMaterial
+          <meshStandardMaterial
       
   // depthWrite={true}
             map={multicolo}
-            
+      
+      
             // transparent
-            sheen={0.75}
-            sheenColor={'#00ffff'}
+
             // sheenRoughness={1}
             // // transmission={0.99}
-            iridescence={2}
+           emissive={"#787878"}
+           emissiveIntensity={0.5}
  metalness={0}
  roughness={1}
-             reflectivity={0}
-             envMap={0}
+      
        
           />
            {/* </Text3D> */}

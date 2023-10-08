@@ -6,7 +6,7 @@ import { useRef } from "react";
 
 import * as THREE from "three";
 
-export const Background = ({ backgroundColors }) => {
+export const Background = () => {
   const start = 0.2;
   const end = -0.5;
 
@@ -30,22 +30,17 @@ export const Background = ({ backgroundColors }) => {
 
   return (
     <>
-      <Sphere scale={[50, 50, 50]} rotation-y={Math.PI*0.2}  rotation-x={-Math.PI/2.4}>
-        <LayerMaterial color={"#ffffff"} side={THREE.BackSide}>
+      <Sphere scale={[50, 50, 50]} rotation-y={Math.PI*0.2}  rotation-x={-Math.PI/2.4} >
+        <LayerMaterial color={"#ffffff"} side={THREE.BackSide} opacity={0.05}>
           <Gradient  colorA={"#8af1ff"} colorB={"#004f80"}  axes={"y"} start={start} end={end} />
         </LayerMaterial>
-        {/* <meshStandardMaterial color={"#004f80"} side={THREE.DoubleSide}  metalness={0.5}
-        roughness={0.91}
-        // blur={[100, 100]}
-        // resolution={256}
-        // mirror={0.01}
-        /> */}
+    
       </Sphere>
-      {/* <Environment 
+      <Environment 
         preset='dawn'
         //  background 
          blur={3}
-         /> */}
+         />
     </>
   );
 };

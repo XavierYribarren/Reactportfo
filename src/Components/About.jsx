@@ -16,6 +16,7 @@ function About({ about }) {
   const tl = useRef();
   const scroll = useScroll();
   const titleRef = useRef(null)
+  const titleMostRef = useRef(null)
 const reactRef = useRef(null)
 const nodeRef = useRef(null)
 const r3fRef = useRef(null)
@@ -29,6 +30,7 @@ const sqlRef = useRef(null)
 
   
   titleRef.current.fillOpacity = about.current?.titleRef;
+  titleMostRef.current.fillOpacity = about.current?.titleRef;
   reactRef.current.fillOpacity = about.current?.reactRef;
   nodeRef.current.fillOpacity = about.current?.nodeRef;
   r3fRef.current.fillOpacity = about.current?.r3fRef;
@@ -79,33 +81,42 @@ const sqlRef = useRef(null)
   return (
     <>
   
-      <group ref={textGPRef} rotation={[Math.PI * 0.02, -Math.PI * 0.76, 0]}>
+      <group ref={textGPRef} rotation={[Math.PI * 0.028, -Math.PI * 0.8, 0]} >
 
                 <Text
 castShadow
 font= './Kids_Now.ttf'
                 ref={titleRef}
             className='hi-intro'
-            fontSize={0.3}
-            maxWidth={2.5}
+            fontSize={0.5}
+            maxWidth={2.95}
             color={'black'}
             // fillOpacity={opacityRef.current.fillOpacity}
             position={[0,1,0]}
           >
        The technos I use
+       <Text castShadow
+font= './Kids_Now.ttf'
+                ref={titleMostRef}
+            className='hi-intro'
+            fontSize={0.18}
+            maxWidth={2.95}
+            color={'#909090'}
+            // fillOpacity={opacityRef.current.fillOpacity}
+            position={[0,-0.25,0]}>(the most)</Text>
         </Text>
 <group position={[0,-0.2,0]}>
 
 
         <Text
 castShadow
-font='./Rajdhani-Medium.ttf'
+font='./Kids_Now.ttf'
                  ref={reactRef}
             className='hi-intro'
-            fontSize={0.22}
+            fontSize={0.3}
             maxWidth={2.5}
-
-            position={[0,0.7,0]}
+            color={'black'}
+            position={[0,0.6,0]}
           >
 
      React.js
@@ -113,25 +124,27 @@ font='./Rajdhani-Medium.ttf'
 
         <Text
 castShadow
-font='./Rajdhani-Medium.ttf'
+font='./Kids_Now.ttf'
                 ref={r3fRef}
             className='hi-intro'
-            fontSize={0.22}
-            maxWidth={2.5}
+            fontSize={0.3}
+            maxWidth={2.9}
             position={[0,0.2,0]}
             fillOpacity={0}
+            color={'black'}
           >
   
      React-Three-Fiber / Three.js
         </Text>      
           <Text
 castShadow
-font='./Rajdhani-Medium.ttf'
+font='./Kids_Now.ttf'
                 ref={nodeRef}
             className='hi-intro'
-            fontSize={0.22}
+            fontSize={0.3}
             maxWidth={2.5}
-            position={[0,-0.4,0]}
+            position={[0,-0.2,0]}
+            color={'black'}
             
           >
    
@@ -139,12 +152,13 @@ font='./Rajdhani-Medium.ttf'
         </Text>
         <Text
 castShadow
-font='./Rajdhani-SemiBold.ttf'
+font='./Kids_Now.ttf'
                 ref={sqlRef}
             className='hi-intro'
-            fontSize={0.22}
+            fontSize={0.3}
             maxWidth={2.5}
-            position={[0,-1,0]}
+            position={[0,-0.6,0]}
+            color={'black'}
           >
  
     SQL

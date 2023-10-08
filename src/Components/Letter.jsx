@@ -44,12 +44,13 @@ const XlegMaterial = new THREE.MeshStandardMaterial({
 
 
 return (
-  <group {...props} dispose={null}>
+  <group {...props} dispose={null} rotation={[0, -Math.PI * 0.3, 0]} position={[1.4, 0.2, -0.2]}>
   
 
     <Float speed={4.8} floatIntensity={1} floatingRange={[-0.2,0.2]}>
 
-    <group ref={ref} >
+    <group      
+               >
 
 
 <mesh
@@ -59,7 +60,7 @@ return (
         material={TRBLMat}
         color={"#ff000f"}
         />
-      <mesh
+      <mesh ref={ref}
         castShadow
         receiveShadow
         geometry={nodes["TL-BR"].geometry}

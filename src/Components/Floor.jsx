@@ -56,7 +56,7 @@ ref={ref}
         
       /> */}
       
-      <meshPhysicalMaterial  
+      <meshStandardMaterial  
       color={'#ffcb30'}
       // roughnessMap={floorRough}
       // metalnessMap={floorDisp}
