@@ -33,7 +33,7 @@ ref={ref}
       // castShadow
       // geometry={floorGeo}
     >
-      <circleBufferGeometry args={[50, 50]}    receiveShadow
+      <planeGeometry args={[30, 30, 20, 20]}    receiveShadow
       castShadow/>
       {/* <MeshReflectorMaterial
         // color='#0c0c0c'
@@ -58,14 +58,15 @@ ref={ref}
       
       <meshStandardMaterial  
       color={'#ffcb30'}
-      // roughnessMap={floorRough}
-      // metalnessMap={floorDisp}
+      // roughnessMap={floorDisp}
+      metalnessMap={floorDisp}
         // displacementMap={floorDisp}
         // displacementBias={2}
         // displacementScale={0.94}
-        // roughness={1}
-        // normalMap={floorNorm}
-        // normalScale={[-1,1]}
+        metalness={0.4}
+        roughness={1}
+        normalMap={floorNorm}
+        normalScale={[-0.21,0.21]}
          />
     </mesh>
 

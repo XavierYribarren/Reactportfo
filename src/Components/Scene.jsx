@@ -392,7 +392,9 @@ let ctx = gsap.context(() => {
 
         </group>
       </group>
-<CloudSky/>
+<CloudSky position={[28.8,0.4,11.2]} rotation={[0,-Math.PI*0.5,0]}/>
+<CloudSky position={[-14.8,0.4,31.2]} rotation={[0,-Math.PI*1,0]}/>
+<CloudSky position={[-28.8,0.4,-11.2]} rotation={[0,-Math.PI*1.5,0]}/>
         <group
           // ref={group}
           dispose={null}
