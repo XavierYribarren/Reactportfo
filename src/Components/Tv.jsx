@@ -121,14 +121,7 @@ const { camera, mouse } = useThree();
       >
       
       </mesh>    
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes['43_inch_remake001'].geometry}
-        // material={materials['darkish grey plastic']}
-        material={tvPlastic}
-        position={[0, 0.345, -0.133]}
-      />
+
     </group> 
     // </Scroll>
   );

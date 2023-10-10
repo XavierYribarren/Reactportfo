@@ -1,19 +1,15 @@
 import {
-  Cloud,
-  Environment,
-  Float,
-  Grid,
-  MeshReflectorMaterial,
+
   OrbitControls,
   PerspectiveCamera,
   QuadraticBezierLine,
+
   useScroll,
 } from '@react-three/drei';
 import React, {
-  Suspense,
-  useEffect,
+
   useLayoutEffect,
-  useMemo,
+
   useRef,
   useState,
 } from 'react';
@@ -25,35 +21,31 @@ import CurrentW from './CurrentW';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
-import { TextSection } from './TextSection';
+
 import { ReactLogo } from './ReactLogo';
 import { Background } from './Background';
-import { Physics, usePlane, useBox } from '@react-three/cannon'
-import PostProc from './PostProc';
+import { Debug, Physics} from '@react-three/cannon'
+
 import {
   DepthOfField,
   EffectComposer,
-  SelectiveBloom,
-  ChromaticAberration,
-  Noise,
-  Texture,
-  Bloom,
-  Vignette,
-  Glitch
+
 } from '@react-three/postprocessing';
 
 import Introduce from './Introduce';
-import { BlendFunction, Effect, TextureEffect, GlitchMode } from 'postprocessing';
+
 import About from './About';
 import ProjectsShow from './ProjectsShow';
 import Floor from './Floor';
-import Clouds from './Clouds';
+
 import CloudSky from './Clouds';
 import ProjectsWeb from './ProjectsWeb';
 import { useControls } from 'leva';
 import Baloons from './Baloons';
 import { Picket } from './Picket';
-
+import {isMobile} from 'react-device-detect';
+import ArtShow from './ArtShow';
+import ArtPortal from './ArtPortal';
 export default function Scene() {
   const tv = useRef();
   const letter = useRef();
@@ -69,6 +61,10 @@ const floorRef = useRef()
 const picketRef = useRef()
 const envRef=useRef()
   const projects = useRef();
+const artRef = useRef()
+
+
+
   const [hover, setHover] = useState(false);
   const { camera, mouse } = useThree();
   function Rig() {
@@ -86,13 +82,17 @@ const envRef=useRef()
   const scroll = useScroll();
   const { width, height } = useThree((state) => state.viewport);
   const [visibility, setVisibility] = useState(false);
-  const [pause, setPause] = useState(true)
+  const [projGo, setProjGo] = useState(false)
+  const [artGo, setArtGo] = useState(false)
   let ringScaleM;
 
   const cameraRail = useRef();
   const FRICTION_DISTANCE = 42;
   useFrame((state, delta) => {
-    tl.current.seek(scroll.offset * tl.current.duration());
+    if(isMobile){
+      tl.current.seek((scroll.offset*5) * tl.current.duration());
+    }
+    tl.current.seek((scroll.offset) * tl.current.duration());
   });
   const handleOpenNewTab = () => {
     const urlToOpen = 'http://tweakasix.netlify.app';
@@ -127,6 +127,7 @@ let ctx = gsap.context(() => {
         tv.current.position,
         { x: 0, z: 0 },
         {
+          ease : 'power3.inOut',
           duration: 0.21,
           x: -2,
           z: -2,
@@ -203,7 +204,7 @@ let ctx = gsap.context(() => {
       about.current,
       { titleRef: 0 },
       {
-        duration: 0.1,
+        duration: 0.01,
         ease: 'power1.inOut',
         titleRef: 1,
       },
@@ -261,6 +262,7 @@ let ctx = gsap.context(() => {
         z: 1,
         duration: 0.2
       })
+      tl.current.to(tv.current.position, { x: 0, z: 0 }, "<")
       
       // tl.current.to(
       //   camGroup.current.rotation,
@@ -278,7 +280,7 @@ let ctx = gsap.context(() => {
           duration: 0.23,
           ease: 'power1.out',
           y: -Math.PI * 0.9,
-          onanimationstart: (pause) => { setTimeout(() => {setPause(false)}, 1000) } 
+          onanimationstart: () => { setTimeout(() => {setProjGo(true)}, 1000) } 
         },  
         "<"
       )
@@ -288,6 +290,20 @@ let ctx = gsap.context(() => {
           duration: 0.3,
           ease: 'power1.in',
           y: -Math.PI * 1.4,
+          onanimationend: () => { setTimeout(() => {setArtGo(true)}, 1000) } 
+  
+        },
+        // "<0.002"
+      );
+
+      tl.current.to(
+        camGroup.current.rotation,
+        {
+          duration: 0.43,
+          ease: 'power1.inOut',
+          y: -Math.PI * 2,
+          // onanimationend: () => { setTimeout(() => {setArtGo(true)}, 1000) } 
+  
         },
         // "<0.002"
       );
@@ -360,23 +376,27 @@ let ctx = gsap.context(() => {
       <meshBasicMaterial color={"#ff00ff"}/>
     </mesh> */}
       {/* <Rig /> */}
+     
+
      <spotLight
           lookAt={[1, 0, 2]}
           position={[8.0, 5, -14]}
           intensity={1.2}
-          penumbra={0.2}
+          penumbra={0.002}
           castShadow
-          // shadowBias={-0.00001}
-          shadow-camera-near={0.1}
-          shadow-mapSize-width={1024}
-          shadow-mapSize-height={1024}
+          shadowBias={-0.00001}
+          shadow-camera-near={0.0001}
+          shadow-mapSize-width={2048}
+          shadow-mapSize-height={2048}
           shadow-camera-far={100}
           shadow-camera-left={-100}
           shadow-camera-right={100}
           shadow-camera-top={100}
           shadow-camera-bottom={-100}
           ref={spotRef}
-                  />
+        />
+     
+   
       <group ref={camGroup} position={[0, 0.1, 1.8]}>
      
 
@@ -388,7 +408,7 @@ let ctx = gsap.context(() => {
 
 
         
-          <PerspectiveCamera fov={40} position={[-0.45, 0.051,0]} rotation={[0.2, 0, 0]} makeDefault />
+          <PerspectiveCamera makeDefault fov={40} position={[-0.45, 0.051,0]} rotation={[0.2, 0, 0]}  />
 
         </group>
       </group>
@@ -444,18 +464,30 @@ let ctx = gsap.context(() => {
           <group  ref={reactLogo}  position={[1.5, 0.5, 2.12]} scale={1.5} dispose={null}>
             <ReactLogo visibility={visibility} ringScaleM={ringScaleM} />
           </group>
-        <Physics isPaused={pause} gravity={[0, -9.81, 0]} allowSleep={true} tolerance={0}>
-  
-    <Floor ref={floorRef}  />
-<group 
-position={[1,0,4]}
-rotation={[0,-Math.PI*0.98,0]}
+        <Physics  gravity={[0, -9.81, 0]} allowSleep={true} tolerance={0} >
+  {/* <Debug color="red" scale={1.51}> */}
+
+    <Floor ref={floorRef} position={[0,0,0]} /> 
+<group  
+position={[-0.5,0,4.5]}
+rotation={[0,-Math.PI*1.05,0]}
 >
 
-
-<ProjectsShow ref={projects} env={envRef}  />
+{projGo &&(
+    // <Debug color="red" scale={1.51}>
+  <ProjectsShow ref={projects} env={envRef}  />
+  // </Debug>
+  )}
 
 </group>
+<group  position={[-2,0,2.4]}
+rotation={[0,Math.PI*0.5,0]}>
+{artGo && (
+  
+  <ArtShow ref={artRef}  env={envRef} /> 
+  )}
+</group>
+ {/* </Debug> */}
   </Physics>
 
 <group position={[-2,2,8]} scale={15}>
@@ -463,6 +495,10 @@ rotation={[0,-Math.PI*0.98,0]}
 <ProjectsWeb/>
 </group>
 
+<group scale={1.6} position={[-6,2,-1]} rotation={[0,Math.PI*0.3,0]}>
+
+<ArtPortal/>
+</group>
 
 
 

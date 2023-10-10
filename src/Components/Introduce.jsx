@@ -40,7 +40,7 @@ function Introduce({ introduce }) {
   return (
     <>
   
-      <group ref={textGPRef} rotation={[0, -Math.PI * 0.4, 0]}>
+      <group ref={textGPRef} rotation={[Math.PI * 0.01, -Math.PI * 0.4, 0]}>
 
                 <Text
 // castShadow

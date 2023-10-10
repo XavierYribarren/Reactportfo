@@ -27,14 +27,14 @@ function Model(props) {
   const tabModel = useRef()
 materials.tabscreen = new THREE.MeshStandardMaterial({color: hovered ? '#2f2f2f' : '#fff', metalness: 0.28, roughness : 0.4})
 
-
-
+materials.tabcase.metalness = 0.5
+materials.tabcase.roughness = 0.5
 
 
 
  
 
-console.log(props.position)
+
 const fontus = useFont('/typos/Big_BlackBear.json')
   return (
     <group  ref={tabModel} {...props} dispose={null} rotation={props.rotation} position={props.position}>
@@ -80,7 +80,7 @@ font= '/typos/Big_BlackBear.ttf'
       </mesh>
       <mesh
         castShadow
-        receiveShadow
+        // receiveShadow
         geometry={nodes.Cube_2.geometry}
         material={materials.tabcase}
       />

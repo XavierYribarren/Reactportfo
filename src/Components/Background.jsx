@@ -31,8 +31,8 @@ export const Background = () => {
   return (
     <>
       <Sphere scale={[50, 50, 50]} rotation-y={Math.PI*0.2}  rotation-x={-Math.PI/2.4} >
-        <LayerMaterial color={"#ffffff"} side={THREE.BackSide} opacity={0.05}>
-          <Gradient  colorA={"#8af1ff"} colorB={"#004f80"}  axes={"y"} start={start} end={end} />
+        <LayerMaterial color={"#aff5ff"} side={THREE.BackSide} opacity={0.05}>
+          <Gradient  colorA={"#aff5ff"} colorB={"#004f80"}  axes={"y"} start={start} end={end} />
         </LayerMaterial>
     
       </Sphere>
