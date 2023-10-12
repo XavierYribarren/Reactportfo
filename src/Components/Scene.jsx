@@ -282,7 +282,7 @@ let ctx = gsap.context(() => {
           duration: 0.23,
           ease: 'power1.out',
           y: -Math.PI * 0.9,
-          onanimationstart: () => { setTimeout(() => {setProjGo(true)}, 100) } 
+          // onanimationstart: () => { setTimeout(() => {setProjGo(true)}, 100) } 
         },  
         "<"
       )
@@ -292,7 +292,7 @@ let ctx = gsap.context(() => {
           duration: 0.3,
           ease: 'power1.in',
           y: -Math.PI * 1.4,
-          onanimationend: () => { setTimeout(() => {setArtGo(true)}, 1000) } 
+          // onanimationend: () => { setTimeout(() => {setArtGo(true)}, 1000) } 
   
         },
         // "<0.002"
@@ -437,6 +437,7 @@ let ctx = gsap.context(() => {
                 (document.body.style.cursor = 'pointer')
               )}
               onPointerOut={() => (
+                // e.stopPropagation(),
                 setHover(false), (document.body.style.cursor = 'auto')
               )}
               hover={hover}
@@ -466,8 +467,7 @@ let ctx = gsap.context(() => {
           <group  ref={reactLogo}  position={[1.5, 0.5, 2.12]} scale={1.5} dispose={null}>
             <ReactLogo visibility={visibility} ringScaleM={ringScaleM} />
           </group>
-        {/* <Physics  gravity={[0, -9.81, 0]} allowSleep={true} tolerance={0} > */}
-  {/* <Debug color="red" scale={1.51}> */}
+
 
     <Floor ref={floorRef} position={[0,0,0]} /> 
 <group  
@@ -475,22 +475,19 @@ position={[-0,0,4.5]}
 rotation={[0,-Math.PI*1.05,0]}
 >
 
-{/* {projGo &&( */}
-    {/* // <Debug color="red" scale={1.51}> */}
+
   <ProjectsShow ref={projects} env={envRef}  />
-  {/* // </Debug> */}
-  {/* )} */}
+
 
 </group>
 <group  position={[-2,0,2.4]}
 rotation={[0,Math.PI*0.5,0]}>
-{/* {artGo && ( */}
+
   
   <ArtShow ref={artRef}  env={envRef} /> 
-  {/* // )} */}
+
 </group>
- {/* </Debug> */}
-  {/* </Physics> */}
+
 
 <group position={[-2,2,8]} scale={15}>
 

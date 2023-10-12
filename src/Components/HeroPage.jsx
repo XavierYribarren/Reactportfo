@@ -7,7 +7,7 @@ import * as THREE from 'three';
 import {
 
   Environment,
-  ScrollControls, Stage,
+  ScrollControls, Stage, Stats, StatsGl,
 } from '@react-three/drei';
 import { Perf } from 'r3f-perf';
 import {isMobile} from 'react-device-detect';
@@ -20,7 +20,7 @@ function HeroPage() {
     <div className='headxav'>
       <Canvas
         fallback={null}
-     
+    //  frameloop='demand'
       
         linear
 
@@ -55,7 +55,7 @@ function HeroPage() {
           <Scene />
       
         </ScrollControls>
-  
+  <Stats/>
       </Canvas>
 
     </div>

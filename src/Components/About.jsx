@@ -24,9 +24,9 @@ const sqlRef = useRef(null)
 
 // const typo = useFont('../../public/Kids_Now.ttf')
 
-  useFrame((state) => {  
+  useFrame(() => {  
     
-    tl.current.seek(scroll.offset * tl.current.duration());
+    // tl.current.seek(scroll.offset * tl.current.duration());
 
   
   titleRef.current.fillOpacity = about.current?.titleRef;
@@ -43,10 +43,10 @@ const sqlRef = useRef(null)
     textGPRef.current.position.z = about.current.position.z;
 
  
-    const time = state.clock.getElapsedTime();
+   
 
  
-  });
+  },1);
 
   const textBase = `The technos I use`;
 

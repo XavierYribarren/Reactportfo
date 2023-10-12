@@ -34,12 +34,14 @@ ref={ref}
 // ref={refPhy}
      rotation={[-Math.PI * 0.5, 0, 0]}
 
-     receiveShadow
+    //  receiveShadow
     //  castShadow
     // visible={false}
    >
 
-   </mesh></>
+   </mesh>
+   
+   </>
   )
 })
 

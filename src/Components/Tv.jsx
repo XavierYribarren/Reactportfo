@@ -10,22 +10,13 @@ import { ChromaticAberration, DepthOfField, EffectComposer, SelectiveBloom } fro
 import { BlendFunction } from 'postprocessing';
 export function Tv(props) {
   const { nodes, materials } = useGLTF('/screen.glb');
-  const [iframeLoaded, setIframeLoaded] = useState(false);
 
   const hover = props.hover
   const tv = useRef()
 
   const spot = props.light
   // Code to execute when the iframe content is loaded
-  const handleIframeLoad = () => {
-    const iframe = document.querySelector('iframe');
 
-    if (iframe){
-
-      setIframeLoaded(true);
-    }
-    // Update the state to indicate that the iframe is loaded
-  };
 
   const tasScreen = useLoader(TextureLoader, "/tasScreenHD.png");
 // tasScreen.toneMapping = THREE.ReinhardToneMapping
@@ -41,14 +32,15 @@ export function Tv(props) {
     
     // emissive: '#222' ,
     toneMapped : false,
-    emissiveIntensity: '0.1',
+    emissiveIntensity: 0.1,
     emissiveMap: tasScreen
     
   });
 
   materials.screenNorm = new THREE.MeshBasicMaterial({
     map: tasScreen,
-    toneMapped: false
+    toneMapped: false,
+    
   })
 
   const tvPlastic = new THREE.MeshStandardMaterial({
@@ -64,7 +56,7 @@ const { camera, mouse } = useThree();
     
   
     >
-        <PostProc /> 
+        {/* <PostProc />  */}
     
 
         
@@ -83,18 +75,7 @@ const { camera, mouse } = useThree();
     luminanceThreshold={0.79} // luminance threshold. Raise this value to mask out darker elements in the scene.
     luminanceSmoothing={0.5} // smoothness of the luminance threshold. Range is [0, 1]
     />  
-    {/* <DepthOfField
-  focusDistance={0.00082}
-  focalLength={0.0009}
-  blur={4.4}
-  bokehScale={4}
-  height={480}
-  />  */}
 
-  {/* <ChromaticAberration
-       blendFunction={BlendFunction.NORMAL}
-       offset={[0.0006, 0.0002]}
-  />  */}
    </EffectComposer>
     </>
     )}
@@ -104,17 +85,16 @@ const { camera, mouse } = useThree();
       <mesh
       
         castShadow
-        receiveShadow
+        // receiveShadow
         geometry={nodes.Cube003.geometry}
         // material={materials['darkish grey plastic']}
         material={tvPlastic}
       /> 
       
       <mesh
-
       ref={tv}
-        castShadow
-        receiveShadow
+        // castShadow
+        // receiveShadow
         geometry={nodes.Cube003_1.geometry}
         // material={hover ? materials.screenLight : materials.screenNorm}
         material={materials.screenNorm}
