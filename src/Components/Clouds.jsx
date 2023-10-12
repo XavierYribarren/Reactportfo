@@ -1,7 +1,7 @@
 import { Cloud, useHelper, Clouds } from '@react-three/drei'
 import React, { useRef } from 'react'
 import * as THREE from 'three'
-function CloudSky(props) {
+export const  CloudSky = (props) => {
   const light = useRef()
 
 const matCloud = new THREE.MeshBasicMaterial({color: 'white'})
@@ -24,4 +24,3 @@ const matCloud = new THREE.MeshBasicMaterial({color: 'white'})
   )
 }
 
-export default CloudSky

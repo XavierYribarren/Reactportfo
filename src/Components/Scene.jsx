@@ -18,7 +18,7 @@ import { Tv } from './Tv';
 import * as THREE from 'three';
 import { useFrame, useThree } from '@react-three/fiber';
 import { Letter } from './Letter';
-import CurrentW from './CurrentW';
+import { CurrentW } from './CurrentW';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
@@ -28,19 +28,17 @@ import { Background } from './Background';
 import { Debug, Physics} from '@react-three/cannon'
 
 import {
-  DepthOfField,
   EffectComposer,
-
 } from '@react-three/postprocessing';
 
-import Introduce from './Introduce';
+import {Introduce} from './Introduce';
 
-import About from './About';
-import ProjectsShow from './ProjectsShow';
+import { About } from './About';
+import {ProjectsShow} from './ProjectsShow';
 import Floor from './Floor';
 
-import CloudSky from './Clouds';
-import ProjectsWeb from './ProjectsWeb';
+import {CloudSky} from './Clouds';
+import {ProjectsWeb} from './ProjectsWeb';
 import { useControls } from 'leva';
 import Baloons from './Baloons';
 import { Picket } from './Picket';
@@ -69,12 +67,6 @@ const artRef = useRef()
 
   const [hover, setHover] = useState(false);
   const { camera, mouse } = useThree();
-  function Rig() {
-    const [vec] = useState(() => new THREE.Vector3());
-
-    useFrame(() => camera.position.lerp(vec.set(-1, 0.1, 1.6), 0.05));
-    // return <CameraShake maxYaw={0.01} maxPitch={0.01} maxRoll={0.01} yawFrequency={0.05} pitchFrequency={0.05} rollFrequency={0.04} />
-  }
 
   const reactLogo = useRef();
 
@@ -89,18 +81,18 @@ const artRef = useRef()
   let ringScaleM;
 
   const cameraRail = useRef();
-  const FRICTION_DISTANCE = 42;
+
   useFrame((state, delta) => {
     if(isMobile){
       tl.current.seek((scroll.offset*5) * tl.current.duration());
     }
     tl.current.seek((scroll.offset) * tl.current.duration());
   });
-  const handleOpenNewTab = () => {
-    const urlToOpen = 'http://tweakasix.netlify.app';
+  // const handleOpenNewTab = () => {
+  //   const urlToOpen = 'http://tweakasix.netlify.app';
 
-    window.open(urlToOpen, '_blank');
-  };
+  //   window.open(urlToOpen, '_blank');
+  // };
   const w = 1 / 3;
 
   const tl = useRef();
@@ -357,28 +349,11 @@ let ctx = gsap.context(() => {
   }
   
 
-  // const { gridSize, ...gridConfig } = useControls({
-  //   gridSize: [10.5, 10.5],
-  //   cellSize: { value: 0.6, min: 0, max: 10, step: 0.1 },
-  //   cellThickness: { value: 1, min: 0, max: 5, step: 0.1 },
-  //   cellColor: '#6f6f6f',
-  //   sectionSize: { value: 3.3, min: 0, max: 10, step: 0.1 },
-  //   sectionThickness: { value: 1.5, min: 0, max: 5, step: 0.1 },
-  //   sectionColor: '#9d4b4b',
-  //   fadeDistance: { value: 25, min: 0, max: 100, step: 1 },
-  //   fadeStrength: { value: 1, min: 0, max: 1, step: 0.1 },
-  //   followCamera: false,
-  //   infiniteGrid: true
-  // })
+
 
   return (
     <>
-    {/* <mesh rotation={[-Math.PI *0.5, 0,0]} position={[0,0.018,1]}>
-      <circleGeometry args={[2,40,12]}/>
-      <meshBasicMaterial color={"#ff00ff"}/>
-    </mesh> */}
-      {/* <Rig /> */}
-     
+{/* <EffectComposer disableNormalPass></EffectComposer> */}
 
      <spotLight
           lookAt={[1, 0, 2]}
@@ -422,25 +397,24 @@ let ctx = gsap.context(() => {
           dispose={null}
           position={[0, 0, 0]}
         >
-{/* <Grid position={[0, 0.01, 0]} args={gridSize} {...gridConfig} /> */}
- 
+
           <group ref={tv} dispose={null}>
             <CurrentW dispose={null}/>
             <Tv dispose={null}
               className='TV'
               // style={{cursor: 'pointer'}}
-              onClick={handleOpenNewTab}
-              scale={1}
-              onPointerOver={(e) => (
-                e.stopPropagation(),
-                setHover(true),
-                (document.body.style.cursor = 'pointer')
-              )}
-              onPointerOut={() => (
-                // e.stopPropagation(),
-                setHover(false), (document.body.style.cursor = 'auto')
-              )}
-              hover={hover}
+              // onClick={handleOpenNewTab}
+              // scale={1}
+              // onPointerOver={(e) => (
+              //   e.stopPropagation(),
+              //   setHover(true),
+              //   (document.body.style.cursor = 'pointer')
+              // )}
+              // onPointerOut={() => (
+              //   // e.stopPropagation(),
+              //   setHover(false), (document.body.style.cursor = 'auto')
+              // )}
+              // hover={hover}
               light={spotRef}
             />
           </group>
@@ -453,7 +427,7 @@ let ctx = gsap.context(() => {
               scale={0.6}
               position={[1.4, 0.2, -0.2]}
               rotation={[0, -Math.PI * 0.3, 0]}
-              light={spotRef}
+              // light={spotRef}
             />
           </group>
 
@@ -462,10 +436,12 @@ let ctx = gsap.context(() => {
             <Introduce castShadow introduce={introduce} />
           </group>
 
-          <group ref={about} ><About castShadow about={about} dispose={null}/></group>
+          <group ref={about} >
+            <About castShadow about={about} dispose={null}/>
+            </group>
 
           <group  ref={reactLogo}  position={[1.5, 0.5, 2.12]} scale={1.5} dispose={null}>
-            <ReactLogo visibility={visibility} ringScaleM={ringScaleM} />
+            <ReactLogo  />
           </group>
 
 
@@ -476,17 +452,21 @@ rotation={[0,-Math.PI*1.05,0]}
 >
 
 
-  <ProjectsShow ref={projects} env={envRef}  />
+  <ProjectsShow 
+  ref={projects} env={envRef}  
+  />
 
 
 </group>
-<group  position={[-2,0,2.4]}
+{/* <group  position={[-2,0,2.4]}
 rotation={[0,Math.PI*0.5,0]}>
 
   
-  <ArtShow ref={artRef}  env={envRef} /> 
+  <ArtShow 
+  // ref={artRef}  env={envRef} 
+  /> 
 
-</group>
+</group> */}
 
 
 <group position={[-2,2,8]} scale={15}>
@@ -496,12 +476,12 @@ rotation={[0,Math.PI*0.5,0]}>
 
 <group scale={1.6} position={[-6,2,-1]} rotation={[0,Math.PI*0.3,0]}>
 
-<ArtPortal/>
+{/* <ArtPortal/> */}
 </group>
 
 
 <Perf deepAnalyze/>
-<PerformanceMonitor />
+
 
           {/* <Environment
       ref={envRef}
@@ -514,38 +494,11 @@ rotation={[0,Math.PI*0.5,0]}>
         </group>
 
 
-      <EffectComposer disableNormalPass={true}   >
+      {/* <EffectComposer disableNormalPass={!true}   >
 
-        {/* <DepthOfField
-          focusDistance={0.0082}
-          focalLength={0.09}
-          blur={1.4}
-          bokehScale={4}
-          // height={480}
-        /> */}
+     
 
-        {/* <Noise  
-        premultiply 
-opacity={0.14}
-    blendFunction={BlendFunction.ADD} // blend mode
-    />  */}
-
-        {/* <ChromaticAberration
-    blendFunction={BlendFunction.ADD} // blend mode
-    offset={[0.001, 0.002]} // color offset
-  /> */}
-{/* <Bloom luminanceThreshold={0.3} luminanceSmoothing={0.49} height={300}/> */}
-
-{/* <Texture 
-// aspectCorrection={true} 
-
-blendFunction={BlendFunction.LIGHTEN} textureSrc='/scratches.jpg'/> */}
-
-{/* <Vignette 
-eskil={false} 
-offset={0.49} darkness={0.49} /> */}
-
-      </EffectComposer>
+      </EffectComposer> */}
     </>
   );
 }

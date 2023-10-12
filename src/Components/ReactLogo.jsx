@@ -12,14 +12,14 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
 
-export function ReactLogo(props) {
+export const  ReactLogo = (props) => {
   const { nodes, materials } = useGLTF('/React3D.glb');
   const tl = useRef();
   const rings = useRef();
   const core = useRef();
   const scroll = useScroll();
   console.log(props);
-  const coreSphere = useMemo(() => new THREE.SphereGeometry(0.05, 36, 36, 10),[]);
+  const coreSphere = useMemo(() => new THREE.SphereGeometry(0.05, 36, 36, 10) ,[]);
 
   const ringMat = new THREE.MeshStandardMaterial({
     color: '#0cd2ec',
@@ -27,7 +27,7 @@ export function ReactLogo(props) {
     metalness: 0.2,
   });
 
-  const coreMat = new THREE.MeshPhysicalMaterial({
+  const coreMat = useMemo (() => new THREE.MeshPhysicalMaterial({
     roughness: 1,
     metalness: 0,
     color: '#0cd2ec',
@@ -37,7 +37,7 @@ export function ReactLogo(props) {
     clearcoatRoughness: 0.04,
     opacity: 0,
     // transmission: 0.1,
-  });
+  }) ,[])
 
   const random = Math.random();
 
@@ -55,31 +55,8 @@ export function ReactLogo(props) {
     core.current.scale.z = 1.5 + Math.sin(time * 4) * 0.5;
 
   });
-  const visibility = props.visibility;
-  const ringScaleM = props.ringScaleM;
-  // let ringScaleM = 0.71
 
-  // tl.current = gsap.timeline({
-  //   scrollTrigger: {
-  //     trigger: '.headxav',
-  //     // pin: true,   // pin the trigger element while active
-  //     // start: "top 60%",
-  //     // end: "70%",// when the top of the trigger hits the top of the viewport
-  //     // // end: "+=500", // end after scrolling 500px beyond the start
-  //     // markers: true,
-  //     scrub: 0.1,
-  //   },
-  // });
-  // useLayoutEffect(() => {
-  //   tl.current.pause();
-  //   // tl.current.play()
-  //   // tl.current.fromTo(rings.current.scale, {x: 0,y :0, z : 0}, {
-  //   //   duration : 0.05,
-  //   //   x : 1,
-  //   //   y:1,
-  //   //   z : 1,
-  //   // }, "+=0.2")
-  // });
+
 
   return (
     <group {...props} dispose={null}>

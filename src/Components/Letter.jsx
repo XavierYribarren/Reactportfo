@@ -4,9 +4,6 @@ import { Float, QuadraticBezierLine, useGLTF, useTexture } from "@react-three/dr
 import { useFrame, useLoader } from '@react-three/fiber';
 import { TextureLoader } from "three/src/loaders/TextureLoader";
 import * as THREE from 'three'
-import PostProc from "./PostProc";
-import { BlurPass, Resizer, KernelSize } from 'postprocessing'
-import { EffectComposer, SelectiveBloom } from "@react-three/postprocessing";
 
 export const Letter = forwardRef(function (props, ref) {
   const { nodes, materials } = useGLTF("/logoBallPHY.glb");
@@ -29,18 +26,11 @@ const whysRef =  useRef()
 
 const TRBLMat = new THREE.MeshStandardMaterial({
   map: multicolo,
-// color: material-color,
  metalness: 0.18,
  roughness: 0.68,
-//  clearcoat: 0.8,
-//  transmission: 0.8
-//  reflectivity: 1
+
 })
 
-
-const XlegMaterial = new THREE.MeshStandardMaterial({
-  // map: multicolo,
-})
 
 
 return (
@@ -58,14 +48,14 @@ return (
         receiveShadow
         geometry={nodes["TR-BL"].geometry}
         material={TRBLMat}
-        color={"#ff000f"}
+        // color={"#ff000f"}
         />
       <mesh ref={ref}
         castShadow
         receiveShadow
         geometry={nodes["TL-BR"].geometry}
         material={TRBLMat}
-       color={new THREE.Color("#ff00ff")}
+      //  color={new THREE.Color("#ff00ff")}
         />
     </group>
         </Float>

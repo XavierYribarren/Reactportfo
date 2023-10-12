@@ -11,13 +11,12 @@ import {
 import React, { forwardRef, useMemo, useRef } from 'react';
 import { useBox } from '@react-three/cannon';
 import { MeshPhysicalMaterial, MeshStandardMaterial } from 'three';
-import { EffectComposer, SelectiveBloom } from '@react-three/postprocessing';
-import { BlurPass, Resizer, KernelSize } from 'postprocessing';
+
 import { useFrame, useThree } from 'react-three-fiber';
-import About from './About';
+import { About } from './About';
 import * as THREE from 'three'
 import { TextGeometry } from 'three/addons/geometries/TextGeometry.js';
-function ProjectsShow({ ...props }) {
+export const ProjectsShow = ({ ...props }) => {
   // const [ref] = useBox(() => ({
   //   mass: 20,
   //   args:[0,0,0],
@@ -47,9 +46,9 @@ const multicol = useRef(multicolo)
 useFrame((state, delta) => {
   const elapsedTime = state.clock.getElapsedTime()
 
-//   multicol.current.rotation = Math.PI *elapsedTime/150
-// multicol.current.offset.x = (Math.sin(elapsedTime/10)*1+delta)
-// multicol.current.offset.y = (Math.sin(elapsedTime/10)*1.2-delta)
+  multicolo.rotation = Math.PI *elapsedTime/150
+multicolo.offset.x = (Math.sin(elapsedTime/10)*1+delta)
+multicolo.offset.y = (Math.sin(elapsedTime/10)*1.2-delta)
 })
 const fontus = useFont('/typos/Big_BlackBear.json')
 const textGeo = useMemo(
@@ -74,7 +73,6 @@ const textGeo = useMemo(
       castShadow >
 
 
-       {/* <boxGeometry visi args={[1,0.25,1]}/> */}
        <mesh scale={0.35} 
           geometry={textGeo}
           position={[-1,0,0]}
@@ -98,10 +96,10 @@ const textGeo = useMemo(
       
       />
       </mesh>
-           {/* </Text3D> */}
+  
       </mesh>
     </>
   );
 }
 
-export default ProjectsShow;
+// export default ProjectsShow;

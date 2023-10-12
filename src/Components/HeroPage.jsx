@@ -28,8 +28,8 @@ function HeroPage() {
         // legacy
         dpr={[1, 1.5]}
         gl={{
-          preserveDrawingBuffer: true,
-          // antialias: true,
+          // preserveDrawingBuffer: true,
+          antialias: true,
           alpha: true,
           powerPreference: 'default',
           
@@ -55,7 +55,7 @@ function HeroPage() {
           <Scene />
       
         </ScrollControls>
-  <Stats/>
+  {/* <Stats/> */}
       </Canvas>
 
     </div>

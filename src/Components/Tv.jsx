@@ -1,109 +1,81 @@
-import React, { useRef, useState } from 'react';
+import React, { useMemo, useRef, useState } from 'react';
 import { Html, Image, Scroll, useGLTF } from '@react-three/drei';
 import * as THREE from 'three';
-import CurrentW from './CurrentW';
-import { TextureLoader } from "three/src/loaders/TextureLoader";
+import { TextureLoader } from 'three/src/loaders/TextureLoader';
 import { useLoader, useThree } from '@react-three/fiber';
-import PostProc from './PostProc';
-import { BlurPass, Resizer, KernelSize } from 'postprocessing'
-import { ChromaticAberration, DepthOfField, EffectComposer, SelectiveBloom } from "@react-three/postprocessing";
-import { BlendFunction } from 'postprocessing';
-export function Tv(props) {
+
+export function Tv(props, ref) {
   const { nodes, materials } = useGLTF('/screen.glb');
 
-  const hover = props.hover
-  const tv = useRef()
+  const [hover, setHover] = useState(false);
+  const tv = useRef();
 
-  const spot = props.light
-  // Code to execute when the iframe content is loaded
+  const handleOpenNewTab = () => {
+    const urlToOpen = 'http://tweakasix.netlify.app';
 
+    window.open(urlToOpen, '_blank');
+  };
 
-  const tasScreen = useLoader(TextureLoader, "/tasScreenHD.png");
-// tasScreen.toneMapping = THREE.ReinhardToneMapping
+  const tasScreen = useLoader(TextureLoader, '/tasScreenHD.png');
   tasScreen.flipY = false;
 
-
   materials.screenLight = new THREE.MeshStandardMaterial({
-    // roughness: 1,
-    // metalness: 1,
-    // flatShading: true,
-    // color: "#000000",
-    map: tasScreen,
-    
-    // emissive: '#222' ,
-    toneMapped : false,
-    emissiveIntensity: 0.1,
-    emissiveMap: tasScreen
-    
-  });
-
-  materials.screenNorm = new THREE.MeshBasicMaterial({
     map: tasScreen,
     toneMapped: false,
-    
-  })
+    emissiveIntensity: 0.1,
+    emissiveMap: tasScreen,
+  });
 
-  const tvPlastic = new THREE.MeshStandardMaterial({
+ const screenNorm = useMemo(() => new THREE.MeshBasicMaterial({
+    // map: tasScreen,
+    toneMapped: false,
+  }))
+
+  const tvPlastic = useMemo(() => new THREE.MeshStandardMaterial({
     color: '#0c0c0c',
     metalness: 1,
     roughness: 0.04,
-})
-const { camera, mouse } = useThree();
+  }))
 
+
+
+
+//   const handlePointerOver = () => {setHover(true), console.log(hover)};
+// const handlePointerOut = () => setHover(false);
+const handlePointerOver = () => {console.log('Mouse over'), setHover(true),  (document.body.style.cursor = 'pointer')};
+const handlePointerOut = () => {console.log('Mouse out'), setHover(false), (document.body.style.cursor = 'auto')};
   return (
-  // <Scroll>
-    <group  {...props} dispose={null}
-    
-  
-    >
-        {/* <PostProc />  */}
-    
+    <group {...props} dispose={null}>
+      <mesh  castShadow geometry={nodes.Cube003.geometry}> <meshStandardMaterial   color={'#0c0c0c'}
+    metalness= {1} 
+    roughness= {0.04} /></mesh>
 
-        
-    {hover &&(
-      <>  
-      <EffectComposer disableNormalPass={true}>
-<SelectiveBloom
-    lights={[spot,tv]} // ⚠️ REQUIRED! all relevant lights
-    // selection={[tv]} // selection of objects that will have bloom effect
-    selectionLayer={10} // selection layer
-    intensity={0.81} // The bloom intensity.
-    // blurPass={new BlurPass()} // A blur pass.
-    width={Resizer.AUTO_SIZE} // render width
-    height={Resizer.AUTO_SIZE} // render height
-    kernelSize={KernelSize.LARGE} // blur kernel size
-    luminanceThreshold={0.79} // luminance threshold. Raise this value to mask out darker elements in the scene.
-    luminanceSmoothing={0.5} // smoothness of the luminance threshold. Range is [0, 1]
-    />  
+      <mesh
+        ref={tv}
+        onClick={handleOpenNewTab}
+        scale={1}
 
-   </EffectComposer>
-    </>
-    )}
-  
-   
-  
-      <mesh
-      
-        castShadow
-        // receiveShadow
-        geometry={nodes.Cube003.geometry}
-        // material={materials['darkish grey plastic']}
-        material={tvPlastic}
-      /> 
-      
-      <mesh
-      ref={tv}
-        // castShadow
-        // receiveShadow
+        // onPointerOver={(e) => (
+        //   e.stopPropagation(),
+        //   setHover(true),
+        //   (document.body.style.cursor = 'pointer')
+        // )}
+        // onPointerOut={() => (
+        //   setHover(false), (document.body.style.cursor = 'auto')
+        // )}
+        onPointerOver={handlePointerOver}
+        onPointerOut={handlePointerOut}
         geometry={nodes.Cube003_1.geometry}
-        // material={hover ? materials.screenLight : materials.screenNorm}
-        material={materials.screenNorm}
-      >
-      
-      </mesh>    
+        // material={screenNorm.clone()}
+      > 
+      {/* <primitive  object={nodes.Cube003_1.geometry} /> */}
+   {hover ? (
 
-    </group> 
-    // </Scroll>
+  
+      <meshStandardMaterial map={tasScreen} emissiveMap={tasScreen}/> ):(
+      <meshBasicMaterial  map={tasScreen} toneMapped={false}/> )}
+      </mesh>
+    </group>
   );
 }
 

@@ -10,7 +10,7 @@ import * as THREE from 'three';
 import typo from '/typos/Kids_Now_Regular1.json';
 gsap.registerPlugin(ScrollTrigger);
 
-function Introduce({ introduce }) {
+export const Introduce = ({ introduce }) => {
   const opacityRef = useRef();
   const posRef = useRef();
   const textGPRef = useRef(null);
@@ -75,4 +75,4 @@ font='./Kids_Now.ttf'
   );
 }
 
-export default Introduce;
+// export default Introduce;
