@@ -1,6 +1,7 @@
 import {
 
   OrbitControls,
+  PerformanceMonitor,
   PerspectiveCamera,
   QuadraticBezierLine,
 
@@ -46,6 +47,7 @@ import { Picket } from './Picket';
 import {isMobile} from 'react-device-detect';
 import ArtShow from './ArtShow';
 import ArtPortal from './ArtPortal';
+import { Perf } from 'r3f-perf';
 export default function Scene() {
   const tv = useRef();
   const letter = useRef();
@@ -137,7 +139,7 @@ let ctx = gsap.context(() => {
         camGroup.current.rotation,
         {
           duration: 0.21,
-          ease: 'power1.out',
+          ease: 'power1.inOut',
           y: -Math.PI * 0.18,
         },
         "<"
@@ -280,7 +282,7 @@ let ctx = gsap.context(() => {
           duration: 0.23,
           ease: 'power1.out',
           y: -Math.PI * 0.9,
-          onanimationstart: () => { setTimeout(() => {setProjGo(true)}, 1000) } 
+          onanimationstart: () => { setTimeout(() => {setProjGo(true)}, 100) } 
         },  
         "<"
       )
@@ -464,31 +466,31 @@ let ctx = gsap.context(() => {
           <group  ref={reactLogo}  position={[1.5, 0.5, 2.12]} scale={1.5} dispose={null}>
             <ReactLogo visibility={visibility} ringScaleM={ringScaleM} />
           </group>
-        <Physics  gravity={[0, -9.81, 0]} allowSleep={true} tolerance={0} >
+        {/* <Physics  gravity={[0, -9.81, 0]} allowSleep={true} tolerance={0} > */}
   {/* <Debug color="red" scale={1.51}> */}
 
     <Floor ref={floorRef} position={[0,0,0]} /> 
 <group  
-position={[-0.5,0,4.5]}
+position={[-0,0,4.5]}
 rotation={[0,-Math.PI*1.05,0]}
 >
 
-{projGo &&(
-    // <Debug color="red" scale={1.51}>
+{/* {projGo &&( */}
+    {/* // <Debug color="red" scale={1.51}> */}
   <ProjectsShow ref={projects} env={envRef}  />
-  // </Debug>
-  )}
+  {/* // </Debug> */}
+  {/* )} */}
 
 </group>
 <group  position={[-2,0,2.4]}
 rotation={[0,Math.PI*0.5,0]}>
-{artGo && (
+{/* {artGo && ( */}
   
   <ArtShow ref={artRef}  env={envRef} /> 
-  )}
+  {/* // )} */}
 </group>
  {/* </Debug> */}
-  </Physics>
+  {/* </Physics> */}
 
 <group position={[-2,2,8]} scale={15}>
 
@@ -501,8 +503,8 @@ rotation={[0,Math.PI*0.5,0]}>
 </group>
 
 
-
-
+<Perf deepAnalyze/>
+<PerformanceMonitor />
 
           {/* <Environment
       ref={envRef}

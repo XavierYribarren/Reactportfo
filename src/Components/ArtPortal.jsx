@@ -1,38 +1,49 @@
 import * as THREE from 'three'
 import { useEffect, useRef, useState } from 'react'
 import { Canvas, extend, useFrame, useThree } from '@react-three/fiber'
-import { useCursor, MeshPortalMaterial, CameraControls, Gltf, Text, Html } from '@react-three/drei'
+import { useCursor, MeshPortalMaterial, CameraControls, Gltf, Text, Html, PerspectiveCamera } from '@react-three/drei'
 import { useRoute, useLocation } from 'wouter'
 import { easing, geometry } from 'maath'
 import { suspend } from 'suspend-react'
+import ArtRoom from './ArtRoom'
 
 extend(geometry)
 const regular = ''
 const medium = ''
 
 const ArtPortal = () => {
-
-
+  const [, params] = useRoute('/item/:id')
+const goBack =  ` < back `
   return(
   // <Canvas camera={{ fov: 75, position: [0, 0, 20] }} eventSource={document.getElementById('root')} eventPrefix="client">
   <>
  
-  <color attach="background" args={['#f0f0f0']} />
-    <Frame id="01" name={`pick\nles`} author="Omar Faruq Tawsif" bg="#e4cdac" position={[-1.15, 0, 0]} rotation={[0, 0, 0]}>
-      <Gltf src="pickles_3d_version_of_hyuna_lees_illustration-transformed.glb" scale={18} position={[0, -2, 0]} />
+  <color attach="background"  />      {params ?  <Html transform={false} fullscreen >
+          <div style={{ position: 'absolute', width: '100vw',  height: '100vh' ,top: '-50vh', left: '-50vw' }}>
+
+         <a style={{zIndex: '2500', position: 'sticky', top: '-48vh', left:'-48vw', fontSize: '13px' }} href="#" onClick={() => setLocation('/')}>
+       {goBack}
+        </a>
+          </div>
+         </Html> : ''}
+    <Frame id="01" name={`pick\nles`} author="Omar Faruq Tawsif"  position={[0, 0, 0]} rotation={[0, -0.05, 0]}>
+      {/* <Gltf src="pickles_3d_version_of_hyuna_lees_illustration-transformed.glb" scale={18} position={[0, -5, 0]}>
+
+      </Gltf> */}
+      <ArtRoom params={params}/>
     </Frame>
-    <Frame id="02" name="tea" author="Omar Faruq Tawsif">
+    {/* <Frame id="02" name="tea" author="Omar Faruq Tawsif">
       <Gltf src="fiesta_tea-transformed.glb" position={[0, -2, -3]} />
     </Frame>
     <Frame id="03" name="still" author="Omar Faruq Tawsif" bg="#d1d1ca" position={[1.15, 0, 0]} rotation={[0, -0.5, 0]}>
       <Gltf src="still_life_based_on_heathers_artwork-transformed.glb" scale={12} position={[0, -0.8, -4]} />
-    </Frame>
+    </Frame> */}
  
   </>
   // </Canvas>
 )}
 
-function Frame({ id, name, author, bg, width = 1, height = 1.61803398875, children, ...props }) {
+function Frame({ id, name, author, bg, width = 2, height = 1.61803398875, children, ...props }) {
   const portal = useRef()
   const [loc, setLocation] = useLocation()
   const [, params] = useRoute('/item/:id')
@@ -41,7 +52,7 @@ function Frame({ id, name, author, bg, width = 1, height = 1.61803398875, childr
   useFrame((state, dt) => easing.damp(portal.current, 'blend', params?.id === id ? 1 : 0, 0.2, dt))
   return (
     <group {...props}>
-      <Text  fontSize={0.3} anchorY="top" anchorX="left" lineHeight={0.8} position={[-0.375, 0.715, 0.01]} material-toneMapped={false}>
+      {/* <Text  fontSize={0.3} anchorY="top" anchorX="left" lineHeight={0.8} position={[-0.375, 0.715, 0.01]} material-toneMapped={false}>
         {name}
       </Text>
    
@@ -51,7 +62,7 @@ function Frame({ id, name, author, bg, width = 1, height = 1.61803398875, childr
       </Text>
       <Text  fontSize={0.04} anchorX="right" position={[0.0, -0.677, 0.01]} material-toneMapped={false}>
         {author}
-      </Text>
+      </Text> */}
       <mesh 
       // position={[2,0,10]}
       name={id} onDoubleClick={(e) => (e.stopPropagation(), setLocation('/item/' + e.object.name))} onPointerOver={(e) => hover(true)} onPointerOut={() => hover(false)}>
@@ -80,18 +91,32 @@ function Frame({ id, name, author, bg, width = 1, height = 1.61803398875, childr
   )
 }
 
-function Rig({ position = new THREE.Vector3(0, 0, 0), focus = new THREE.Vector3(0, 0, 0) }) {
+
+
+function Rig({ position = new THREE.Vector3(0, 0, 0), focus = new THREE.Vector3(0, 1, 0) }) {
   const { controls, scene } = useThree()
   const [, params] = useRoute('/item/:id')
+  const camControls = useRef()
   useEffect(() => {
     const active = scene.getObjectByName(params?.id)
     if (active) {
-      active.parent.localToWorld(position.set(0, 0, 0))
-      active.parent.localToWorld(focus.set(0, 0, 0))
+      active.parent.localToWorld(position.set(0, -5, 0))
+      active.parent.localToWorld(focus.set(0, 5, 0))
     }
-    controls?.setLookAt(...position.toArray(), ...focus.toArray(), true)
+    controls?.setLookAt(...position.toArray(), ...focus.toArray(), !true)
+    controls?.removeEventListener("cameraControls.mouseButtons.wheel", CameraControls.ACTION.DOLLY, CameraControls.ACTION.ZOOM)
   })
-  return <CameraControls  minPolarAngle={0} maxPolarAngle={Math.PI / 2} />
+
+  console.log(camControls.current)
+  return <CameraControls 
+ref={camControls}
+   truck={false}
+  //  zoom={false}
+  // dolly={0}
+  
+// removeEventListener={"mouseButtons.wheel"}
+  // setPosition={[0,2,0]}
+    minPolarAngle={0} maxPolarAngle={Math.PI / 2} />
 }
 
 export default ArtPortal

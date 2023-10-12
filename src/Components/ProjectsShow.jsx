@@ -18,16 +18,16 @@ import About from './About';
 import * as THREE from 'three'
 import { TextGeometry } from 'three/addons/geometries/TextGeometry.js';
 function ProjectsShow({ ...props }) {
-  const [ref] = useBox(() => ({
-    mass: 20,
-    args:[0,0,0],
-    position: [0, 5, 0],
-    allowSleep: true,
-   type: 'Dynamic',
-  //  velocity: 0.1,
-   sleepTimeLimit:0.72,
+  // const [ref] = useBox(() => ({
+  //   mass: 20,
+  //   args:[0,0,0],
+  //   position: [0, 5, 0],
+  //   allowSleep: true,
+  //  type: 'Dynamic',
+  // //  velocity: 0.1,
+  //  sleepTimeLimit:0.72,
     
-  }));
+  // }));
   const contents = useRef()
   const events = useThree((state) => state.events)
   const spot = props.light;
@@ -39,15 +39,17 @@ multicolo.wrapS = THREE.RepeatWrapping
 multicolo.wrapT = THREE.RepeatWrapping
 multicolo.colorSpace = THREE.LinearSRGBColorSpace
 multicolo.premultiplyAlpha = true
-multicolo.needsUpdate = true
+// multicolo.needsUpdate = true
 multicolo.repeat.set(0.9,0.9)
+
+const multicol = useRef(multicolo)
 
 useFrame((state, delta) => {
   const elapsedTime = state.clock.getElapsedTime()
 
-  multicolo.rotation = Math.PI *elapsedTime/150
-multicolo.offset.x = (Math.sin(elapsedTime/10)*1+delta)
-multicolo.offset.y = (Math.sin(elapsedTime/10)*1.2-delta)
+//   multicol.current.rotation = Math.PI *elapsedTime/150
+// multicol.current.offset.x = (Math.sin(elapsedTime/10)*1+delta)
+// multicol.current.offset.y = (Math.sin(elapsedTime/10)*1.2-delta)
 })
 const fontus = useFont('/typos/Big_BlackBear.json')
 const textGeo = useMemo(
@@ -66,7 +68,8 @@ const textGeo = useMemo(
 
   return (
     <>     
-      <mesh ref={ref} 
+      <mesh 
+      // ref={ref} 
       // geometry={textGeo}
       castShadow >
 
@@ -80,7 +83,7 @@ const textGeo = useMemo(
           <meshStandardMaterial
       
       // depthWrite={true}
-      map={multicolo}
+      map={multicol.current}
       
       
       // transparent

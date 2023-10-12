@@ -4,13 +4,11 @@ import { useBox, usePlane } from '@react-three/cannon'
 import * as THREE from 'three'
 
 const  Floor = forwardRef((props ,ref) => {
-  // const [refPhy] = useBox(() => ({quaternion:[0,1,0,0], mass: 0, material:{restitution : 0, friction: 1},  type: 'Static', ...props }))
-  const [refPhy] = usePlane(() => ({
-    rotation:[-Math.PI*0.5,0,0], 
-    mass: 0, material:{restitution : 0, friction: 1},  type: 'Static', ...props }))
+ // const [refPhy] = usePlane(() => ({
+  //   rotation:[-Math.PI*0.5,0,0], 
+  //   mass: 0, material:{restitution : 0, friction: 1},  type: 'Static', ...props }))
 
 
-console.log(refPhy)
   return (
 
 <>
@@ -26,13 +24,14 @@ ref={ref}
       castShadow/>
       
       <meshStandardMaterial  
-      color={'#ffcb30'}
+      // color={'#ffcb30'}
+      color={"#e69441"}
          />
     </mesh>
 
 
 <mesh 
-ref={refPhy}
+// ref={refPhy}
      rotation={[-Math.PI * 0.5, 0, 0]}
 
      receiveShadow
