@@ -19,7 +19,7 @@ const matCloud = new THREE.MeshBasicMaterial({color: 'white'})
        
     
          </group>
-        <pointLight ref={light}  position={[152, 20, 150.2]} intensity={1} color="white" />
+        {/* <pointLight ref={light}  position={[152, 20, 150.2]} intensity={1} color="white" /> */}
     </>
   )
 }

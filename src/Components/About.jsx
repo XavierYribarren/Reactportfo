@@ -31,9 +31,9 @@ const sqlRef = useRef(null)
   
   titleRef.current.fillOpacity = about.current?.titleRef;
   titleMostRef.current.fillOpacity = about.current?.titleRef;
-  // reactRef.current.fillOpacity = about.current?.reactRef;
-  // nodeRef.current.fillOpacity = about.current?.nodeRef;
-  // r3fRef.current.fillOpacity = about.current?.r3fRef;
+  reactRef.current.fillOpacity = about.current?.reactRef;
+  nodeRef.current.fillOpacity = about.current?.nodeRef;
+  r3fRef.current.fillOpacity = about.current?.r3fRef;
   sqlRef.current.fillOpacity = about.current?.sqlRef;
   // reactRef.current.fillOpacity = about.current.fillOpacity+3;
 
@@ -66,14 +66,6 @@ const sqlRef = useRef(null)
   }, []);
 
 
-const aboutLine = () => {
-  return (
-<>
-
-</>
-  )
-}
-
 
   return (
     <>
@@ -104,7 +96,7 @@ font= './Kids_Now.ttf'
         </Text>
 <group position={[0,-0.2,0]}>
 
-{/* 
+
         <Text
 castShadow
 font='./Kids_Now.ttf'
@@ -132,7 +124,7 @@ font='./Kids_Now.ttf'
           >
   
      React-Three-Fiber / Three.js
-        </Text>       */}
+        </Text>      
           <Text
 castShadow
 font='./Kids_Now.ttf'

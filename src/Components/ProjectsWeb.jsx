@@ -93,9 +93,9 @@ const narifText = {
         castShadow
         // receiveShadow
         geometry={nodes.Cube_2.geometry}
-        // material={materials.tabcase}
+        material={materials.tabcase}
       >
-        <meshBasicMaterial color={'#000'} metalness={0.5} roughness={0.5} />
+        {/* <meshBasicMaterial color={'#000'} metalness={0.5} roughness={0.5} /> */}
       </mesh>
     </group>
   );

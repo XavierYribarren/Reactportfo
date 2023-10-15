@@ -62,7 +62,7 @@ export const  ReactLogo = (props) => {
     <group {...props} dispose={null}>
       <mesh
         ref={core}
-        // castShadow
+        castShadow
         // receiveShadow
         geometry={coreSphere}
         material={coreMat}
@@ -75,11 +75,13 @@ export const  ReactLogo = (props) => {
         ref={rings}
         // scale={ringScaleM}
         castShadow
-        receiveShadow
+        // receiveShadow
         geometry={nodes.Torus002.geometry}
         scale={0.8}
         material={ringMat}
-      />
+      >
+   
+      </mesh>
     </group>
   );
 }

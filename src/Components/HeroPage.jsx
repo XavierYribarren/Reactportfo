@@ -6,8 +6,11 @@ import * as THREE from 'three';
 
 import {
 
+  AccumulativeShadows,
+  BakeShadows,
   Environment,
-  ScrollControls, Stage, Stats, StatsGl,
+  RandomizedLight,
+  ScrollControls, Stage, Stats, StatsGl, Torus,
 } from '@react-three/drei';
 import { Perf } from 'r3f-perf';
 import {isMobile} from 'react-device-detect';
@@ -28,7 +31,7 @@ function HeroPage() {
         // legacy
         dpr={[1, 1.5]}
         gl={{
-          // preserveDrawingBuffer: true,
+          preserveDrawingBuffer: true,
           antialias: true,
           alpha: true,
           powerPreference: 'default',
@@ -36,8 +39,7 @@ function HeroPage() {
   
         }}
       >
-        <fogExp2 attach='fog' color='#8ce8f4' near={30} far={85} density={0.021} />
-
+        <fogExp2 attach='fog' color='#8ce8f4' near={50} far={85} density={0.021} />
 
 
         <ScrollControls
@@ -53,6 +55,7 @@ function HeroPage() {
 
 
           <Scene />
+
       
         </ScrollControls>
   {/* <Stats/> */}

@@ -159,7 +159,7 @@ event.intersections[0].object.material.wireframe = !event.object.material.wirefr
           penumbra={0.02}
           castShadow
         />
-        <directionalLight intensity={0.81} position={[-2, 6, 10]} />
+        {/* <directionalLight intensity={0.81} position={[-2, 6, 10]} /> */}
         
         <primitive object={clonedScene} position={[0, 0, 0]} onClick={clickHandler}/>
       </group>

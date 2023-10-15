@@ -1,14 +1,14 @@
-import { Environment, MeshReflectorMaterial, Sphere } from "@react-three/drei";
+import { Environment, GradientTexture, MeshReflectorMaterial, Sphere, Torus } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
-import { Gradient, LayerMaterial } from "lamina";
+import { Depth, Gradient, LayerMaterial } from "lamina";
 
 import { useRef } from "react";
 
 import * as THREE from "three";
 
 export const Background = () => {
-  const start = 0.2;
-  const end = -0.5;
+  const start = -0.25;
+  const end = 0.2;
 
   const gradientRef = useRef();
   const gradientEnvRef = useRef();
@@ -30,17 +30,25 @@ export const Background = () => {
 
   return (
     <>
-      <Sphere scale={[50, 50, 50]} rotation-y={Math.PI*0.2}  rotation-x={-Math.PI/2.4} >
-        <LayerMaterial color={"#aff5ff"} side={THREE.BackSide} opacity={0.05}>
-          <Gradient  colorA={"#aff5ff"} colorB={"#004f80"}  axes={"y"} start={start} end={end} />
+      <Sphere scale={[50, 50, 50]}
+       rotation-y={Math.PI*0.5}  
+       rotation-x={Math.PI*1} 
+       >
+        <LayerMaterial color={"#ffffff"} side={THREE.BackSide} opacity={0.05}>
+          <Gradient  colorA={"#8af1ff"} colorB={"#ec8f0c"}  axes={"y"} start={start} end={end} />
         </LayerMaterial>
     
       </Sphere>
       <Environment 
         preset='dawn'
+      // files={'kiara_5_noon_2k.hdr'}
         //  background 
+        
          blur={3}
          />
+
+
+
     </>
   );
 };

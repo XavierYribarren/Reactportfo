@@ -30,7 +30,10 @@ const goBack =  ` < back `
       {/* <Gltf src="pickles_3d_version_of_hyuna_lees_illustration-transformed.glb" scale={18} position={[0, -5, 0]}>
 
       </Gltf> */}
-      <ArtRoom params={params}/>
+      <group rotation={[0,-0.2,0]}>
+
+      <ArtRoom params={params} />
+      </group>
     </Frame>
     {/* <Frame id="02" name="tea" author="Omar Faruq Tawsif">
       <Gltf src="fiesta_tea-transformed.glb" position={[0, -2, -3]} />
@@ -43,7 +46,7 @@ const goBack =  ` < back `
   // </Canvas>
 )}
 
-function Frame({ id, name, author, bg, width = 2, height = 1.61803398875, children, ...props }) {
+function Frame({ id, name, author, bg, width = 1, height = 1.6, children, ...props }) {
   const portal = useRef()
   const [loc, setLocation] = useLocation()
   const [, params] = useRoute('/item/:id')
@@ -66,7 +69,7 @@ function Frame({ id, name, author, bg, width = 2, height = 1.61803398875, childr
       <mesh 
       // position={[2,0,10]}
       name={id} onDoubleClick={(e) => (e.stopPropagation(), setLocation('/item/' + e.object.name))} onPointerOver={(e) => hover(true)} onPointerOut={() => hover(false)}>
-        <roundedPlaneGeometry args={[width, height, 0.1]} />
+        <roundedPlaneGeometry args={[width, height, 0]} />
         <MeshPortalMaterial ref={portal} events={params?.id === id} side={THREE.DoubleSide}>
           <color attach="background" args={[bg]} />
           {/* <Text occlude fontSize={0.2} anchorX={'left'} anchorY={'top'}  href="#" onClick={() => setLocation('/')}>
@@ -93,7 +96,7 @@ function Frame({ id, name, author, bg, width = 2, height = 1.61803398875, childr
 
 
 
-function Rig({ position = new THREE.Vector3(0, 0, 0), focus = new THREE.Vector3(0, 1, 0) }) {
+function Rig({ position = new THREE.Vector3(0, 0, 0), focus = new THREE.Vector3(0, 31, 0) }) {
   const { controls, scene } = useThree()
   const [, params] = useRoute('/item/:id')
   const camControls = useRef()
@@ -107,7 +110,7 @@ function Rig({ position = new THREE.Vector3(0, 0, 0), focus = new THREE.Vector3(
     controls?.removeEventListener("cameraControls.mouseButtons.wheel", CameraControls.ACTION.DOLLY, CameraControls.ACTION.ZOOM)
   })
 
-  console.log(camControls.current)
+
   return <CameraControls 
 ref={camControls}
    truck={false}

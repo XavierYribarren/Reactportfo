@@ -1,14 +1,20 @@
 import {
 
+  AccumulativeShadows,
+  BakeShadows,
+  Grid,
   OrbitControls,
   PerformanceMonitor,
   PerspectiveCamera,
   QuadraticBezierLine,
 
+  RandomizedLight,
+
   useScroll,
 } from '@react-three/drei';
 import React, {
 
+  Suspense,
   useLayoutEffect,
 
   useRef,
@@ -28,7 +34,13 @@ import { Background } from './Background';
 import { Debug, Physics} from '@react-three/cannon'
 
 import {
+  Bloom,
+  ColorAverage,
+  DepthOfField,
   EffectComposer,
+  N8AO,
+  Noise,
+  SSAO
 } from '@react-three/postprocessing';
 
 import {Introduce} from './Introduce';
@@ -46,6 +58,8 @@ import {isMobile} from 'react-device-detect';
 import ArtShow from './ArtShow';
 import ArtPortal from './ArtPortal';
 import { Perf } from 'r3f-perf';
+import { BlendFunction } from 'postprocessing'
+import { Model } from './Model';
 export default function Scene() {
   const tv = useRef();
   const letter = useRef();
@@ -274,7 +288,7 @@ let ctx = gsap.context(() => {
           duration: 0.23,
           ease: 'power1.out',
           y: -Math.PI * 0.9,
-          // onanimationstart: () => { setTimeout(() => {setProjGo(true)}, 100) } 
+          onanimationstart: () => { setTimeout(() => {setProjGo(true)}, 100) } 
         },  
         "<"
       )
@@ -341,7 +355,9 @@ let ctx = gsap.context(() => {
     return( 
     <mesh castShadow receiveShadow>
 
-    <QuadraticBezierLine receiveShadow  ref={ref}  lineWidth={5} color={'#eeffdf'} shadowSide={THREE.DoubleSide}/>
+    <QuadraticBezierLine receiveShadow  ref={ref}  lineWidth={5} color={'#eeffdf'}  toneMapped shadowSide={THREE.DoubleSide}>
+      <lineBasicMaterial color={'blue'} />
+    </QuadraticBezierLine>
 
     </mesh>
     
@@ -352,34 +368,39 @@ let ctx = gsap.context(() => {
 
 
   return (
-    <>
+    <> 
+     {/* <axesHelper scale={10} /> <Grid position={[0,0.2,0]} infiniteGrid/> */}
 {/* <EffectComposer disableNormalPass></EffectComposer> */}
-
+{/* <ambientLight castShadow intensity={0.51}/> */}
      <spotLight
           lookAt={[1, 0, 2]}
-          position={[8.0, 5, -14]}
-          intensity={1.2}
+          position={[-8.0, 5, -14]}
+          intensity={1}
+        
           penumbra={0.002}
+        
           castShadow
-          shadowBias={-0.00001}
-          shadow-camera-near={0.0001}
-          shadow-mapSize-width={2048}
-          shadow-mapSize-height={2048}
+          shadowBias={-0.001}
+          shadow-camera-near={0.001}
+          // shadow-mapSize-width={4096}
+          // shadow-mapSize-height={4096}
           shadow-camera-far={100}
-          shadow-camera-left={-100}
-          shadow-camera-right={100}
-          shadow-camera-top={100}
-          shadow-camera-bottom={-100}
+          // shadow-camera-left={-100}
+          // shadow-camera-right={100}
+          // shadow-camera-top={100}
+          // shadow-camera-bottom={-100}
           ref={spotRef}
         />
-     
+
    
       <group ref={camGroup} position={[0, 0.1, 1.8]}>
      
 
 {/* <Baloons/> */}
         <Background backgroundColors={backgroundColors} />
-        {/* <OrbitControls enableZoom={false}/> */}
+        {/* <OrbitControls
+        //  enableZoom={false}
+         /> */}
         <group ref={cameraRail} rotation={[0, -Math.PI * 0.17, 0]}>
           
 
@@ -444,20 +465,28 @@ let ctx = gsap.context(() => {
             <ReactLogo  />
           </group>
 
+          {/* <Physics gravity={[0, -9.81, 0]} allowSleep={true} tolerance={0}> */}
+    {/* <Suspense fallback={null}> */}
+    {/* <Floor ref={floorRef} position={[0,-0.01,0]} />  */}
 
-    <Floor ref={floorRef} position={[0,0,0]} /> 
+
 <group  
-position={[-0,0,4.5]}
-rotation={[0,-Math.PI*1.05,0]}
+// position={[-0,0,4.5]}
+// rotation={[0,-Math.PI*1.05,0]}
+castShadow
 >
+{/* {projGo && ( */}
 
-
-  <ProjectsShow 
+  
+  {/* <ProjectsShow 
   ref={projects} env={envRef}  
-  />
+  /> */}
+  {/* // )} */}
 
 
 </group>
+  {/* </Suspense> */}
+{/* </Physics> */}
 {/* <group  position={[-2,0,2.4]}
 rotation={[0,Math.PI*0.5,0]}>
 
@@ -467,16 +496,16 @@ rotation={[0,Math.PI*0.5,0]}>
   /> 
 
 </group> */}
-
+<Model/>
 
 <group position={[-2,2,8]} scale={15}>
 
 <ProjectsWeb/>
 </group>
 
-<group scale={1.6} position={[-6,2,-1]} rotation={[0,Math.PI*0.3,0]}>
+<group scale={1} position={[-6,0.7,-0.2]} rotation={[0,Math.PI*0.3,0]}>
 
-{/* <ArtPortal/> */}
+<ArtPortal/>
 </group>
 
 
@@ -494,11 +523,7 @@ rotation={[0,Math.PI*0.5,0]}>
         </group>
 
 
-      {/* <EffectComposer disableNormalPass={!true}   >
-
-     
-
-      </EffectComposer> */}
+ 
     </>
   );
 }

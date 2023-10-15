@@ -8,13 +8,13 @@ const  Floor = forwardRef((props ,ref) => {
   //   rotation:[-Math.PI*0.5,0,0], 
   //   mass: 0, material:{restitution : 0, friction: 1},  type: 'Static', ...props }))
 
-
+const alphaFloor = useTexture('/floorSand_Pass1.png')
   return (
 
 <>
     <mesh 
 ref={ref}
-      rotation={[-Math.PI * 0.5, 0, 0]}
+      rotation={[-Math.PI * 0.5, 0, 0]}  
       position={[0, 0, 0]}
       receiveShadow
       // castShadow
@@ -24,23 +24,26 @@ ref={ref}
       castShadow/>
       
       <meshStandardMaterial  
+      roughness={1}
+      metalness={0}
+      // transparent
       // color={'#ffcb30'}
+     map={alphaFloor}
       color={"#e69441"}
          />
     </mesh>
 
-
+{/* 
 <mesh 
 // ref={refPhy}
      rotation={[-Math.PI * 0.5, 0, 0]}
 
-    //  receiveShadow
+     receiveShadow
     //  castShadow
     // visible={false}
    >
 
-   </mesh>
-   
+   </mesh> */}
    </>
   )
 })

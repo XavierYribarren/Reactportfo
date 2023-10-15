@@ -3,9 +3,10 @@ import { Html, Image, Scroll, useGLTF } from '@react-three/drei';
 import * as THREE from 'three';
 import { TextureLoader } from 'three/src/loaders/TextureLoader';
 import { useLoader, useThree } from '@react-three/fiber';
+import { Bloom, EffectComposer } from '@react-three/postprocessing';
 
 export function Tv(props, ref) {
-  const { nodes, materials } = useGLTF('/screen.glb');
+  const { nodes, materials } = useGLTF("/screen2.glb");
 
   const [hover, setHover] = useState(false);
   const tv = useRef();
@@ -46,9 +47,9 @@ const handlePointerOver = () => {console.log('Mouse over'), setHover(true),  (do
 const handlePointerOut = () => {console.log('Mouse out'), setHover(false), (document.body.style.cursor = 'auto')};
   return (
     <group {...props} dispose={null}>
-      <mesh  castShadow geometry={nodes.Cube003.geometry}> <meshStandardMaterial   color={'#0c0c0c'}
-    metalness= {1} 
-    roughness= {0.04} /></mesh>
+      <mesh  castShadow    geometry={nodes.Cube020.geometry}> <meshLambertMaterial   color={'#0c0c0c'}
+    metalness= {0.51} 
+    roughness= {0.14} /></mesh>
 
       <mesh
         ref={tv}
@@ -65,18 +66,23 @@ const handlePointerOut = () => {console.log('Mouse out'), setHover(false), (docu
         // )}
         onPointerOver={handlePointerOver}
         onPointerOut={handlePointerOut}
-        geometry={nodes.Cube003_1.geometry}
+        geometry={nodes.Cube020_1.geometry}
         // material={screenNorm.clone()}
       > 
       {/* <primitive  object={nodes.Cube003_1.geometry} /> */}
    {hover ? (
 
+ 
+     <meshStandardMaterial map={tasScreen} emissiveMap={tasScreen} envMapIntensity={1.5} toneMapped={false}/> 
+ 
   
-      <meshStandardMaterial map={tasScreen} emissiveMap={tasScreen}/> ):(
+
+  ):(
       <meshBasicMaterial  map={tasScreen} toneMapped={false}/> )}
       </mesh>
+
     </group>
   );
 }
 
-useGLTF.preload('/screen.glb');
+useGLTF.preload('/screen2.glb');
