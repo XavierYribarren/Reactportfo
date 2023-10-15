@@ -7,14 +7,13 @@ export const Picket = forwardRef((props, ref) => {
   const { nodes, materials } = useGLTF("/picketrope2.glb");
   const picketTex = useTexture('/picket_Pass1.png')
   picketTex.flipY = false
-  const picketMat = new THREE.MeshBasicMaterial({map: picketTex})
+  const picketMat = new THREE.MeshLambertMaterial({map: picketTex})
   return (
     <Suspense fallback={null}>
 
 <group ref={ref} {...props} dispose={null} position={[2.094, 0.041, -1.116]}>
       <mesh
-        castShadow
-        receiveShadow
+
         geometry={nodes.picket001.geometry}
         material={picketMat}
        

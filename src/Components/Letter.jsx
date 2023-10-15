@@ -6,7 +6,7 @@ import { TextureLoader } from "three/src/loaders/TextureLoader";
 import * as THREE from 'three'
 
 export const Letter = forwardRef(function (props, ref) {
-  const { nodes, materials } = useGLTF("/logoBallPHY.glb");
+  const { nodes, materials } = useGLTF("/logoBallPHY2.glb");
 
 const whysRef =  useRef()
 
@@ -34,13 +34,16 @@ const TRBLMat = new THREE.MeshStandardMaterial({
 
 
 return (
-  <group {...props} dispose={null} rotation={[0, -Math.PI * 0.3, 0]} position={[1.4, 0.2, -0.2]}>
+  <group {...props} dispose={null}  ref={ref}
+   rotation={[0, -Math.PI * 0.3, 0]} position={[1.4, 0.2, -0.2]}
+   >
   
 
     <Float speed={4.8} floatIntensity={1} floatingRange={[-0.2,0.2]}>
 
     <group      
                >
+   
 
 
 <mesh
@@ -57,7 +60,7 @@ return (
         material={TRBLMat}
       //  color={new THREE.Color("#ff00ff")}
         />
-    </group>
+    </group> 
         </Float>
 
 
