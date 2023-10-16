@@ -27,7 +27,7 @@ const sqlRef = useRef(null)
   useFrame(() => {  
     
     // tl.current.seek(scroll.offset * tl.current.duration());
-
+    if(about.current.titleRef < 0.1) { textGPRef.current.visible = false } else {textGPRef.current.visible = true}
   
   titleRef.current.fillOpacity = about.current?.titleRef;
   titleMostRef.current.fillOpacity = about.current?.titleRef;
@@ -79,6 +79,14 @@ font= './Kids_Now.ttf'
             className='hi-intro'
             fontSize={0.5}
             maxWidth={2.95}
+            fontWeight='bold'
+            strokeColor={"#000"}
+            strokeOpacity={1}
+            strokeWidth={"0.5%"}
+            outlineColor={'#fff'}
+            outlineWidth={'12%'}
+            outlineBlur={'30%'}
+            outlineOpacity={'0.4'}
             color={'black'}
             // fillOpacity={opacityRef.current.fillOpacity}
             position={[0,1,0]}
@@ -91,6 +99,15 @@ font= './Kids_Now.ttf'
             fontSize={0.18}
             maxWidth={2.95}
             color={'#909090'}
+            fontWeight='bold'
+            strokeColor={"#000"}
+            strokeOpacity={1}
+            strokeWidth={"0.5%"}
+            outlineColor={'#fff'}
+            outlineWidth={'12%'}
+            outlineBlur={'30%'}
+            outlineOpacity={'0.4'}
+      
             // fillOpacity={opacityRef.current.fillOpacity}
             position={[0,-0.25,0]}>(the most)</Text>
         </Text>
@@ -104,6 +121,15 @@ font='./Kids_Now.ttf'
             className='hi-intro'
             fontSize={0.3}
             maxWidth={2.5}
+            
+            fontWeight='bold'
+            strokeColor={"#000"}
+            strokeOpacity={1}
+            strokeWidth={"0.5%"}
+            outlineColor={'#fff'}
+            outlineWidth={'12%'}
+            outlineBlur={'30%'}
+            outlineOpacity={'0.4'}
             color={'black'}
             position={[0,0.6,0]}
           >
@@ -120,6 +146,14 @@ font='./Kids_Now.ttf'
             maxWidth={2.9}
             position={[0,0.2,0]}
             fillOpacity={0}
+            fontWeight='bold'
+            strokeColor={"#000"}
+            strokeOpacity={1}
+            strokeWidth={"0.5%"}
+            outlineColor={'#fff'}
+            outlineWidth={'12%'}
+            outlineBlur={'30%'}
+            outlineOpacity={'0.4'}
             color={'black'}
           >
   
@@ -133,6 +167,14 @@ font='./Kids_Now.ttf'
             fontSize={0.3}
             maxWidth={2.5}
             position={[0,-0.2,0]}
+            fontWeight='bold'
+            strokeColor={"#000"}
+            strokeOpacity={1}
+            strokeWidth={"0.5%"}
+            outlineColor={'#fff'}
+            outlineWidth={'12%'}
+            outlineBlur={'30%'}
+            outlineOpacity={'0.4'}
             color={'black'}
             
           >
@@ -147,6 +189,14 @@ font='./Kids_Now.ttf'
             fontSize={0.3}
             maxWidth={2.5}
             position={[0,-0.6,0]}
+            fontWeight='bold'
+            strokeColor={"#000"}
+            strokeOpacity={1}
+            strokeWidth={"0.5%"}
+            outlineColor={'#fff'}
+            outlineWidth={'12%'}
+            outlineBlur={'30%'}
+            outlineOpacity={'0.4'}
             color={'black'}
           
           >

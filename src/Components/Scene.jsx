@@ -42,7 +42,8 @@ import {
   N8AO,
   Noise,
   SMAA,
-  SSAO
+  SSAO,
+  SSR
 } from '@react-three/postprocessing';
 
 import {Introduce} from './Introduce';
@@ -464,7 +465,7 @@ let ctx = gsap.context(() => {
             </group>
 
           <group  ref={reactLogo}  position={[1.5, 0.5, 2.12]} scale={1.5} dispose={null}>
-            {/* <ReactLogo  /> */}
+            <ReactLogo  />
           </group>
 
           {/* <Physics gravity={[0, -9.81, 0]} allowSleep={true} tolerance={0}> */}
@@ -477,13 +478,7 @@ let ctx = gsap.context(() => {
 // rotation={[0,-Math.PI*1.05,0]}
 castShadow
 >
-{/* {projGo && ( */}
 
-  
-  {/* <ProjectsShow 
-  ref={projects} env={envRef}  
-  /> */}
-  {/* // )} */}
 
 
 </group>
@@ -505,10 +500,7 @@ rotation={[0,Math.PI*0.5,0]}>
 <ProjectsWeb/>
 </group>
 
-<group scale={1} position={[-6,0.7,-0.2]} rotation={[0,Math.PI*0.3,0]}>
 
-<ArtPortal/>
-</group>
 <Preload all/>
 
 
@@ -525,14 +517,15 @@ rotation={[0,Math.PI*0.5,0]}>
           /> */}
         </group>
 
-<EffectComposer disableNormalPass smaa autoClear>
+<EffectComposer multisampling={8} disableNormalPass  >
 <DepthOfField     focusDistance={0} // where to focus
-    focalLength={0.02} // focal length
+    focalLength={0.015} // focal length
     // width={512*4}
     // focusRange={[0,0.0002]}
     // height={512*4}
+    
     bokehScale={6}/>
-  {/* <SMAA /> */}
+{/* <SSAO samples={32} rings={2} radius={0.4}/> */}
 </EffectComposer>
  
     </>

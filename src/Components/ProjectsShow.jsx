@@ -25,11 +25,16 @@ multicolo.repeat.set(1.9,1.19)
 
 
 
-const projectMat = new THREE.MeshPhysicalMaterial({
+const projectMat = new THREE.MeshStandardMaterial({
   map: multicolo,
   roughness: 0,
+
   aoMap: props.ao,
-  aoMapIntensity : 1.2
+  aoMapIntensity : 1.2,
+  emissive: '#888',
+  emissiveMap: multicolo,
+  emissiveIntensity: 2,
+  // transparent: true
 })
 
   return (

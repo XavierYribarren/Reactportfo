@@ -1,26 +1,23 @@
-import { Text3D } from '@react-three/drei';
-import React from 'react';
-import typo from '/typos/Kids_Now_Regular1.json';
-export const CurrentW = () => {
-  return (
-    <Text3D font={typo} size={0.15} position={[-0.5,0.72,0]}
-    curveSegments={8}
-  
-          
-          height={0.04}
-          >
-      Current work
-      <meshStandardMaterial
-      color={'#000'} 
-      roughness={.1}
-      metalness={.31}
-      transparent
-   specularIntensity={1}
-fog={false}
 
+import React, { useRef } from "react";
+import { useGLTF } from "@react-three/drei";
+import * as THREE from 'three'
+
+export function CurrentW(props) {
+  const { nodes, materials } = useGLTF("/latestW.glb");
+  const latestWMat = new THREE.MeshPhongMaterial({reflectivity:1, color:"#ebebeb"})
+  return (
+    <group {...props} dispose={null} scale={0.8}>
+      <mesh
+        // castShadow
+        // receiveShadow
+        geometry={nodes.Text.geometry}
+        material={latestWMat}
+        position={[0.038, 1.02, 0.027]}
+        rotation={[Math.PI / 2, 0, 0]}
       />
-    </Text3D>
+    </group>
   );
 }
 
-// export default CurrentW;
+useGLTF.preload("/latestW.glb");

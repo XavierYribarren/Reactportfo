@@ -64,7 +64,7 @@ export const Model = (props) => {
           // material-aoMap={mainAO}
           // material-aoMapIntensity={0.96}
         /> */}
-<Door/>
+{/* <Door/> */}
 <Plants/>
         <mesh
           // castShadow

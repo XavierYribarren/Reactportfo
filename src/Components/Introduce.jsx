@@ -21,7 +21,7 @@ export const Introduce = ({ introduce }) => {
 
   useFrame((state) => {
     opacityRef.current.fillOpacity = introduce.current.fillOpacity;
-if(introduce.current.fillOpacity < 0.01) { textGPRef.current.visible = false } else {textGPRef.current.visible = true}
+if(introduce.current.fillOpacity < 0.0001) { textGPRef.current.visible = false } else {textGPRef.current.visible = true}
     textGPRef.current.position.x = introduce.current.position.x;
     textGPRef.current.position.y = introduce.current.position.y;
     textGPRef.current.position.z = introduce.current.position.z;
@@ -48,7 +48,15 @@ font='./Kids_Now.ttf'
                 ref={opacityRef}
             className='hi-intro'
             fontSize={0.25}
+            fontWeight="bold"
             maxWidth={1.3}
+            strokeColor={"#000"}
+            strokeOpacity={1}
+            strokeWidth={"0.5%"}
+            outlineColor={'#fff'}
+            outlineWidth={'12%'}
+            outlineBlur={'30%'}
+            outlineOpacity={'0.4'}
             color={'black'}
             // fillOpacity={opacityRef.current.fillOpacity}
             // position={characterRefs[index].position}

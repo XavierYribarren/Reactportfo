@@ -1,6 +1,7 @@
 import React, { useRef } from "react";
 import { useGLTF, useTexture } from "@react-three/drei";
 import * as THREE from 'three'
+import ArtPortal from "./ArtPortal";
 
 export function Door(props) {
   const { nodes, materials } = useGLTF("/door.glb");
@@ -37,6 +38,10 @@ const doorKnobMat = new THREE.MeshStandardMaterial({ color: "#bdbdbd", metalness
           material={doorKnobMat}
         />
       </group>
+      <group scale={1} position={[-6,0.7,-0.2]} rotation={[0,Math.PI*0.3,0]}>
+
+<ArtPortal/>
+</group>
     </group>
   );
 }
