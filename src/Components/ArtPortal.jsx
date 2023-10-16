@@ -26,7 +26,7 @@ const goBack =  ` < back `
         </a>
           </div>
          </Html> : ''}
-    <Frame id="01" name={`pick\nles`} author="Omar Faruq Tawsif"  position={[0, 0, 0]} rotation={[0, -0.05, 0]}>
+    <Frame id="01" name={`pick\nles`} author="Omar Faruq Tawsif"  position={[-0.051, 0.4, -0.58]} rotation={[0, -0.02, 0]}>
       {/* <Gltf src="pickles_3d_version_of_hyuna_lees_illustration-transformed.glb" scale={18} position={[0, -5, 0]}>
 
       </Gltf> */}
@@ -46,7 +46,7 @@ const goBack =  ` < back `
   // </Canvas>
 )}
 
-function Frame({ id, name, author, bg, width = 1, height = 1.6, children, ...props }) {
+function Frame({ id, name, author, bg, width = 1.25, height = 2.2, children, ...props }) {
   const portal = useRef()
   const [loc, setLocation] = useLocation()
   const [, params] = useRoute('/item/:id')
@@ -67,14 +67,12 @@ function Frame({ id, name, author, bg, width = 1, height = 1.6, children, ...pro
         {author}
       </Text> */}
       <mesh 
+      receiveShadow
       // position={[2,0,10]}
       name={id} onDoubleClick={(e) => (e.stopPropagation(), setLocation('/item/' + e.object.name))} onPointerOver={(e) => hover(true)} onPointerOut={() => hover(false)}>
-        <roundedPlaneGeometry args={[width, height, 0]} />
+        <roundedPlaneGeometry args={[width, height, 0]}  />
         <MeshPortalMaterial ref={portal} events={params?.id === id} side={THREE.DoubleSide}>
           <color attach="background" args={[bg]} />
-          {/* <Text occlude fontSize={0.2} anchorX={'left'} anchorY={'top'}  href="#" onClick={() => setLocation('/')}>
-          {params ? '< back' : 'double click to enter portal'}
-        </Text> */}
          {params ?        <Html>
           <div style={{ position: 'fixed', width: '100vw',  height: '100vh' ,top: '-50vh', left: '-50vw' }}>
 

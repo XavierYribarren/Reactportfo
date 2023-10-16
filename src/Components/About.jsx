@@ -72,7 +72,7 @@ const sqlRef = useRef(null)
   
       <group ref={textGPRef} rotation={[Math.PI * 0.028, -Math.PI * 0.8, 0]} >
 
-                <Text
+                <Text characters="abcdefghijklmnopqrstuvwxyz0123456789!"
 castShadow
 font= './Kids_Now.ttf'
                 ref={titleRef}
@@ -84,7 +84,7 @@ font= './Kids_Now.ttf'
             position={[0,1,0]}
           >
        The technos I use
-       <Text castShadow
+       <Text castShadow characters="abcdefghijklmnopqrstuvwxyz0123456789!"
 font= './Kids_Now.ttf'
                 ref={titleMostRef}
             className='hi-intro'
@@ -97,7 +97,7 @@ font= './Kids_Now.ttf'
 <group position={[0,-0.2,0]}>
 
 
-        <Text
+        <Text characters="abcdefghijklmnopqrstuvwxyz0123456789!"
 castShadow
 font='./Kids_Now.ttf'
                  ref={reactRef}
@@ -111,7 +111,7 @@ font='./Kids_Now.ttf'
      React.js
         </Text>
 
-        <Text
+        <Text characters="abcdefghijklmnopqrstuvwxyz0123456789!"
 castShadow
 font='./Kids_Now.ttf'
                 ref={r3fRef}
@@ -125,7 +125,7 @@ font='./Kids_Now.ttf'
   
      React-Three-Fiber / Three.js
         </Text>      
-          <Text
+          <Text characters="abcdefghijklmnopqrstuvwxyz0123456789!"
 castShadow
 font='./Kids_Now.ttf'
                 ref={nodeRef}
@@ -139,7 +139,7 @@ font='./Kids_Now.ttf'
    
      Node.js
         </Text>
-        <Text
+        <Text characters="abcdefghijklmnopqrstuvwxyz0123456789!"
 castShadow
 font='./Kids_Now.ttf'
                 ref={sqlRef}
@@ -148,6 +148,7 @@ font='./Kids_Now.ttf'
             maxWidth={2.5}
             position={[0,-0.6,0]}
             color={'black'}
+          
           >
  
     SQL

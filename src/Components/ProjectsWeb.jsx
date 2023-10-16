@@ -1,6 +1,6 @@
 import React, { useMemo, useRef, useState } from 'react';
 import * as THREE from 'three';
-import { Text, useFont, useGLTF, useTexture } from '@react-three/drei';
+import { Clone, Text, useFont, useGLTF, useTexture } from '@react-three/drei';
 import { useThree } from 'react-three-fiber';
 
 const nopeText = {
@@ -24,7 +24,7 @@ const narifText = {
   technos: 'HTML, CSS, JavaScript',
 };
 
- const Model = (props) => {
+const Model = (props) => {
   const { nodes, materials } = useGLTF('/tabdevice.glb');
 
   const [hovered, setHovered] = useState(false);
@@ -38,9 +38,10 @@ const narifText = {
   materials.tabcase.metalness = 0.5;
   materials.tabcase.roughness = 0.5;
 
-  console.log(materials.tabcase);
+  const tabCase = new THREE.MeshBasicMaterial({color: "#000"})
+// console.log(materials.tabcase)
 
-  const fontus = useFont('/typos/Big_BlackBear.json');
+
   return (
     <group
       ref={tabModel}
@@ -52,7 +53,7 @@ const narifText = {
       <mesh
         onPointerOver={() => setHovered(true)}
         onPointerOut={() => setHovered(false)}
-        castShadow
+        // castShadow
         geometry={nodes.Cube_1.geometry}
       >
         <meshStandardMaterial
@@ -90,12 +91,13 @@ const narifText = {
         </group>
       </mesh>
       <mesh
-        castShadow
+        // castShadow
         // receiveShadow
         geometry={nodes.Cube_2.geometry}
-        material={materials.tabcase}
+        
+        // material={tabCase}
       >
-        {/* <meshBasicMaterial color={'#000'} metalness={0.5} roughness={0.5} /> */}
+        <meshBasicMaterial color={'#000'} />
       </mesh>
     </group>
   );
@@ -114,7 +116,8 @@ export const ProjectsWeb = () => {
   return (
     <>
       <group>
-        <mesh>
+        {/* <mesh> */}
+
           <Model
             texture={nopeTex}
             text={nopeText}
@@ -133,7 +136,7 @@ export const ProjectsWeb = () => {
             rotation={[0, -Math.PI * 1.45, 0]}
             position={[-0.3, 0, -0.32]}
           />
-        </mesh>
+        {/* </mesh> */}
       </group>
     </>
   );

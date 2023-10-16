@@ -28,7 +28,7 @@ frame33.flipY = false
 
   return (
     <>
-    <group {...props} dispose={null} scale={2} position={[0,-50.2,0]} rotation={[0, - Math.PI*0.25, 0]}> 
+    <group {...props} dispose={null} scale={2} position={[0,-40.2,0]} rotation={[0, - Math.PI*0.25, 0]}> 
     <Perf/>
      <ambientLight intensity={1.5} position={[0,10,0]}/>
       <mesh
@@ -81,7 +81,7 @@ frame33.flipY = false
 
     <group>
 {props.params ? 
-       <Html transform position={[2,8,40]} scale={40} distanceFactor={1.5} rotation={[0,Math.PI*0.025,0]}>
+       <Html transform position={[2,7,40]} scale={40} distanceFactor={1.5} rotation={[0,Math.PI*0.025,0]}>
  <iframe src="https://www.youtube.com/watch?v=4ujgky1Vc3k"/>
       </Html>
        : ''}

@@ -42,7 +42,7 @@ export const Introduce = ({ introduce }) => {
   
       <group ref={textGPRef} rotation={[Math.PI * 0.01, -Math.PI * 0.4, 0]}>
 
-                <Text
+                <Text characters="abcdefghijklmnopqrstuvwxyz0123456789!"
 // castShadow
 font='./Kids_Now.ttf'
                 ref={opacityRef}

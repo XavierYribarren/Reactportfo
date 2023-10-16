@@ -125,7 +125,7 @@ let ctx = gsap.context(() => {
         end: 'bottom 100%', // when the top of the trigger hits the top of the viewport
         // end: "+=500", // end after scrolling 500px beyond the start
         // markers: true,
-        scrub: 0.01,
+        scrub: 0.1,
       },
     });
     tl.current.pause();
@@ -268,7 +268,7 @@ let ctx = gsap.context(() => {
         y: 15,
         x:1,
         z: 1,
-        duration: 0.2
+        duration: 0.52
       })
       tl.current.to(tv.current.position, { x: 0, z: 0 }, "<")
       
@@ -285,10 +285,10 @@ let ctx = gsap.context(() => {
       tl.current.to(
         camGroup.current.rotation,
         {
-          duration: 0.23,
+          duration: 0.43,
           ease: 'power1.out',
-          y: -Math.PI * 0.9,
-          onanimationstart: () => { setTimeout(() => {setProjGo(true)}, 100) } 
+          y: -Math.PI * 1.1,
+          // onanimationstart: () => { setTimeout(() => {setProjGo(true)}, 100) } 
         },  
         "<"
       )
@@ -297,7 +297,7 @@ let ctx = gsap.context(() => {
         {
           duration: 0.3,
           ease: 'power1.in',
-          y: -Math.PI * 1.4,
+          y: -Math.PI * 1.5,
           // onanimationend: () => { setTimeout(() => {setArtGo(true)}, 1000) } 
   
         },

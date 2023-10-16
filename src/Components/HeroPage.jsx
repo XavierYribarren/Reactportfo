@@ -21,6 +21,7 @@ function HeroPage() {
 
   return (
     <div className='headxav'>
+      <Suspense fallback={<span>loading...</span>}>
       <Canvas
         fallback={null}
     //  frameloop='demand'
@@ -60,7 +61,7 @@ function HeroPage() {
         </ScrollControls>
   {/* <Stats/> */}
       </Canvas>
-
+</Suspense>
     </div>
   );
 }
