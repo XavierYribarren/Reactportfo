@@ -21,7 +21,7 @@ export const Introduce = ({ introduce }) => {
 
   useFrame((state) => {
     opacityRef.current.fillOpacity = introduce.current.fillOpacity;
-
+if(introduce.current.fillOpacity < 0.01) { textGPRef.current.visible = false } else {textGPRef.current.visible = true}
     textGPRef.current.position.x = introduce.current.position.x;
     textGPRef.current.position.y = introduce.current.position.y;
     textGPRef.current.position.z = introduce.current.position.z;
@@ -35,7 +35,7 @@ export const Introduce = ({ introduce }) => {
   const characters = textBase.split('');
   const characterRefs = characters.map(() => useRef());
 
-
+console.log(textGPRef.current)
 
   return (
     <>
@@ -56,19 +56,7 @@ font='./Kids_Now.ttf'
           >
         {textBase}
         </Text>
-{/* 
-        <Text3D   ref={opacityRef} font={typo} size={0.15} position={[-0.5,0.72,0]}
-    curveSegments={8}
-    //       bevelEnabled
-          // bevelSize={0.04}
-          // bevelThickness={0.1}
-          castShadow
-          receiveShadow
-          
-          height={0.04}>
-            {textBase}
-<meshBasicMaterial color={'black'}/>
-        </Text3D> */}
+
       </group>
      
     </>

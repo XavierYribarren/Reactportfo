@@ -1,4 +1,4 @@
-import { Html, Text, Text3D, useFont, useScroll, useTexture } from '@react-three/drei';
+import { Html, Preload, Text, Text3D, useFont, useScroll, useTexture } from '@react-three/drei';
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 // import typo from '../../public/Kids_Now_Regular.json';
 import gsap from 'gsap';
@@ -69,7 +69,7 @@ const sqlRef = useRef(null)
 
   return (
     <>
-  
+
       <group ref={textGPRef} rotation={[Math.PI * 0.028, -Math.PI * 0.8, 0]} >
 
                 <Text characters="abcdefghijklmnopqrstuvwxyz0123456789!"

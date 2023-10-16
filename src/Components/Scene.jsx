@@ -6,6 +6,7 @@ import {
   OrbitControls,
   PerformanceMonitor,
   PerspectiveCamera,
+  Preload,
   QuadraticBezierLine,
 
   RandomizedLight,
@@ -40,6 +41,7 @@ import {
   EffectComposer,
   N8AO,
   Noise,
+  SMAA,
   SSAO
 } from '@react-three/postprocessing';
 
@@ -454,7 +456,7 @@ let ctx = gsap.context(() => {
 
   
           <group ref={introduce} dispose={null} position={[1.5,0.45,0.5]}>
-            <Introduce castShadow introduce={introduce} />
+            <Introduce introduce={introduce} />
           </group>
 
           <group ref={about} >
@@ -462,7 +464,7 @@ let ctx = gsap.context(() => {
             </group>
 
           <group  ref={reactLogo}  position={[1.5, 0.5, 2.12]} scale={1.5} dispose={null}>
-            <ReactLogo  />
+            {/* <ReactLogo  /> */}
           </group>
 
           {/* <Physics gravity={[0, -9.81, 0]} allowSleep={true} tolerance={0}> */}
@@ -507,10 +509,11 @@ rotation={[0,Math.PI*0.5,0]}>
 
 <ArtPortal/>
 </group>
+<Preload all/>
 
 
-<Perf deepAnalyze/>
-
+ 
+ <Perf />
 
           {/* <Environment
       ref={envRef}
@@ -522,7 +525,15 @@ rotation={[0,Math.PI*0.5,0]}>
           /> */}
         </group>
 
-
+<EffectComposer disableNormalPass smaa autoClear>
+<DepthOfField     focusDistance={0} // where to focus
+    focalLength={0.02} // focal length
+    // width={512*4}
+    // focusRange={[0,0.0002]}
+    // height={512*4}
+    bokehScale={6}/>
+  {/* <SMAA /> */}
+</EffectComposer>
  
     </>
   );

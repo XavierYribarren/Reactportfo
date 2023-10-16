@@ -29,7 +29,7 @@ frame33.flipY = false
   return (
     <>
     <group {...props} dispose={null} scale={2} position={[0,-40.2,0]} rotation={[0, - Math.PI*0.25, 0]}> 
-    <Perf/>
+    {/* <Perf/> */}
      <ambientLight intensity={1.5} position={[0,10,0]}/>
       <mesh
         castShadow

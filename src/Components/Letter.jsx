@@ -10,10 +10,7 @@ export const Letter = forwardRef(function (props, ref) {
 
 const whysRef =  useRef()
 
-  const YsEmitIntensity = useLoader(TextureLoader, "/letterMaps/YS_Pass2.png");
-  YsEmitIntensity.flipY = false;
-  const YsEmitMap = useLoader(TextureLoader, "/letterMaps/YS_Pass1.png");
-  YsEmitMap.flipY = false;
+ 
 
   const multicolo = useTexture('/colorcubes.jpg')
   multicolo.flipY = false

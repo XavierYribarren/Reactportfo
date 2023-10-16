@@ -45,4 +45,4 @@ const projectMat = new THREE.MeshPhysicalMaterial({
   );
 }
 useGLTF.preload("/projectsTG.glb");
-// export default ProjectsShow;
+

@@ -10,6 +10,7 @@ import {
 import * as THREE from 'three';
 import { ProjectsShow } from './ProjectsShow';
 import { Door } from './Door';
+import Plants from './Plants';
 
 export const Model = (props) => {
   const { nodes, materials } = useGLTF('/scenePFUV.glb');
@@ -64,6 +65,7 @@ export const Model = (props) => {
           // material-aoMapIntensity={0.96}
         /> */}
 <Door/>
+<Plants/>
         <mesh
           // castShadow
           // receiveShadow

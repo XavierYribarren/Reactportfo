@@ -103,7 +103,7 @@ const Model = (props) => {
   );
 }
 
-useGLTF.preload('/tabdevice.glb');
+
 
 export const ProjectsWeb = () => {
   const nopeTex = useTexture('./Nope.png');
@@ -143,3 +143,4 @@ export const ProjectsWeb = () => {
 };
 
 // export default ProjectsWeb
+useGLTF.preload('/tabdevice.glb');
