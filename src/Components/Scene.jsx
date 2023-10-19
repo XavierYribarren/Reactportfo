@@ -399,7 +399,6 @@ let ctx = gsap.context(() => {
       <group ref={camGroup} position={[0, 0.1, 1.8]}>
      
 
-{/* <Baloons/> */}
         <Background backgroundColors={backgroundColors} />
         {/* <OrbitControls
         //  enableZoom={false}
@@ -505,7 +504,7 @@ rotation={[0,Math.PI*0.5,0]}>
 
 
  
- <Perf />
+ {/* <Perf position='top-left' /> */}
 
           {/* <Environment
       ref={envRef}
@@ -519,12 +518,10 @@ rotation={[0,Math.PI*0.5,0]}>
 
 <EffectComposer multisampling={8} disableNormalPass  >
 <DepthOfField     focusDistance={0} // where to focus
-    focalLength={0.015} // focal length
-    // width={512*4}
-    // focusRange={[0,0.0002]}
-    // height={512*4}
+    focalLength={0.02} // focal length
+  
     
-    bokehScale={6}/>
+    bokehScale={4}/>
 {/* <SSAO samples={32} rings={2} radius={0.4}/> */}
 </EffectComposer>
  

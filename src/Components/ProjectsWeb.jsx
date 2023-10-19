@@ -108,7 +108,7 @@ const Model = (props) => {
 export const ProjectsWeb = () => {
   const nopeTex = useTexture('./Nope.png');
   nopeTex.flipY = false;
-  const emergaTex = useTexture('./Emerga.png');
+  const emergaTex = useTexture('./EmerGaGQ.png');
   emergaTex.flipY = false;
   const narifTex = useTexture('./Narif.png');
   narifTex.flipY = false;

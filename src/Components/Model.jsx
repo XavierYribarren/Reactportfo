@@ -11,6 +11,9 @@ import * as THREE from 'three';
 import { ProjectsShow } from './ProjectsShow';
 import { Door } from './Door';
 import Plants from './Plants';
+import { HireBaloon } from './HireBaloon';
+import { WoodSign } from './WoodSign';
+import { Logos } from './Logos';
 
 export const Model = (props) => {
   const { nodes, materials } = useGLTF('/scenePFUV.glb');
@@ -49,31 +52,17 @@ export const Model = (props) => {
           material-color={'white'}
         ></mesh>
         <ProjectsShow ao={mainAO} />
-        <mesh
-          geometry={nodes.Cube006.geometry}
-          material={nodes.Cube006.material}
-          position={[0, 0, -1.132]}
-        />
-        {/* <mesh
-          // castShadow
-          // receiveShadow
-          geometry={nodes.Cube004.geometry}
-          material={nodes.Cube004.material}
-          position={[2.908, 0, -0.38]}
-          scale={1.661}
-          // material-aoMap={mainAO}
-          // material-aoMapIntensity={0.96}
-        /> */}
-{/* <Door/> */}
+     
+<HireBaloon />
+<WoodSign/>
+<Logos/>
 <Plants/>
         <mesh
-          // castShadow
-          // receiveShadow
+     
           geometry={nodes.rock041.geometry}
           material={mainMat}
 position={[0,-0.01,0]}
-          // material-aoMap={mainAO}
-          // material-aoMapIntensity={0.96}
+   
         />
      
       </group>

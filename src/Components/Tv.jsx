@@ -55,15 +55,6 @@ const handlePointerOut = () => {console.log('Mouse out'), setHover(false), (docu
         ref={tv}
         onClick={handleOpenNewTab}
         scale={1}
-
-        // onPointerOver={(e) => (
-        //   e.stopPropagation(),
-        //   setHover(true),
-        //   (document.body.style.cursor = 'pointer')
-        // )}
-        // onPointerOut={() => (
-        //   setHover(false), (document.body.style.cursor = 'auto')
-        // )}
         onPointerOver={handlePointerOver}
         onPointerOut={handlePointerOut}
         geometry={nodes.Cube020_1.geometry}

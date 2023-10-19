@@ -1,66 +1,83 @@
-
-import React from 'react'
-import * as THREE from "three"
-import { Canvas, useFrame, useThree } from "@react-three/fiber"
-import { Outlines, Environment, useTexture } from "@react-three/drei"
-import { Physics, useSphere } from "@react-three/cannon"
-import { EffectComposer, N8AO, SMAA } from "@react-three/postprocessing"
-
+import * as THREE from 'three'
+import { useRef, useState } from 'react'
+import { Canvas, useFrame, useThree } from '@react-three/fiber'
+import { Instances, Instance, OrbitControls, Environment, useGLTF, Float } from '@react-three/drei'
+import { useControls } from 'leva'
+import { Debug, Physics, usePlane, useSphere } from "@react-three/cannon"
 
 const colorArray = ["#3db2ff","#ffb830","#ff2442","#f637ec","#16ff00" ]
-  const rfs = THREE.MathUtils.randFloatSpread
-  const sphereGeometry = new THREE.SphereGeometry(0.05, 32, 32)
-  const baubleMaterial = new THREE.MeshStandardMaterial({ roughness: 0, envMapIntensity: 1 })
+// const randomVector = (r) => [(Math.random()*3)-1,  r-(Math.random()*2)-0.5  ,  (Math.random()*1.2)-1.001]
+const randomVector = (r) => [3+((Math.random()-0.5)*10)*Math.PI*2,  r-(Math.random()*2)-0.2  ,  (Math.random()*30)-15]
+
+const randomScale = (r) =>{
+ let scalus = (r /2)* Math.random()+0.8 
+ return [ scalus, scalus, scalus]}
+const randomEuler = () => [0,Math.random() * Math.PI, 0]
+const data = Array.from({ length: 1000 }, (r = 2) => ({color: colorArray[Math.floor(Math.random() * 5)], random: Math.random(), position: randomVector(r), rotation: randomEuler() , scale:randomScale(r)}))
+
+export default function Baloons() {
+  // const { range } = useControls({ range: { value: 100, min: 0, max: 300, step: 1 } })
+  return (
+    // <Canvas camera={{ position: [0, 0, 20], fov: 50 }} performance={{ min: 0.1 }}>
+    <>
+<group rotation={[0,-Math.PI*0.1,0]}>
+
+      <Shoes data={data} range={30} />
+
+</group>
+   
+    </>
+      // <OrbitControls autoRotate autoRotateSpeed={1} />
+    // </Canvas>
+  )
+}
+
+console.log(data)
+
+function Shoes({ data, range }) {
+  const { nodes, materials } = useGLTF('/singleBaloon2.glb')
+
+  const baloonMat = new THREE.MeshPhysicalMaterial({roughness:0.2, transmission: 0.2})
+  const { viewport } = useThree()
+
+  return (
+    <Instances range={range}       geometry={nodes.BALLOON01.geometry}
+        material={baloonMat}
+    //     // geometry={nodes.BALLOON.geometry}
+    // material={nodes.BALLOON.material}
+   
+    position={[0.52, 0.24, -0.]}>
+ 
+      <mesh
+        castShadow
+        receiveShadow
+
+        position={[0.002, 0, 0]}
+      />
+
   
-  // const colors = new Array(1000).fill().map(() => niceColors[95][Math.floor(Math.random() * 5)])
+      <group position={[0, 0, 0]}>
+        {data.map((props, i) => (
+          <Float floatIntensity={i/100}
+          speed={i/80}
+          floatingRange={[2, 2.5]}
+          >
 
-function Clump({ mat = new THREE.Matrix4(), vec = new THREE.Vector3(), ...props }) {
-  // const { outlines } = useControls({ outlines: { value: 0.0, step: 0.01, min: 0, max: 0.05 } })
-  // const texture = useTexture("/cross.jpg")
-  for (let i = 0; i < 40; i++) {
-    baubleMaterial.color = new THREE.Color(colorArray[i%5])}
-  const [ref, api] = useSphere(() => ({ args: [0.05], mass: 1.5, angularDamping:0.1, linearDamping: 0.91, position: [rfs(0.5), rfs(0.5), rfs(0.5)] }))
-  useFrame((state) => {
-    for (let i = 0; i < 40; i++) {
-      // ref.current.material.color = new THREE.Color(colorArray[i%5])
-      // console.log(colorArray[i%5])
-      // Get current whereabouts of the instanced sphere
-      ref.current.getMatrixAt(i, mat)
-      // Normalize the position and multiply by a negative force.
-      // This is enough to drive it towards the center-point.
-      api.at(i).applyForce(vec.setFromMatrixPosition(mat).normalize().multiplyScalar(-5).toArray(), [0, 0.0, 0])
-    }
-  })
-  return (
-    <instancedMesh ref={ref} castShadow receiveShadow args={[sphereGeometry,baubleMaterial, 15]} material-color={baubleMaterial} >
-      {/* <Outlines thickness={outlines} /> */}
-    </instancedMesh>
+          <Shoe key={i}   {...props} />
+          </Float>
+        ))}
+      </group>     
+    </Instances>
   )
 }
 
-function Pointer() {
-  const viewport = useThree((state) => state.viewport)
-  const [, api] = useSphere(() => ({ type: "Kinematic", args: [0.3]}))
-  return useFrame((state) => api.position.set((state.mouse.x * viewport.width) / 2, (state.mouse.y * viewport.height) / 2, 0))
-}
-
-
-function Baloons() {
-
+function Shoe({ random, color = new THREE.Color(), ...props }) {
+  const ref = useRef()
+  // const [hovered, setHover] = useState(false)
 
   return (
-   <>
-   <group position={[0,1,0]}>
-
-   <Physics gravity={[0, -2, 0]} iterations={1} >
-      <Pointer />
-      <Clump 
-    
-    />
-    </Physics>
+    <group {...props}>
+      <Instance ref={ref} color={color} />
     </group>
-   </>
   )
 }
-
-export default Baloons
