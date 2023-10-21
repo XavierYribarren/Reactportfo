@@ -30,7 +30,7 @@ export const Model = (props) => {
 
 
 
-  const mainAO = useTexture('/mainScene_AO4k.png');
+  const mainAO = useTexture('/mainScene_AOCUT.png');
   mainAO.flipY = false;
   // mainAO.channel = `1`
 
@@ -40,7 +40,7 @@ export const Model = (props) => {
     aoMap: mainAO,
     aoMapIntensity: 0.9,
     lightMap: mainAO,
-    lightMapIntensity: 1.3,
+    lightMapIntensity: 1.53,
   });
 
   return (
@@ -49,7 +49,8 @@ export const Model = (props) => {
         <mesh
           geometry={nodes.Plane.geometry}
           material={floorMat}
-          material-color={'white'}
+
+          // material-color={'white'}
         ></mesh>
         <ProjectsShow ao={mainAO} />
      

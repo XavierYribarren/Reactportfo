@@ -24,7 +24,9 @@ const handleOpenNewTab = (site) => {
 };
 
 return (
-    <group {...props} dispose={null} scale={1.3} position={[0.9, 0, 1.21]}>
+    <group {...props} dispose={null} scale={1.3}
+     position={[0.9, 0, 1.21]}
+     >
   
   <mesh
         castShadow
@@ -52,7 +54,7 @@ return (
         // material={nodes.Curve035.material}
         material={linkMat}
         //  material-color={"#0a66c2"}
-        position={[-2.304, -0.07, -1.808]}
+        position={[-2.304, -0.078, -1.808]}
         rotation={[Math.PI / 2, 0, 0]}
         scale={[4.924, 3.742, 4.924]}
         />
@@ -62,7 +64,7 @@ return (
         geometry={nodes.Curve001.geometry}
         material={nodes.Curve001.material}
         
-        position={[-2.304, -0.07, -1.808]}
+        position={[-2.304, -0.078, -1.808]}
         rotation={[Math.PI / 2, 0, 0]}
         scale={[4.924, 3.742, 4.924]}
         // material-color={"#ff00ff"}
