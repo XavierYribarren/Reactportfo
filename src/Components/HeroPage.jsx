@@ -11,7 +11,7 @@ function HeroPage() {
   return (
     <div className='headxav'>
       <Suspense
-        fallback={<span>loading...</span>}
+        fallback={   <Loader/>}
         // fallback={}
       >
         <Canvas
@@ -47,7 +47,7 @@ function HeroPage() {
           </ScrollControls>
           {/* <Stats/> */}
         </Canvas>
-        <Loader/>
+     
       </Suspense>
     </div>
   );
