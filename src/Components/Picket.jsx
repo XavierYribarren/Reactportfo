@@ -1,26 +1,26 @@
-import React, { forwardRef, useRef } from "react";
-import { useGLTF } from "@react-three/drei";
+import React, { Suspense, forwardRef, useRef } from "react";
+import { AccumulativeShadows, useGLTF, useTexture } from "@react-three/drei";
+import { MeshBasicMaterial } from "three";
+import * as THREE from 'three'
 
 export const Picket = forwardRef((props, ref) => {
-  const { nodes, materials } = useGLTF("/picketrope.glb");
+  const { nodes, materials } = useGLTF("/picketrope2.glb");
+  const picketTex = useTexture('/picket_Pass1.png')
+  picketTex.flipY = false
+  const picketMat = new THREE.MeshLambertMaterial({map: picketTex})
   return (
-    <group ref={ref} {...props} dispose={null}  position={[2,0.02,-1]}>
+    <Suspense fallback={null}>
+
+<group ref={ref} {...props} dispose={null} position={[2.094, 0.041, -1.116]}>
       <mesh
-      scale={0.05}
-        castShadow
-        receiveShadow
-        geometry={nodes.Cylinder.geometry}
-        material={materials.picket}
-      />
-      <mesh
-      scale={0.05}
-        castShadow
-        receiveShadow
-        geometry={nodes.BezierCurve001.geometry}
-        material={materials.rope}
+
+        geometry={nodes.picket001.geometry}
+        material={picketMat}
+       
       />
     </group>
+       </Suspense>
   );
 })
 
-useGLTF.preload("/picketrope.glb");
+useGLTF.preload("/picketrope2.glb");

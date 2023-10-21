@@ -10,7 +10,7 @@ import * as THREE from 'three';
 import typo from '/typos/Kids_Now_Regular1.json';
 gsap.registerPlugin(ScrollTrigger);
 
-function Introduce({ introduce }) {
+export const Introduce = ({ introduce }) => {
   const opacityRef = useRef();
   const posRef = useRef();
   const textGPRef = useRef(null);
@@ -21,7 +21,7 @@ function Introduce({ introduce }) {
 
   useFrame((state) => {
     opacityRef.current.fillOpacity = introduce.current.fillOpacity;
-
+if(introduce.current.fillOpacity < 0.0001) { textGPRef.current.visible = false } else {textGPRef.current.visible = true}
     textGPRef.current.position.x = introduce.current.position.x;
     textGPRef.current.position.y = introduce.current.position.y;
     textGPRef.current.position.z = introduce.current.position.z;
@@ -35,20 +35,28 @@ function Introduce({ introduce }) {
   const characters = textBase.split('');
   const characterRefs = characters.map(() => useRef());
 
-
+console.log(textGPRef.current)
 
   return (
     <>
   
-      <group ref={textGPRef} rotation={[0, -Math.PI * 0.4, 0]}>
+      <group ref={textGPRef} rotation={[Math.PI * 0.01, -Math.PI * 0.4, 0]}>
 
-                <Text
+                <Text characters="abcdefghijklmnopqrstuvwxyz0123456789!"
 // castShadow
 font='./Kids_Now.ttf'
                 ref={opacityRef}
             className='hi-intro'
             fontSize={0.25}
+            fontWeight="bold"
             maxWidth={1.3}
+            strokeColor={"#000"}
+            strokeOpacity={1}
+            strokeWidth={"0.5%"}
+            outlineColor={'#fff'}
+            outlineWidth={'12%'}
+            outlineBlur={'30%'}
+            outlineOpacity={'0.4'}
             color={'black'}
             // fillOpacity={opacityRef.current.fillOpacity}
             // position={characterRefs[index].position}
@@ -56,23 +64,11 @@ font='./Kids_Now.ttf'
           >
         {textBase}
         </Text>
-{/* 
-        <Text3D   ref={opacityRef} font={typo} size={0.15} position={[-0.5,0.72,0]}
-    curveSegments={8}
-    //       bevelEnabled
-          // bevelSize={0.04}
-          // bevelThickness={0.1}
-          castShadow
-          receiveShadow
-          
-          height={0.04}>
-            {textBase}
-<meshBasicMaterial color={'black'}/>
-        </Text3D> */}
+
       </group>
      
     </>
   );
 }
 
-export default Introduce;
+// export default Introduce;
