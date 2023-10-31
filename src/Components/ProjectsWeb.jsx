@@ -34,7 +34,6 @@ const Model = (props) => {
     metalness: 0.28,
     roughness: 0.4,
   });
-
   materials.tabcase.metalness = 0.5;
   materials.tabcase.roughness = 0.5;
 
@@ -63,6 +62,7 @@ const Model = (props) => {
           roughness={0.4}
           emissiveMap={props.texture}
           emissiveIntensity={hovered ? 0 : 1}
+          toneMapped={false}
         />
         <group scale={0.1}>
           <Text
