@@ -12,7 +12,7 @@ export function Tv(props, ref) {
   const tv = useRef();
 
   const handleOpenNewTab = () => {
-    const urlToOpen = 'http://tweakasix.netlify.app';
+    const urlToOpen = 'http://tweakasix.barren.fr';
 
     window.open(urlToOpen, '_blank');
   };
